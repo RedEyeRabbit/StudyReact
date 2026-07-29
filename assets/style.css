@@ -34,6 +34,9 @@ a:hover { text-decoration: underline; }
 }
 
 header.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -41,7 +44,8 @@ header.page-header {
   gap: 12px;
   padding: 20px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(97,218,251,0.08), transparent);
+  background: linear-gradient(180deg, rgba(97,218,251,0.08), transparent), var(--bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 header.page-header h1 {
