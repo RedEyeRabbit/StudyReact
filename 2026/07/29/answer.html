@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the Profile component / 프로필 컴포넌트 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 1 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          The heading and paragraph just embed the <code>name</code> and
+          <code>role</code> variables using <code>{ }</code>. The skill list
+          uses <code>skills.map((skill, index) =&gt; ...)</code> to turn each
+          array item into an <code>&lt;li&gt;</code> element, with a unique
+          <code>key</code> so React can track each item efficiently.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          제목과 문단은 <code>{ }</code>를 사용해 <code>name</code>,
+          <code>role</code> 변수를 그대로 삽입한 것입니다. 스킬 목록은
+          <code>skills.map((skill, index) =&gt; ...)</code>를 사용해 배열의
+          각 항목을 <code>&lt;li&gt;</code> 엘리먼트로 변환하며, React가 각
+          항목을 효율적으로 추적할 수 있도록 고유한 <code>key</code>를
+          부여합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Did you use <code>{ }</code> to embed JS values?</li>
+          <li>Does every list item have a unique <code>key</code>?</li>
+          <li>Does the component return a single root element?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>{ }</code>로 JS 값을 삽입했나요?</li>
+          <li>모든 리스트 항목에 고유한 <code>key</code>가 있나요?</li>
+          <li>컴포넌트가 하나의 루트 엘리먼트만 반환하나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-29");
+
+  mountPlayground(
+    "answer-playground",
+    `function App() {
+  const name = "Your Name";
+  const role = "React Learner";
+  const skills = ["JSX", "Components", "Props"];
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>{name}</h2>
+      <p>{role}</p>
+      <ul>
+        {skills.map((skill, index) => (
+          <li key={\`skill-\${index}\`}>{skill}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

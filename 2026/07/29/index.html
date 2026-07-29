@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · What is React? &amp; JSX Basics — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — 초급 (Beginner)</h1>
+    <div class="subtitle">What is React? &amp; JSX Basics / React란 무엇인가? &amp; JSX 기초</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 1</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Understand what React is, why it's used, and read/write basic JSX.</p>
+    <p><b>목표 (30~40분):</b> React가 무엇이고 왜 사용하는지 이해하고, JSX를 읽고 쓸 수 있게 됩니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. What is React?</b><br />
+        React is a JavaScript library for building user interfaces out of
+        reusable <b>components</b>. Instead of manually updating the DOM,
+        you describe <i>what</i> the UI should look like for a given state,
+        and React figures out <i>how</i> to update the screen efficiently
+        (using a "virtual DOM").</p>
+        <p><b>2. Why React?</b></p>
+        <ul>
+          <li>Component-based: UI is split into small, reusable pieces.</li>
+          <li>Declarative: you describe the result, not the step-by-step DOM manipulation.</li>
+          <li>Huge ecosystem and community.</li>
+        </ul>
+        <p><b>3. JSX basics</b><br />
+        JSX lets you write HTML-like syntax inside JavaScript. It compiles
+        down to <code>React.createElement(...)</code> calls.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. React란?</b><br />
+        React는 재사용 가능한 <b>컴포넌트</b>로 사용자 인터페이스를 만드는
+        JavaScript 라이브러리입니다. DOM을 직접 조작하는 대신, 특정 상태에서
+        UI가 <i>어떤 모습이어야 하는지</i>를 선언하면 React가 화면을
+        효율적으로 <i>어떻게</i> 갱신할지 알아서 처리합니다 ("가상 DOM"
+        사용).</p>
+        <p><b>2. 왜 React인가?</b></p>
+        <ul>
+          <li>컴포넌트 기반: UI를 작고 재사용 가능한 조각으로 분리.</li>
+          <li>선언적: 결과를 선언할 뿐, DOM 조작 절차를 직접 작성하지 않음.</li>
+          <li>거대한 생태계와 커뮤니티.</li>
+        </ul>
+        <p><b>3. JSX 기초</b><br />
+        JSX를 사용하면 JavaScript 안에서 HTML과 비슷한 문법을 쓸 수
+        있습니다. 내부적으로 <code>React.createElement(...)</code> 호출로
+        컴파일됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Key JSX rules</h4>
+        <ul>
+          <li>Return a <b>single</b> root element (or a fragment <code>&lt;&gt;...&lt;/&gt;</code>).</li>
+          <li>Use <code>className</code> instead of <code>class</code>.</li>
+          <li>Embed JS expressions with <code>{ }</code>.</li>
+          <li>Self-close empty tags: <code>&lt;img /&gt;</code>.</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>JSX 핵심 규칙</h4>
+        <ul>
+          <li>루트 엘리먼트는 <b>하나만</b> 반환 (또는 프래그먼트 <code>&lt;&gt;...&lt;/&gt;</code> 사용).</li>
+          <li><code>class</code> 대신 <code>className</code> 사용.</li>
+          <li><code>{ }</code>로 JS 표현식을 삽입.</li>
+          <li>내용이 없는 태그는 <code>&lt;img /&gt;</code>처럼 self-close.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Try editing the code below and press "Run" — this is a real, live React environment running in your browser.</p>
+    <p>아래 코드를 직접 수정하고 "Run"을 눌러보세요 — 브라우저에서 실제로 동작하는 React 환경입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to write your own JSX component, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 JSX 컴포넌트를 작성해보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-29");
+
+  mountPlayground(
+    "example-playground",
+    `function App() {
+  const name = "React";
+  const isLearning = true;
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Hello, {name}! 👋</h2>
+      {isLearning && <p>You are learning JSX right now.</p>}
+      <p>1 + 1 = {1 + 1}</p>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

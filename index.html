@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>StudyReact — 매일 30~40분 React 학습</title>
+<link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>📘 StudyReact</h1>
+    <div class="subtitle">
+      Daily 30–40 min React study, in English &amp; Korean · 매일 30~40분 React 학습 (영/한)
+    </div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <p>
+      Pick a track below and start from <b>Beginner → Day 1</b>. Every day's
+      material stays here permanently, so you can always revisit what you've
+      studied.
+    </p>
+    <p>
+      아래 트리에서 트랙을 선택하세요. 학습은 항상 <b>초급 1일차</b>부터
+      시작합니다. 지금까지 공부한 모든 자료는 이 페이지에 계속 남아있으니
+      언제든 다시 확인할 수 있습니다.
+    </p>
+  </div>
+
+  <div id="tree-root" class="tree"></div>
+
+  <div class="footer-note">
+    Folder layout: <code>/YYYY/MM/DD/</code> — each day has a lesson page
+    (index.html), a practice page (practice.html), and an answer sheet
+    (answer.html), linked from the lesson page.
+    <br />
+    폴더 구성: <code>/년도/월/일자/</code> — 각 일자 폴더에는 학습용
+    (index.html), 실습용(practice.html), 답안지(answer.html)가 있으며 학습용
+    페이지에서 서로 연결됩니다.
+  </div>
+</div>
+
+<script src="./assets/curriculum.js"></script>
+<script src="./assets/app.js"></script>
+<script>
+  function renderTree() {
+    const root = document.getElementById("tree-root");
+    root.innerHTML = "";
+    window.CURRICULUM.levels.forEach((level, idx) => {
+      const details = document.createElement("details");
+      details.className = "level";
+      if (idx === 0) details.open = true; // Beginner expanded by default
+
+      const summary = document.createElement("summary");
+      summary.innerHTML = `${level.name.en} / ${level.name.kr} <span class="badge">${level.days.length} day(s)</span>`;
+      details.appendChild(summary);
+
+      const body = document.createElement("div");
+      body.className = "level-body";
+
+      if (level.days.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-note";
+        empty.textContent = "Coming soon · 준비 중입니다";
+        body.appendChild(empty);
+      } else {
+        level.days
+          .slice()
+          .sort((a, b) => a.day - b.day)
+          .forEach((d) => {
+            const item = document.createElement("div");
+            item.className = "day-item";
+            item.innerHTML = `
+              <span>
+                <a href="./${d.path}">Day ${d.day} · ${d.title.en} / ${d.title.kr}</a>
+              </span>
+              <span class="day-date">${d.date}</span>
+            `;
+            body.appendChild(item);
+          });
+      }
+
+      details.appendChild(body);
+      root.appendChild(details);
+    });
+  }
+
+  renderTree();
+  initStudyWidget("index");
+</script>
+</body>
+</html>

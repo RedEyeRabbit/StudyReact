@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — Practice / 실습</h1>
+    <div class="subtitle">Build a Profile component with JSX / JSX로 프로필 컴포넌트 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 1 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete the <code>App</code> component below so that it renders:</p>
+        <ol>
+          <li>A heading with your name.</li>
+          <li>A paragraph with your job/role.</li>
+          <li>A bullet list of 3 skills, rendered from the <code>skills</code> array using <code>.map()</code>.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>아래 <code>App</code> 컴포넌트를 완성해서 다음을 렌더링하세요:</p>
+        <ol>
+          <li>이름이 들어간 제목(heading).</li>
+          <li>직업/역할이 들어간 문단.</li>
+          <li><code>skills</code> 배열을 <code>.map()</code>으로 순회해 렌더링한 스킬 목록 3개.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>When rendering a list with <code>.map()</code>, always add a unique <code>key</code> prop to each item, e.g. <code>key={`skill-${index}`}</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p><code>.map()</code>으로 리스트를 렌더링할 때는 항상 각 항목에 고유한 <code>key</code> prop을 지정해야 합니다. 예: <code>key={`skill-${index}`}</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-29");
+
+  mountPlayground(
+    "practice-playground",
+    `function App() {
+  const name = "Your Name";
+  const role = "React Learner";
+  const skills = ["JSX", "Components", "Props"];
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      {/* TODO 1: render a heading with "name" */}
+
+      {/* TODO 2: render a paragraph with "role" */}
+
+      {/* TODO 3: render <ul> with one <li> per skill, using skills.map() */}
+      <ul>
+      </ul>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>
