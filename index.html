@@ -29,6 +29,19 @@
       시작합니다. 지금까지 공부한 모든 자료는 이 페이지에 계속 남아있으니
       언제든 다시 확인할 수 있습니다.
     </p>
+    <p>
+      Every level — Beginner through Practical — can also be practiced as
+      real, import-capable code in <a href="./practical-lab/README.md">Practical Lab</a>
+      (a real Node.js + Vite project), not just the browser playground.
+      Days with a 🧪 badge already have a matching lab exercise.
+    </p>
+    <p>
+      초급부터 실전까지 모든 레벨은 브라우저 플레이그라운드뿐 아니라
+      <a href="./practical-lab/README.md">Practical Lab</a>(실제 Node.js +
+      Vite 프로젝트)에서도 진짜 <code>import</code> 코드로 실습할 수
+      있습니다. 🧪 표시가 있는 일자는 Lab에 해당 실습이 이미 등록되어
+      있습니다.
+    </p>
   </div>
 
   <div id="tree-root" class="tree"></div>
@@ -62,40 +75,24 @@
       const body = document.createElement("div");
       body.className = "level-body";
 
-      if (level.runtime === "node") {
-        const note = document.createElement("div");
-        note.className = "empty-note";
-        note.innerHTML =
-          'This track uses a real Node.js project (real <code>import</code>, npm, HMR) — see ' +
-          '<a href="./practical-lab/README.md">practical-lab/README.md</a>.<br />' +
-          '이 트랙은 실제 Node.js 프로젝트(진짜 <code>import</code>, npm, HMR)를 사용합니다 — ' +
-          '<a href="./practical-lab/README.md">practical-lab/README.md</a> 참고.';
-        if (level.days.length === 0) {
-          const soon = document.createElement("div");
-          soon.style.marginTop = "6px";
-          soon.textContent = "No days yet · 아직 등록된 일자가 없습니다";
-          note.appendChild(soon);
-        }
-        body.appendChild(note);
-      }
-
-      if (level.days.length === 0 && level.runtime !== "node") {
+      if (level.days.length === 0) {
         const empty = document.createElement("div");
         empty.className = "empty-note";
         empty.textContent = "Coming soon · 준비 중입니다";
         body.appendChild(empty);
-      }
-
-      if (level.days.length > 0) {
+      } else {
         level.days
           .slice()
           .sort((a, b) => a.day - b.day)
           .forEach((d) => {
             const item = document.createElement("div");
             item.className = "day-item";
+            const labBadge = d.labId
+              ? ` <a href="./${window.CURRICULUM.labPath}/README.md" title="Also available as real Node.js code in Practical Lab / Practical Lab에서 실제 Node.js 코드로도 실습 가능">🧪</a>`
+              : "";
             item.innerHTML = `
               <span>
-                <a href="./${d.path}">Day ${d.day} · ${d.title.en} / ${d.title.kr}</a>
+                <a href="./${d.path}">Day ${d.day} · ${d.title.en} / ${d.title.kr}</a>${labBadge}
               </span>
               <span class="day-date">${d.date}</span>
             `;

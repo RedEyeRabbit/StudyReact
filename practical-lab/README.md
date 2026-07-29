@@ -1,13 +1,16 @@
 # StudyReact — Practical Lab (Node.js)
 
-A real Node.js + Vite + React project for the **Advanced/고급** and
-**Practical/실전** tracks. Unlike the browser playground used in
-Beginner/초급 and Intermediate/중급 (`/YYYY/MM/DD/practice.html`), this
-project uses a real bundler, so `import` statements, npm packages, and
-hot module reload (HMR) all work exactly like a production React setup.
+A real Node.js + Vite + React project, available for **every level**
+(Beginner/초급 through Practical/실전) alongside the browser playground
+used in each day's `practice.html`. Unlike that playground — which only
+transforms JSX, not ES modules — this project uses a real bundler, so
+`import` statements, npm packages, and hot module reload (HMR) all work
+exactly like a production React setup.
 
-초급/중급에서 쓰는 브라우저 플레이그라운드와 달리, 이 프로젝트는 실제
-번들러(Vite)를 사용하는 진짜 Node.js 프로젝트입니다. `import` 문, npm
+**모든 레벨**(초급~실전)에서 각 일자의 `practice.html` 브라우저
+플레이그라운드와 함께 사용할 수 있는 진짜 Node.js + Vite + React
+프로젝트입니다. 그 플레이그라운드는 JSX만 변환하고 ES 모듈은 변환하지
+않는 반면, 이 프로젝트는 실제 번들러(Vite)를 사용하므로 `import` 문, npm
 패키지 설치, HMR(핫 리로드)이 실제 프로덕션 React 개발과 동일하게
 동작합니다.
 

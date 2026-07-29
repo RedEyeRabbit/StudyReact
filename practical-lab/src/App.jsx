@@ -1,12 +1,22 @@
 import { useState } from "react";
 import { DAYS } from "./days/manifest.js";
 
+function initialDayId() {
+  const fromHash = window.location.hash.slice(1);
+  return DAYS.some((d) => d.id === fromHash) ? fromHash : DAYS[0].id;
+}
+
 export default function App() {
-  const [dayId, setDayId] = useState(DAYS[0].id);
+  const [dayId, setDayId] = useState(initialDayId);
   const [mode, setMode] = useState("practice");
 
   const day = DAYS.find((d) => d.id === dayId);
   const Exercise = mode === "practice" ? day.Practice : day.Solution;
+
+  function selectDay(id) {
+    setDayId(id);
+    window.location.hash = id;
+  }
 
   return (
     <div style={{ fontFamily: "sans-serif", maxWidth: 640, margin: "40px auto", padding: "0 20px" }}>
@@ -23,7 +33,7 @@ export default function App() {
       <div style={{ margin: "20px 0" }}>
         <label>
           Day / 일차:{" "}
-          <select value={dayId} onChange={(e) => setDayId(e.target.value)}>
+          <select value={dayId} onChange={(e) => selectDay(e.target.value)}>
             {DAYS.map((d) => (
               <option key={d.id} value={d.id}>
                 {d.title.en} / {d.title.kr}
