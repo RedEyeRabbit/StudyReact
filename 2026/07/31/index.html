@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 3 · State &amp; Events — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 3 — 초급 (Beginner)</h1>
+    <div class="subtitle">State &amp; Events (useState) / State와 이벤트 처리 (useState)</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 3</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Understand why components need state, use the <code>useState</code> hook, and handle click events.</p>
+    <p><b>목표 (30~40분):</b> 컴포넌트에 왜 state가 필요한지 이해하고, <code>useState</code> 훅을 사용하며, 클릭 이벤트를 처리합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Props vs. State</b><br />
+        Props come from a parent and never change inside the component.
+        <b>State</b> is data a component owns and can change over time —
+        for example, whether a button has been clicked. When state
+        changes, React automatically re-renders the component.</p>
+        <p><b>2. The useState hook</b><br />
+        <code>const [value, setValue] = useState(initialValue)</code>
+        returns the current value and a setter function. Call the setter
+        to update the value — never assign to it directly.</p>
+        <p><b>3. Event handlers</b><br />
+        JSX uses camelCase event props like <code>onClick</code>,
+        <code>onChange</code>. You pass a function, not a function call:
+        <code>onClick={handleClick}</code>, not
+        <code>onClick={handleClick()}</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. Props vs. State</b><br />
+        Props는 부모로부터 전달받으며 컴포넌트 내부에서 절대 바뀌지
+        않습니다. <b>State</b>는 컴포넌트가 스스로 소유하고 시간에 따라
+        바뀔 수 있는 데이터입니다 — 예를 들어 버튼이 클릭되었는지 여부.
+        state가 바뀌면 React가 자동으로 컴포넌트를 다시 렌더링합니다.</p>
+        <p><b>2. useState 훅</b><br />
+        <code>const [value, setValue] = useState(initialValue)</code>는
+        현재 값과 값을 바꾸는 setter 함수를 반환합니다. 값을 바꿀 때는
+        반드시 setter를 호출해야 하며, 절대 직접 대입하면 안 됩니다.</p>
+        <p><b>3. 이벤트 처리</b><br />
+        JSX는 <code>onClick</code>, <code>onChange</code>처럼 camelCase
+        이벤트 prop을 사용합니다. 함수를 호출한 결과가 아니라 함수 자체를
+        전달해야 합니다: <code>onClick={handleClick()}</code>가 아니라
+        <code>onClick={handleClick}</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Common pitfalls</h4>
+        <ul>
+          <li>Don't mutate state directly (<code>count++</code>) — always call the setter (<code>setCount(count + 1)</code>).</li>
+          <li>Don't call the handler function in JSX (<code>onClick={fn()}</code>) — pass the function reference (<code>onClick={fn}</code>).</li>
+          <li>Each component instance has its own independent state.</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>흔한 실수</h4>
+        <ul>
+          <li>state를 직접 변경하지 마세요 (<code>count++</code>) — 항상 setter를 호출하세요 (<code>setCount(count + 1)</code>).</li>
+          <li>JSX에서 핸들러 함수를 호출하지 마세요 (<code>onClick={fn()}</code>) — 함수 참조를 전달하세요 (<code>onClick={fn}</code>).</li>
+          <li>각 컴포넌트 인스턴스는 독립적인 자신만의 state를 가집니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A "like" button that toggles its own state and updates its label on click.</p>
+    <p>클릭할 때마다 자신의 state를 토글하고 라벨을 바꾸는 "좋아요" 버튼입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build a counter with useState, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 useState로 카운터를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own counter / 직접 카운터 만들기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../30/index.html">&larr; Day 2 / 2일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-31");
+
+  mountPlayground(
+    "example-playground",
+    `function LikeButton() {
+  const [liked, setLiked] = React.useState(false);
+
+  function handleClick() {
+    setLiked(!liked);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      {liked ? "❤️ Liked" : "🤍 Like"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LikeButton />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -20,6 +20,20 @@ window.CURRICULUM = {
           path: "2026/07/29/index.html",
           labId: "2026-07-29",
         },
+        {
+          day: 2,
+          date: "2026-07-30",
+          title: { en: "Components & Props", kr: "컴포넌트와 Props" },
+          path: "2026/07/30/index.html",
+          labId: "2026-07-30",
+        },
+        {
+          day: 3,
+          date: "2026-07-31",
+          title: { en: "State & Events (useState)", kr: "State와 이벤트 처리 (useState)" },
+          path: "2026/07/31/index.html",
+          labId: "2026-07-31",
+        },
       ],
     },
     {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DAYS } from "./days/manifest.js";
 
 function initialDayId() {
@@ -10,11 +10,26 @@ export default function App() {
   const [dayId, setDayId] = useState(initialDayId);
   const [mode, setMode] = useState("practice");
 
+  // Same-document hash changes (address-bar edits, back/forward) don't
+  // remount the app, so re-sync dayId whenever the hash changes.
+  useEffect(() => {
+    function onHashChange() {
+      const id = window.location.hash.slice(1);
+      if (DAYS.some((d) => d.id === id)) {
+        setDayId(id);
+        setMode("practice");
+      }
+    }
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   const day = DAYS.find((d) => d.id === dayId);
   const Exercise = mode === "practice" ? day.Practice : day.Solution;
 
   function selectDay(id) {
     setDayId(id);
+    setMode("practice");
     window.location.hash = id;
   }
 

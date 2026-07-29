@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for SkillBadge &amp; SkillList / SkillBadge와 SkillList 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 2 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>SkillBadge({ label })</code> destructures the
+          <code>label</code> prop straight out of the function's parameter
+          and renders it. <code>SkillList</code> owns the <code>skills</code>
+          array and is responsible for turning each string into a
+          <code>&lt;SkillBadge&gt;</code> element via <code>.map()</code>,
+          passing <code>label={skill}</code> and a unique
+          <code>key</code>. Notice <code>SkillBadge</code> itself doesn't
+          know it's being rendered in a list — that's the point of props:
+          each component only cares about the data it receives.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>SkillBadge({ label })</code>는 함수 매개변수에서 바로
+          <code>label</code> prop을 구조분해해서 렌더링합니다.
+          <code>SkillList</code>는 <code>skills</code> 배열을 가지고
+          있으며, <code>.map()</code>으로 각 문자열을
+          <code>&lt;SkillBadge&gt;</code> 엘리먼트로 변환하는 역할을
+          담당합니다 — <code>label={skill}</code>과 고유한
+          <code>key</code>를 전달합니다. <code>SkillBadge</code> 자신은
+          자기가 목록 안에서 렌더링되는지 전혀 알지 못한다는 점에
+          주목하세요 — 이것이 props의 핵심입니다: 각 컴포넌트는 자신이
+          전달받은 데이터에만 신경 씁니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Did <code>SkillBadge</code> receive its data only through props (no hardcoded text)?</li>
+          <li>Does every <code>&lt;SkillBadge&gt;</code> in the list have a unique <code>key</code>?</li>
+          <li>Could you reuse <code>SkillBadge</code> somewhere else with a different label?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>SkillBadge</code>가 하드코딩된 텍스트 없이 props로만 데이터를 받았나요?</li>
+          <li>목록의 모든 <code>&lt;SkillBadge&gt;</code>에 고유한 <code>key</code>가 있나요?</li>
+          <li><code>SkillBadge</code>를 다른 label로 다른 곳에서도 재사용할 수 있나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-30");
+
+  mountPlayground(
+    "answer-playground",
+    `function SkillBadge({ label }) {
+  return (
+    <span style={{
+      display: "inline-block",
+      background: "#eef",
+      borderRadius: 999,
+      padding: "4px 12px",
+      margin: "4px",
+      fontSize: 14,
+    }}>
+      {label}
+    </span>
+  );
+}
+
+function SkillList({ skills }) {
+  return (
+    <div>
+      {skills.map((skill, index) => (
+        <SkillBadge key={\`skill-\${index}\`} label={skill} />
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  const skills = ["JSX", "Components", "Props"];
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>My Skills</h2>
+      <SkillList skills={skills} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

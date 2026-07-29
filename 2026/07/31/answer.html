@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 3 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 3 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the Counter / 카운터 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 3 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          All three buttons call <code>setCount</code> — React re-renders
+          the component with the new value every time it's called. The +1
+          and -1 buttons use the current <code>count</code> to compute the
+          next value; the reset button just passes the literal
+          <code>0</code>. None of them ever write to <code>count</code>
+          directly.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          세 버튼 모두 <code>setCount</code>를 호출합니다 — React는
+          호출될 때마다 새 값으로 컴포넌트를 다시 렌더링합니다. +1과 -1
+          버튼은 현재 <code>count</code> 값을 이용해 다음 값을
+          계산하고, 초기화 버튼은 그냥 <code>0</code>을 전달합니다. 셋
+          다 <code>count</code>에 직접 값을 대입하지 않습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Did every button call the setter (not mutate <code>count</code> directly)?</li>
+          <li>Do +1 / -1 use <code>count + 1</code> / <code>count - 1</code>?</li>
+          <li>Does clicking reset actually bring the count back to 0?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>모든 버튼이 (직접 대입이 아니라) setter를 호출했나요?</li>
+          <li>+1 / -1 버튼이 <code>count + 1</code> / <code>count - 1</code>을 사용하나요?</li>
+          <li>초기화 버튼을 누르면 실제로 count가 0으로 돌아가나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-31");
+
+  mountPlayground(
+    "answer-playground",
+    `function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>+1</button>{" "}
+      <button onClick={() => setCount(count - 1)}>-1</button>{" "}
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Counter />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

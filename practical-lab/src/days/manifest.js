@@ -2,6 +2,10 @@ import SamplePractice from "./sample/Practice.jsx";
 import SampleSolution from "./sample/Solution.jsx";
 import Day20260729Practice from "./2026-07-29/Practice.jsx";
 import Day20260729Solution from "./2026-07-29/Solution.jsx";
+import Day20260730Practice from "./2026-07-30/Practice.jsx";
+import Day20260730Solution from "./2026-07-30/Solution.jsx";
+import Day20260731Practice from "./2026-07-31/Practice.jsx";
+import Day20260731Solution from "./2026-07-31/Solution.jsx";
 
 // Register every day's exercise here — all tracks (Beginner through
 // Practical) can use this real Node.js environment, not just Advanced/Practical.
@@ -19,5 +23,17 @@ export const DAYS = [
     title: { en: "Day 1 (Beginner) — Profile component", kr: "1일차 (초급) — 프로필 컴포넌트" },
     Practice: Day20260729Practice,
     Solution: Day20260729Solution,
+  },
+  {
+    id: "2026-07-30",
+    title: { en: "Day 2 (Beginner) — Components & Props", kr: "2일차 (초급) — 컴포넌트와 Props" },
+    Practice: Day20260730Practice,
+    Solution: Day20260730Solution,
+  },
+  {
+    id: "2026-07-31",
+    title: { en: "Day 3 (Beginner) — State & Events", kr: "3일차 (초급) — State와 이벤트" },
+    Practice: Day20260731Practice,
+    Solution: Day20260731Solution,
   },
 ];

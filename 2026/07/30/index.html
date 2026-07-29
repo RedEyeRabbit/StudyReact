@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Components &amp; Props — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — 초급 (Beginner)</h1>
+    <div class="subtitle">Components &amp; Props / 컴포넌트와 Props</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 2</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Understand what components and props are, and build reusable components that take data via props.</p>
+    <p><b>목표 (30~40분):</b> 컴포넌트와 props가 무엇인지 이해하고, props로 데이터를 전달받는 재사용 가능한 컴포넌트를 만듭니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. What is a component?</b><br />
+        A React component is just a JavaScript function that returns JSX.
+        Component names must start with a capital letter (PascalCase) so
+        React can tell them apart from regular HTML tags.</p>
+        <p><b>2. Reusability</b><br />
+        Once defined, a component can be rendered as many times as you
+        like, like <code>&lt;Greeting /&gt;&lt;Greeting /&gt;</code> —
+        each render is an independent instance.</p>
+        <p><b>3. Props</b><br />
+        Props are how a parent passes data into a child component. They
+        arrive as a single object argument and are <b>read-only</b> — a
+        component must never modify its own props.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 컴포넌트란?</b><br />
+        React 컴포넌트는 JSX를 반환하는 JavaScript 함수일 뿐입니다.
+        일반 HTML 태그와 구분하기 위해 컴포넌트 이름은 반드시 대문자로
+        시작(PascalCase)해야 합니다.</p>
+        <p><b>2. 재사용성</b><br />
+        한 번 정의한 컴포넌트는 <code>&lt;Greeting /&gt;&lt;Greeting /&gt;</code>처럼
+        원하는 만큼 여러 번 렌더링할 수 있으며, 각 렌더링은 독립적인
+        인스턴스입니다.</p>
+        <p><b>3. Props</b><br />
+        Props는 부모가 자식 컴포넌트에 데이터를 전달하는 방법입니다. 하나의
+        객체 인자로 전달되며, <b>읽기 전용</b>입니다 — 컴포넌트는 자신이
+        받은 props를 절대 수정하면 안 됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Key patterns</h4>
+        <ul>
+          <li>Destructure props in the function signature: <code>function Greeting({ name }) { ... }</code></li>
+          <li>Pass props like HTML attributes: <code>&lt;Greeting name="React" /&gt;</code></li>
+          <li><code>props.children</code> holds whatever is nested between a component's opening/closing tags.</li>
+          <li>Compose small components into bigger ones instead of writing one giant component.</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>핵심 패턴</h4>
+        <ul>
+          <li>함수 시그니처에서 props를 구조분해: <code>function Greeting({ name }) { ... }</code></li>
+          <li>HTML 속성처럼 props 전달: <code>&lt;Greeting name="React" /&gt;</code></li>
+          <li><code>props.children</code>은 컴포넌트의 여는 태그와 닫는 태그 사이에 중첩된 내용을 담습니다.</li>
+          <li>거대한 컴포넌트 하나 대신, 작은 컴포넌트들을 조합해서 만드세요.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A reusable <code>Greeting</code> component rendered three times with different props, plus a <code>Card</code> that uses <code>children</code>.</p>
+    <p>서로 다른 props로 세 번 렌더링되는 재사용 가능한 <code>Greeting</code> 컴포넌트와, <code>children</code>을 사용하는 <code>Card</code> 예제입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own reusable component with props, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 props를 사용하는 재사용 가능한 컴포넌트를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../29/index.html">&larr; Day 1 / 1일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-07-30");
+
+  mountPlayground(
+    "example-playground",
+    `function Greeting({ name }) {
+  return <p>👋 Hello, {name}!</p>;
+}
+
+function Card({ children }) {
+  return (
+    <div style={{ border: "1px solid #ccc", borderRadius: 8, padding: 12, marginTop: 8 }}>
+      {children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Greeting name="React" />
+      <Greeting name="JSX" />
+      <Greeting name="Props" />
+
+      <Card>
+        <strong>This text is Card's children.</strong>
+        <p>Card doesn't know or care what's inside — it just wraps it.</p>
+      </Card>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>
