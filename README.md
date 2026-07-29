@@ -20,6 +20,16 @@ Daily 30–40 minute React study log, written in English and Korean.
   - `answer.html` — the model answer sheet (답안지)
 - 공부한 모든 자료는 삭제되지 않고 그대로 남아있어 홈페이지 트리를 통해
   언제든 다시 찾아볼 수 있습니다.
+- Beginner/초급 and Intermediate/중급 use the zero-setup browser playground
+  above (no `import` — React/ReactDOM are provided as globals). Advanced/고급
+  and Practical/실전 use a real Node.js + Vite project instead — see
+  [`practical-lab/README.md`](./practical-lab/README.md) — so real `import`
+  statements, npm packages, and HMR all work like a production setup.
+- 초급/중급은 별도 설치가 필요 없는 브라우저 플레이그라운드를 사용합니다
+  (React/ReactDOM이 전역 변수로 제공되므로 `import` 불필요). 고급/실전은
+  실제 Node.js + Vite 프로젝트를 사용합니다 —
+  [`practical-lab/README.md`](./practical-lab/README.md) 참고 — 진짜
+  `import` 문, npm 패키지, HMR이 실제 프로덕션 개발과 동일하게 동작합니다.
 - Each page shows **study time elapsed / current time** in the top-right
   corner. 각 페이지 우측 상단에는 **공부진행시간 / 현재시각**이 표시됩니다.
 

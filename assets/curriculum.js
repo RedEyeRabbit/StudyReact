@@ -24,11 +24,13 @@ window.CURRICULUM = {
       id: "advanced",
       name: { en: "Advanced", kr: "고급" },
       days: [],
+      runtime: "node",
     },
     {
       id: "practical",
       name: { en: "Practical", kr: "실전" },
       days: [],
+      runtime: "node",
     },
   ],
 };

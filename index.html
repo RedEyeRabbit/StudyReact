@@ -62,12 +62,31 @@
       const body = document.createElement("div");
       body.className = "level-body";
 
-      if (level.days.length === 0) {
+      if (level.runtime === "node") {
+        const note = document.createElement("div");
+        note.className = "empty-note";
+        note.innerHTML =
+          'This track uses a real Node.js project (real <code>import</code>, npm, HMR) — see ' +
+          '<a href="./practical-lab/README.md">practical-lab/README.md</a>.<br />' +
+          '이 트랙은 실제 Node.js 프로젝트(진짜 <code>import</code>, npm, HMR)를 사용합니다 — ' +
+          '<a href="./practical-lab/README.md">practical-lab/README.md</a> 참고.';
+        if (level.days.length === 0) {
+          const soon = document.createElement("div");
+          soon.style.marginTop = "6px";
+          soon.textContent = "No days yet · 아직 등록된 일자가 없습니다";
+          note.appendChild(soon);
+        }
+        body.appendChild(note);
+      }
+
+      if (level.days.length === 0 && level.runtime !== "node") {
         const empty = document.createElement("div");
         empty.className = "empty-note";
         empty.textContent = "Coming soon · 준비 중입니다";
         body.appendChild(empty);
-      } else {
+      }
+
+      if (level.days.length > 0) {
         level.days
           .slice()
           .sort((a, b) => a.day - b.day)
