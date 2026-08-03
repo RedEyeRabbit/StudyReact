@@ -6,6 +6,8 @@ import Day20260730Practice from "./2026-07-30/Practice.jsx";
 import Day20260730Solution from "./2026-07-30/Solution.jsx";
 import Day20260731Practice from "./2026-07-31/Practice.jsx";
 import Day20260731Solution from "./2026-07-31/Solution.jsx";
+import Day20260803Practice from "./2026-08-03/Practice.jsx";
+import Day20260803Solution from "./2026-08-03/Solution.jsx";
 
 // Register every day's exercise here — all tracks (Beginner through
 // Practical) can use this real Node.js environment, not just Advanced/Practical.
@@ -35,5 +37,11 @@ export const DAYS = [
     title: { en: "Day 3 (Beginner) — State & Events", kr: "3일차 (초급) — State와 이벤트" },
     Practice: Day20260731Practice,
     Solution: Day20260731Solution,
+  },
+  {
+    id: "2026-08-03",
+    title: { en: "Day 4 (Beginner) — Conditional Rendering", kr: "4일차 (초급) — 조건부 렌더링" },
+    Practice: Day20260803Practice,
+    Solution: Day20260803Solution,
   },
 ];

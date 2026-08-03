@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for LoginStatus &amp; UnreadBadge / LoginStatus와 UnreadBadge 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 4 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>LoginStatus</code> uses a ternary to pick one of two
+          complete elements — nothing renders that isn't explicitly one
+          branch or the other. <code>UnreadBadge</code> uses
+          <code>&amp;&amp;</code>: the check is written as
+          <code>count &gt; 0</code> (a real boolean), not bare
+          <code>count</code>, specifically to avoid the "0" pitfall from
+          the lesson — if <code>count</code> is 0, the expression
+          evaluates to <code>false</code> and React renders nothing.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>LoginStatus</code>는 삼항 연산자로 완전한 엘리먼트 두 개
+          중 하나를 고릅니다 — 두 분기 중 하나가 아닌 것은 렌더링되지
+          않습니다. <code>UnreadBadge</code>는 <code>&amp;&amp;</code>를
+          사용하며, 학습 내용의 "0" 함정을 피하기 위해 조건을 그냥
+          <code>count</code>가 아니라 <code>count &gt; 0</code>(진짜
+          boolean)으로 작성했습니다 — <code>count</code>가 0이면 이
+          표현식은 <code>false</code>가 되어 React가 아무것도 렌더링하지
+          않습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does <code>LoginStatus</code> always render exactly one of the two messages?</li>
+          <li>Does <code>UnreadBadge</code> check <code>count &gt; 0</code>, not just <code>count</code>?</li>
+          <li>If you set <code>count</code> to 0, does nothing render (not the text "0")?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>LoginStatus</code>가 항상 두 메시지 중 정확히 하나만 렌더링하나요?</li>
+          <li><code>UnreadBadge</code>가 <code>count</code>가 아니라 <code>count &gt; 0</code>을 검사하나요?</li>
+          <li><code>count</code>를 0으로 바꿨을 때 "0"이라는 텍스트가 아니라 아무것도 안 뜨나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-03");
+
+  mountPlayground(
+    "answer-playground",
+    `function LoginStatus({ isLoggedIn }) {
+  return isLoggedIn ? <p>Welcome back! 👋</p> : <p>Please log in.</p>;
+}
+
+function UnreadBadge({ count }) {
+  return count > 0 && <p>🔴 {count} unread</p>;
+}
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LoginStatus isLoggedIn={isLoggedIn} />
+      <UnreadBadge count={3} />
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        Toggle login
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

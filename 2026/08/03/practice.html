@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — Practice / 실습</h1>
+    <div class="subtitle">Build LoginStatus &amp; UnreadBadge / LoginStatus와 UnreadBadge 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 4 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete two components in the editor below:</p>
+        <ol>
+          <li><code>LoginStatus</code> — using the <b>ternary operator</b>, render "Welcome back! 👋" if <code>isLoggedIn</code> is true, otherwise "Please log in."</li>
+          <li><code>UnreadBadge</code> — using <b>&amp;&amp;</b>, render "🔴 {count} unread" only when <code>count &gt; 0</code>, otherwise render nothing.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>아래 에디터에서 두 컴포넌트를 완성하세요:</p>
+        <ol>
+          <li><code>LoginStatus</code> — <b>삼항 연산자</b>로, <code>isLoggedIn</code>이 true면 "Welcome back! 👋", 아니면 "Please log in."을 렌더링.</li>
+          <li><code>UnreadBadge</code> — <b>&amp;&amp;</b>로, <code>count &gt; 0</code>일 때만 "🔴 {count} unread"를 렌더링하고, 아니면 아무것도 렌더링하지 않기.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-03</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-03</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>Remember the <code>&amp;&amp;</code> pitfall from the lesson: make sure the left side of <code>&amp;&amp;</code> is a real boolean expression (<code>count &gt; 0</code>), not just the number <code>count</code> itself.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>학습 내용의 <code>&amp;&amp;</code> 함정을 기억하세요: <code>&amp;&amp;</code> 왼쪽은 숫자 <code>count</code> 자체가 아니라 진짜 boolean 표현식(<code>count &gt; 0</code>)이어야 합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-03");
+
+  mountPlayground(
+    "practice-playground",
+    `function LoginStatus({ isLoggedIn }) {
+  // TODO 1: ternary — "Welcome back! 👋" if isLoggedIn, else "Please log in."
+  return null;
+}
+
+function UnreadBadge({ count }) {
+  // TODO 2: && — render "🔴 {count} unread" only when count > 0
+  return null;
+}
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LoginStatus isLoggedIn={isLoggedIn} />
+      <UnreadBadge count={3} />
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        Toggle login
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -34,6 +34,13 @@ window.CURRICULUM = {
           path: "2026/07/31/index.html",
           labId: "2026-07-31",
         },
+        {
+          day: 4,
+          date: "2026-08-03",
+          title: { en: "Conditional Rendering", kr: "조건부 렌더링" },
+          path: "2026/08/03/index.html",
+          labId: "2026-08-03",
+        },
       ],
     },
     {
