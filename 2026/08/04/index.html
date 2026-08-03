@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Lists &amp; Keys — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — 초급 (Beginner)</h1>
+    <div class="subtitle">Lists &amp; Keys / 리스트와 Key</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 5</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Render arrays as lists correctly and understand why the <code>key</code> prop matters when a list can change.</p>
+    <p><b>목표 (30~40분):</b> 배열을 리스트로 올바르게 렌더링하고, 리스트가 변경될 수 있을 때 <code>key</code> prop이 왜 중요한지 이해합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Why keys matter</b><br />
+        When a list re-renders, React uses each item's <code>key</code> to
+        match it to the same item from the previous render. Without stable
+        keys, React can't tell which item was added, removed, or reordered
+        — it may reuse the wrong DOM node and mix up state that belongs to
+        a specific row (like an input's typed text).</p>
+        <p><b>2. What makes a good key</b><br />
+        A key must be unique among siblings and stable across renders —
+        ideally an ID that already exists in your data
+        (<code>todo.id</code>), not something regenerated every render.</p>
+        <p><b>3. Array index as key</b><br />
+        Using the array index (<code>key={index}</code>) only works
+        safely for lists that never get reordered, filtered, or have items
+        inserted anywhere but the end. Prefer a real ID whenever the list
+        can change shape.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. key가 중요한 이유</b><br />
+        리스트가 다시 렌더링될 때, React는 각 항목의 <code>key</code>를
+        이용해 이전 렌더링의 같은 항목과 매칭합니다. 안정적인 key가
+        없으면 React는 어떤 항목이 추가/삭제/순서 변경되었는지 알 수
+        없어서, 잘못된 DOM 노드를 재사용하며 특정 행에 속한 state(예:
+        입력창에 입력한 텍스트)가 뒤섞일 수 있습니다.</p>
+        <p><b>2. 좋은 key의 조건</b><br />
+        key는 형제 요소들 사이에서 고유해야 하고, 렌더링마다 안정적이어야
+        합니다 — 매번 새로 만드는 값이 아니라, 데이터에 이미 존재하는
+        ID(<code>todo.id</code>)를 쓰는 게 이상적입니다.</p>
+        <p><b>3. 배열 인덱스를 key로 쓰기</b><br />
+        배열 인덱스를 key로 쓰는 것(<code>key={index}</code>)은 리스트
+        순서가 절대 바뀌지 않고, 맨 끝이 아닌 곳에 항목이 추가/삭제되지
+        않는 경우에만 안전합니다. 리스트 모양이 바뀔 수 있다면 진짜 ID를
+        쓰세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A shopping list where each item has a stable <code>id</code> used as the key, with a working Remove button.</p>
+    <p>각 항목이 안정적인 <code>id</code>를 key로 사용하는 쇼핑 리스트이며, Remove 버튼이 정상 동작합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own list with a remove button, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 삭제 버튼이 있는 리스트를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../03/index.html">&larr; Day 4 / 4일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-04");
+
+  mountPlayground(
+    "example-playground",
+    `function ShoppingList({ items, onRemove }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.text}{" "}
+          <button onClick={() => onRemove(item.id)}>Remove</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function App() {
+  const [items, setItems] = React.useState([
+    { id: 1, text: "Milk" },
+    { id: 2, text: "Eggs" },
+    { id: 3, text: "Bread" },
+  ]);
+
+  function handleRemove(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ShoppingList items={items} onRemove={handleRemove} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

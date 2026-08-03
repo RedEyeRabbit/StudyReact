@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · useEffect &amp; Side Effects — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — 초급 (Beginner)</h1>
+    <div class="subtitle">useEffect &amp; Side Effects / useEffect와 사이드 이펙트</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 8</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Understand what a side effect is, run one with <code>useEffect</code>, and clean it up correctly.</p>
+    <p><b>목표 (30~40분):</b> 사이드 이펙트가 무엇인지 이해하고, <code>useEffect</code>로 실행하고, 올바르게 정리(cleanup)합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. What's a side effect?</b><br />
+        Anything that reaches "outside" of just computing UI from
+        props/state: timers, subscriptions, manually touching the DOM,
+        logging, changing <code>document.title</code>, fetching data.
+        Rendering itself should stay pure — side effects belong in
+        <code>useEffect</code>.</p>
+        <p><b>2. useEffect basics</b><br />
+        <code>useEffect(() =&gt; { ... }, [deps])</code> runs the
+        function after the component renders. The dependency array
+        controls when it re-runs: <code>[]</code> = once, after the first
+        render; <code>[x]</code> = whenever <code>x</code> changes;
+        omitted entirely = after every render.</p>
+        <p><b>3. Cleanup</b><br />
+        If the effect starts something ongoing (an interval, a
+        subscription), <b>return a cleanup function</b> from it. React
+        calls that cleanup before the effect runs again, and when the
+        component unmounts — this is how you stop a timer or unsubscribe.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 사이드 이펙트란?</b><br />
+        props/state로 UI를 계산하는 것 "바깥"으로 나가는 모든 것: 타이머,
+        구독(subscription), DOM 직접 조작, 로깅,
+        <code>document.title</code> 변경, 데이터 가져오기(fetch). 렌더링
+        자체는 순수하게 유지해야 하며, 사이드 이펙트는
+        <code>useEffect</code> 안에 넣습니다.</p>
+        <p><b>2. useEffect 기초</b><br />
+        <code>useEffect(() =&gt; { ... }, [deps])</code>는
+        컴포넌트가 렌더링된 후에 함수를 실행합니다. 의존성 배열이 언제
+        다시 실행할지 결정합니다: <code>[]</code> = 첫 렌더링 후 딱 한
+        번, <code>[x]</code> = <code>x</code>가 바뀔 때마다, 아예 생략 =
+        렌더링될 때마다.</p>
+        <p><b>3. 정리(Cleanup)</b><br />
+        effect가 계속 진행되는 무언가(interval, subscription)를
+        시작한다면, <b>그 안에서 cleanup 함수를 반환하세요</b>. React는
+        effect가 다시 실행되기 전과 컴포넌트가 언마운트될 때 그 cleanup을
+        호출합니다 — 이것이 타이머를 멈추거나 구독을 해제하는
+        방법입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A stopwatch that starts/stops an interval via <code>useEffect</code>, cleaning it up correctly every time.</p>
+    <p><code>useEffect</code>로 interval을 시작/정지하고, 매번 올바르게 정리(cleanup)하는 스톱워치입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own stopwatch, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 스톱워치를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own effect / 직접 effect 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../06/index.html">&larr; Day 7 / 7일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-07");
+
+  mountPlayground(
+    "example-playground",
+    `function Stopwatch() {
+  const [seconds, setSeconds] = React.useState(0);
+  const [running, setRunning] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!running) return;
+
+    const id = setInterval(() => {
+      setSeconds((s) => s + 1);
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [running]);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <p>⏱ {seconds}s</p>
+      <button onClick={() => setRunning(!running)}>
+        {running ? "Stop" : "Start"}
+      </button>
+    </div>
+  );
+}
+
+function App() {
+  return <Stopwatch />;
+}`
+  );
+</script>
+</body>
+</html>

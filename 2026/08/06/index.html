@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Lifting State Up — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — 초급 (Beginner)</h1>
+    <div class="subtitle">Lifting State Up / State 끌어올리기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 7</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Share one piece of state between sibling components by moving it up to their common parent.</p>
+    <p><b>목표 (30~40분):</b> 하나의 state를 형제 컴포넌트끼리 공유하기 위해 공통 부모로 끌어올립니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. The problem</b><br />
+        Sibling components can't talk to each other directly — a
+        component only knows about its own state and the props its
+        parent gives it. If two siblings need to reflect the same data,
+        neither one can "own" it alone.</p>
+        <p><b>2. The fix: lift state up</b><br />
+        Move the state to their closest common parent. The parent passes
+        the current value down to both children as props, and passes
+        down callback functions (like <code>onAdd</code>,
+        <code>onRemove</code>) so children can ask the parent to update
+        it. This is sometimes summarized as "data flows down, actions
+        flow up."</p>
+        <p><b>3. You've already been doing this</b><br />
+        Every playground since Day 5 already lifts state up: <code>App</code>
+        owns the <code>items</code> array, and passes it (plus update
+        callbacks) down to <code>ShoppingList</code> and
+        <code>AddItemForm</code> — two separate sibling components sharing
+        one source of truth.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 문제 상황</b><br />
+        형제 컴포넌트끼리는 서로 직접 대화할 수 없습니다 — 컴포넌트는
+        자기 자신의 state와 부모가 준 props만 알 수 있습니다. 두 형제가
+        같은 데이터를 반영해야 한다면, 둘 중 누구도 그 데이터를 혼자
+        "소유"할 수 없습니다.</p>
+        <p><b>2. 해결책: state 끌어올리기</b><br />
+        state를 가장 가까운 공통 부모로 옮기세요. 부모는 현재 값을 두
+        자식 모두에게 props로 내려주고, 자식이 값을 바꿔달라고 요청할 수
+        있도록 콜백 함수(<code>onAdd</code>, <code>onRemove</code> 같은)도
+        함께 내려줍니다. 흔히 "데이터는 아래로, 액션은 위로"라고
+        요약합니다.</p>
+        <p><b>3. 이미 하고 있었습니다</b><br />
+        5일차부터 모든 플레이그라운드가 이미 이 패턴을 쓰고 있었습니다:
+        <code>App</code>이 <code>items</code> 배열을 소유하고, 이를
+        (그리고 갱신용 콜백을) <code>ShoppingList</code>와
+        <code>AddItemForm</code>이라는 별개의 두 형제 컴포넌트에
+        내려줘서, 하나의 진실 공급원을 함께 공유합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A third sibling, <code>ItemCount</code>, joins <code>ShoppingList</code> and <code>AddItemForm</code> — all three read from or update the same <code>items</code> state living in <code>App</code>.</p>
+    <p>세 번째 형제 <code>ItemCount</code>가 <code>ShoppingList</code>, <code>AddItemForm</code>과 합류합니다 — 셋 다 <code>App</code>에 있는 같은 <code>items</code> state를 읽거나 갱신합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to add your own sibling component, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 형제 컴포넌트를 추가해보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../05/index.html">&larr; Day 6 / 6일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-06");
+
+  mountPlayground(
+    "example-playground",
+    `function ShoppingList({ items, onRemove }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.text}{" "}
+          <button onClick={() => onRemove(item.id)}>Remove</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function AddItemForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Add an item..."
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function ItemCount({ count }) {
+  return <p>🧺 {count} item(s) in your list</p>;
+}
+
+function App() {
+  const [items, setItems] = React.useState([
+    { id: 1, text: "Milk" },
+    { id: 2, text: "Eggs" },
+  ]);
+
+  function handleAdd(text) {
+    setItems([...items, { id: Date.now(), text }]);
+  }
+
+  function handleRemove(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ItemCount count={items.length} />
+      <ShoppingList items={items} onRemove={handleRemove} />
+      <AddItemForm onAdd={handleAdd} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

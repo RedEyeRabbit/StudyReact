@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 10 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 10 — Practice / 실습</h1>
+    <div class="subtitle">Finish the Todo List app / 할 일 목록 앱 완성하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 10 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Everything below already works except two spots:</p>
+        <ol>
+          <li>In <code>TodoItem</code>, clicking the <code>&lt;span&gt;</code> should call <code>onToggle(todo.id)</code> (it currently does nothing).</li>
+          <li>In <code>App</code>, <code>handleToggle</code> should flip the <code>done</code> flag of the matching todo, using <code>.map()</code> — don't mutate the array or any todo object directly.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>아래 코드는 두 군데만 빼고 이미 다 동작합니다:</p>
+        <ol>
+          <li><code>TodoItem</code>에서 <code>&lt;span&gt;</code>을 클릭하면 <code>onToggle(todo.id)</code>가 호출되어야 합니다 (지금은 아무 일도 안 일어남).</li>
+          <li><code>App</code>에서 <code>handleToggle</code>이 <code>.map()</code>을 사용해 해당 할 일의 <code>done</code> 플래그를 뒤집어야 합니다 — 배열이나 할 일 객체를 직접 변경하지 마세요.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-11</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-11</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>The immutable-update pattern from <code>handleToggle</code> mirrors <code>handleRemove</code>'s <code>.filter()</code> just above it — same idea (build a new array), different operation (map + spread instead of filter).</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p><code>handleToggle</code>의 불변 업데이트 패턴은 바로 위 <code>handleRemove</code>의 <code>.filter()</code>와 같은 아이디어입니다(새 배열 만들기) — 연산만 다릅니다(filter 대신 map + spread).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-11");
+
+  mountPlayground(
+    "practice-playground",
+    `function TodoItem({ todo, onToggle, onRemove }) {
+  return (
+    <li>
+      <span
+        // TODO 1: call onToggle(todo.id) when this span is clicked
+        onClick={() => {}}
+        style={{
+          textDecoration: todo.done ? "line-through" : "none",
+          cursor: "pointer",
+        }}
+      >
+        {todo.text}
+      </span>{" "}
+      <button onClick={() => onRemove(todo.id)}>✕</button>
+    </li>
+  );
+}
+
+function TodoList({ todos, onToggle, onRemove }) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onRemove={onRemove}
+        />
+      ))}
+    </ul>
+  );
+}
+
+function AddTodoForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="What needs doing?"
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function App() {
+  const [todos, setTodos] = React.useState([
+    { id: 1, text: "Learn React", done: false },
+    { id: 2, text: "Build a project", done: false },
+  ]);
+
+  function handleAdd(text) {
+    setTodos([...todos, { id: Date.now(), text, done: false }]);
+  }
+
+  function handleToggle(id) {
+    // TODO 2: return a new array where the todo matching "id"
+    // has its "done" flag flipped (use .map(), don't mutate!)
+  }
+
+  function handleRemove(id) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>My Todos</h2>
+      <AddTodoForm onAdd={handleAdd} />
+      <TodoList todos={todos} onToggle={handleToggle} onRemove={handleRemove} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

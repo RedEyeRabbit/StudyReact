@@ -8,6 +8,18 @@ import Day20260731Practice from "./2026-07-31/Practice.jsx";
 import Day20260731Solution from "./2026-07-31/Solution.jsx";
 import Day20260803Practice from "./2026-08-03/Practice.jsx";
 import Day20260803Solution from "./2026-08-03/Solution.jsx";
+import Day20260804Practice from "./2026-08-04/Practice.jsx";
+import Day20260804Solution from "./2026-08-04/Solution.jsx";
+import Day20260805Practice from "./2026-08-05/Practice.jsx";
+import Day20260805Solution from "./2026-08-05/Solution.jsx";
+import Day20260806Practice from "./2026-08-06/Practice.jsx";
+import Day20260806Solution from "./2026-08-06/Solution.jsx";
+import Day20260807Practice from "./2026-08-07/Practice.jsx";
+import Day20260807Solution from "./2026-08-07/Solution.jsx";
+import Day20260810Practice from "./2026-08-10/Practice.jsx";
+import Day20260810Solution from "./2026-08-10/Solution.jsx";
+import Day20260811Practice from "./2026-08-11/Practice.jsx";
+import Day20260811Solution from "./2026-08-11/Solution.jsx";
 
 // Register every day's exercise here — all tracks (Beginner through
 // Practical) can use this real Node.js environment, not just Advanced/Practical.
@@ -43,5 +55,41 @@ export const DAYS = [
     title: { en: "Day 4 (Beginner) — Conditional Rendering", kr: "4일차 (초급) — 조건부 렌더링" },
     Practice: Day20260803Practice,
     Solution: Day20260803Solution,
+  },
+  {
+    id: "2026-08-04",
+    title: { en: "Day 5 (Beginner) — Lists & Keys", kr: "5일차 (초급) — 리스트와 Key" },
+    Practice: Day20260804Practice,
+    Solution: Day20260804Solution,
+  },
+  {
+    id: "2026-08-05",
+    title: { en: "Day 6 (Beginner) — Forms & Controlled Inputs", kr: "6일차 (초급) — 폼과 제어 컴포넌트" },
+    Practice: Day20260805Practice,
+    Solution: Day20260805Solution,
+  },
+  {
+    id: "2026-08-06",
+    title: { en: "Day 7 (Beginner) — Lifting State Up", kr: "7일차 (초급) — State 끌어올리기" },
+    Practice: Day20260806Practice,
+    Solution: Day20260806Solution,
+  },
+  {
+    id: "2026-08-07",
+    title: { en: "Day 8 (Beginner) — useEffect & Side Effects", kr: "8일차 (초급) — useEffect와 사이드 이펙트" },
+    Practice: Day20260807Practice,
+    Solution: Day20260807Solution,
+  },
+  {
+    id: "2026-08-10",
+    title: { en: "Day 9 (Beginner) — Styling in React", kr: "9일차 (초급) — React에서 스타일링" },
+    Practice: Day20260810Practice,
+    Solution: Day20260810Solution,
+  },
+  {
+    id: "2026-08-11",
+    title: { en: "Day 10 (Beginner) — Mini Project: Todo List", kr: "10일차 (초급) — 미니 프로젝트: 할 일 목록" },
+    Practice: Day20260811Practice,
+    Solution: Day20260811Solution,
   },
 ];

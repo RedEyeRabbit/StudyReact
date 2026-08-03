@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 9 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 9 — Practice / 실습</h1>
+    <div class="subtitle">Build a styled PriorityBadge / 스타일이 적용된 PriorityBadge 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 9 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete <code>PriorityBadge({ level })</code> so it renders the text of <code>level</code> ("low" / "medium" / "high") with a different background color per level:</p>
+        <ul>
+          <li>"low" → gray</li>
+          <li>"medium" → orange</li>
+          <li>"high" → red</li>
+        </ul>
+        <p>Look for the <code>{/* TODO */}</code> comment in the editor. Any way of picking the color per level is fine (if/else, a lookup object, ...).</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>PriorityBadge({ level })</code>를 완성해서 <code>level</code>("low" / "medium" / "high")의 텍스트를 레벨마다 다른 배경색으로 렌더링하세요:</p>
+        <ul>
+          <li>"low" → 회색</li>
+          <li>"medium" → 주황색</li>
+          <li>"high" → 빨간색</li>
+        </ul>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요. 레벨별 색을 고르는 방법은 무엇이든 괜찮습니다 (if/else, 조회용 객체 등).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-10</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-10</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>A lookup object keeps this tidy: <code>{ low: "#9e9e9e", medium: "#f57c00", high: "#d32f2f" }</code>, then read the color with <code>colors[level]</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>조회용 객체를 쓰면 깔끔합니다: <code>{ low: "#9e9e9e", medium: "#f57c00", high: "#d32f2f" }</code>로 만들고, <code>colors[level]</code>로 색을 읽으세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-10");
+
+  mountPlayground(
+    "practice-playground",
+    `function PriorityBadge({ level }) {
+  // TODO: pick a background color based on "level"
+  // ("low" -> gray, "medium" -> orange, "high" -> red)
+  // and render "level" as text inside a styled <span>
+  return null;
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <PriorityBadge level="low" />{" "}
+      <PriorityBadge level="medium" />{" "}
+      <PriorityBadge level="high" />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

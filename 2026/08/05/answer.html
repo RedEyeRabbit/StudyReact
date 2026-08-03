@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for AddItemForm / AddItemForm 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 6 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>e.preventDefault()</code> stops the browser's default
+          full-page-reload submit behavior. The <code>text.trim()</code>
+          check avoids adding blank items. After calling
+          <code>onAdd(text)</code>, <code>setText("")</code> resets the
+          controlled input back to empty — because the input's value is
+          driven by state, clearing the state clears the box on screen too.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>e.preventDefault()</code>는 브라우저의 기본
+          전체-페이지-새로고침 제출 동작을 막습니다.
+          <code>text.trim()</code> 체크는 빈 항목이 추가되는 것을
+          막아줍니다. <code>onAdd(text)</code> 호출 후
+          <code>setText("")</code>로 제어 입력을 다시 빈 값으로
+          되돌립니다 — input의 값이 state로 구동되기 때문에, state를
+          비우면 화면의 입력창도 함께 비워집니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does submitting the form leave the page without reloading?</li>
+          <li>Does the input clear itself after adding an item?</li>
+          <li>Does submitting an empty (or whitespace-only) input do nothing?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>폼을 제출해도 페이지가 새로고침되지 않나요?</li>
+          <li>항목을 추가한 뒤 입력창이 자동으로 비워지나요?</li>
+          <li>빈 값(또는 공백만 있는 값)을 제출하면 아무 일도 안 일어나나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-05");
+
+  mountPlayground(
+    "answer-playground",
+    `function AddItemForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Add an item..."
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function App() {
+  const [items, setItems] = React.useState(["Milk", "Eggs"]);
+
+  function handleAdd(text) {
+    setItems([...items, text]);
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ul>
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <AddItemForm onAdd={handleAdd} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

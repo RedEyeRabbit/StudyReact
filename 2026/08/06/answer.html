@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for ItemCount / ItemCount 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 7 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>ItemCount</code> is a "dumb" presentational component — no
+          state of its own, it just renders whatever <code>count</code>
+          it's given. <code>App</code> already tracks <code>items</code>,
+          so it simply passes <code>items.length</code> down. When
+          <code>items</code> changes (add or remove), <code>App</code>
+          re-renders, and <code>ItemCount</code> automatically gets the
+          fresh count — no extra wiring needed, because it was never a
+          separate source of truth in the first place.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>ItemCount</code>는 자기만의 state가 없는 "단순
+          표시(presentational)" 컴포넌트입니다 — 전달받은
+          <code>count</code>를 그대로 렌더링할 뿐입니다.
+          <code>App</code>이 이미 <code>items</code>를 추적하고 있으므로,
+          그냥 <code>items.length</code>를 내려주면 됩니다.
+          <code>items</code>가 바뀌면(추가/삭제) <code>App</code>이 다시
+          렌더링되고, <code>ItemCount</code>는 자동으로 최신 개수를
+          받습니다 — 애초에 별도의 진실 공급원이 아니었기 때문에 추가
+          배선이 필요 없습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does the count update immediately when you add or remove an item?</li>
+          <li>Does <code>ItemCount</code> have zero state of its own?</li>
+          <li>Could you add a fourth sibling the same way, without touching <code>ShoppingList</code> or <code>AddItemForm</code>?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>항목을 추가/삭제하면 개수가 즉시 갱신되나요?</li>
+          <li><code>ItemCount</code>가 자기만의 state를 전혀 갖고 있지 않나요?</li>
+          <li><code>ShoppingList</code>나 <code>AddItemForm</code>을 건드리지 않고도 같은 방식으로 네 번째 형제를 추가할 수 있을까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-06");
+
+  mountPlayground(
+    "answer-playground",
+    `function ShoppingList({ items, onRemove }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.text}{" "}
+          <button onClick={() => onRemove(item.id)}>Remove</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function AddItemForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Add an item..."
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function ItemCount({ count }) {
+  return <p>🧺 {count} item(s) in your list</p>;
+}
+
+function App() {
+  const [items, setItems] = React.useState([
+    { id: 1, text: "Milk" },
+    { id: 2, text: "Eggs" },
+  ]);
+
+  function handleAdd(text) {
+    setItems([...items, { id: Date.now(), text }]);
+  }
+
+  function handleRemove(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ItemCount count={items.length} />
+      <ShoppingList items={items} onRemove={handleRemove} />
+      <AddItemForm onAdd={handleAdd} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 9 · Styling in React — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 9 — 초급 (Beginner)</h1>
+    <div class="subtitle">Styling in React / React에서 스타일링하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 9</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Apply CSS classes and inline styles in JSX, and build class names conditionally based on state/props.</p>
+    <p><b>목표 (30~40분):</b> JSX에서 CSS 클래스와 인라인 스타일을 적용하고, state/props에 따라 조건부로 클래스 이름을 만듭니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. className, not class</b><br />
+        <code>class</code> is a reserved JS keyword, so JSX uses
+        <code>className</code> instead: <code>&lt;div className="card"&gt;</code>.
+        This site's own <code>assets/style.css</code> (the <code>.card</code>,
+        <code>.tag</code>, <code>.filelinks</code> classes you've seen on
+        every page) is a real example.</p>
+        <p><b>2. Inline styles</b><br />
+        <code>style</code> takes a JS <b>object</b>, not a CSS string, with
+        camelCase property names: <code>style={{ color: "red", fontSize: 14 }}</code>.
+        Numbers default to pixels for most size properties.</p>
+        <p><b>3. Conditional class names</b><br />
+        Build the class string based on state/props, e.g. by
+        concatenating: <code>className={"btn " + (isActive ? "btn-active" : "")}</code>.
+        For a handful of conditions this is enough — no library required.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. class가 아니라 className</b><br />
+        <code>class</code>는 JS 예약어라서, JSX는 대신
+        <code>className</code>을 사용합니다:
+        <code>&lt;div className="card"&gt;</code>. 이 사이트 자체의
+        <code>assets/style.css</code>(모든 페이지에서 봐온
+        <code>.card</code>, <code>.tag</code>, <code>.filelinks</code>
+        클래스들)가 실제 예시입니다.</p>
+        <p><b>2. 인라인 스타일</b><br />
+        <code>style</code>은 CSS 문자열이 아니라 JS <b>객체</b>를
+        받으며, 프로퍼티 이름은 camelCase입니다:
+        <code>style={{ color: "red", fontSize: 14 }}</code>. 대부분의
+        크기 프로퍼티에서 숫자는 기본적으로 픽셀 단위입니다.</p>
+        <p><b>3. 조건부 클래스 이름</b><br />
+        state/props에 따라 클래스 문자열을 만드세요, 예를 들어 문자열을
+        이어붙여서: <code>className={"btn " + (isActive ? "btn-active" : "")}</code>.
+        몇 가지 조건 정도는 이걸로 충분합니다 — 별도 라이브러리가 필요
+        없습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A toggle button that switches both its label and its background color based on state.</p>
+    <p>state에 따라 라벨과 배경색이 함께 바뀌는 토글 버튼입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build a styled priority badge, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 스타일이 적용된 우선순위 배지를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../07/index.html">&larr; Day 8 / 8일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-10");
+
+  mountPlayground(
+    "example-playground",
+    `function Toggle() {
+  const [on, setOn] = React.useState(false);
+
+  return (
+    <button
+      onClick={() => setOn(!on)}
+      style={{
+        padding: "8px 16px",
+        borderRadius: 6,
+        border: "none",
+        color: "white",
+        background: on ? "#2e7d32" : "#9e9e9e",
+      }}
+    >
+      {on ? "ON" : "OFF"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Toggle />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

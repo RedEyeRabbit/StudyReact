@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for ShoppingList / ShoppingList 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 5 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>items.map(item =&gt; ...)</code> turns each item into an
+          <code>&lt;li&gt;</code>, keyed by <code>item.id</code> — a value
+          that stays the same for that item no matter how the array is
+          reordered or filtered. The Remove button doesn't touch the DOM
+          directly; it just asks the parent to update state via
+          <code>onRemove(item.id)</code>, and React re-renders the list
+          from the new array.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>items.map(item =&gt; ...)</code>는 각 항목을
+          <code>&lt;li&gt;</code>로 변환하며, 배열이 어떻게
+          재정렬/필터링되든 그 항목에 대해 항상 동일하게 유지되는 값인
+          <code>item.id</code>를 key로 사용합니다. Remove 버튼은 DOM을
+          직접 건드리지 않고, <code>onRemove(item.id)</code>로 부모에게
+          state를 갱신해달라고 요청할 뿐이며, React가 새 배열을 기준으로
+          리스트를 다시 렌더링합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Is the <code>key</code> <code>item.id</code>, not the array index?</li>
+          <li>Does clicking Remove actually remove only that one item?</li>
+          <li>Does <code>handleRemove</code> use <code>.filter()</code> instead of mutating <code>items</code>?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>key</code>가 배열 인덱스가 아니라 <code>item.id</code>인가요?</li>
+          <li>Remove를 누르면 정확히 그 항목 하나만 삭제되나요?</li>
+          <li><code>handleRemove</code>가 <code>items</code>를 직접 변경하지 않고 <code>.filter()</code>를 사용하나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-04");
+
+  mountPlayground(
+    "answer-playground",
+    `function ShoppingList({ items, onRemove }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.text}{" "}
+          <button onClick={() => onRemove(item.id)}>Remove</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function App() {
+  const [items, setItems] = React.useState([
+    { id: 1, text: "Milk" },
+    { id: 2, text: "Eggs" },
+    { id: 3, text: "Bread" },
+  ]);
+
+  function handleRemove(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ShoppingList items={items} onRemove={handleRemove} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

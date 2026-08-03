@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 10 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 10 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the Todo List app / 할 일 목록 앱 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 10 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>onClick={() => onToggle(todo.id)}</code> just forwards
+          the click up to the callback <code>App</code> handed down —
+          <code>TodoItem</code> doesn't know or care how toggling is
+          implemented, only that it should ask for it. In
+          <code>handleToggle</code>, <code>todos.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t)</code>
+          builds a brand new array: the matching todo becomes a new
+          object with <code>done</code> flipped (via the spread + override
+          pattern from Day 5's immutable updates), every other todo is
+          passed through unchanged.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>onClick={() => onToggle(todo.id)}</code>는 클릭을
+          <code>App</code>이 내려준 콜백으로 그대로 전달할 뿐입니다 —
+          <code>TodoItem</code>은 토글이 어떻게 구현되는지 몰라도 되고,
+          그저 요청만 하면 됩니다. <code>handleToggle</code>에서
+          <code>todos.map(t =&gt; t.id === id ? { ...t, done: !t.done } : t)</code>는
+          완전히 새로운 배열을 만듭니다: 일치하는 할 일은
+          <code>done</code>이 뒤집힌 새 객체가 되고(spread + 덮어쓰기
+          패턴), 나머지 할 일은 그대로 통과합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎉 Beginner track complete / 초급 트랙 완료</h3>
+    <p>
+      You've covered JSX, components &amp; props, state &amp; events,
+      conditional rendering, lists &amp; keys, forms, lifting state up,
+      useEffect, and styling — and combined all of it into one working
+      app. Intermediate/중급 picks up from here.
+    </p>
+    <p>
+      JSX, 컴포넌트와 props, state와 이벤트, 조건부 렌더링, 리스트와
+      key, 폼, state 끌어올리기, useEffect, 스타일링까지 모두
+      다뤘고, 이를 하나의 동작하는 앱으로 합쳤습니다. 중급은 여기서부터
+      이어집니다.
+    </p>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-11");
+
+  mountPlayground(
+    "answer-playground",
+    `function TodoItem({ todo, onToggle, onRemove }) {
+  return (
+    <li>
+      <span
+        onClick={() => onToggle(todo.id)}
+        style={{
+          textDecoration: todo.done ? "line-through" : "none",
+          cursor: "pointer",
+        }}
+      >
+        {todo.text}
+      </span>{" "}
+      <button onClick={() => onRemove(todo.id)}>✕</button>
+    </li>
+  );
+}
+
+function TodoList({ todos, onToggle, onRemove }) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onRemove={onRemove}
+        />
+      ))}
+    </ul>
+  );
+}
+
+function AddTodoForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="What needs doing?"
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function App() {
+  const [todos, setTodos] = React.useState([
+    { id: 1, text: "Learn React", done: false },
+    { id: 2, text: "Build a project", done: false },
+  ]);
+
+  function handleAdd(text) {
+    setTodos([...todos, { id: Date.now(), text, done: false }]);
+  }
+
+  function handleToggle(id) {
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    );
+  }
+
+  function handleRemove(id) {
+    setTodos(todos.filter((t) => t.id !== id));
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>My Todos</h2>
+      <AddTodoForm onAdd={handleAdd} />
+      <TodoList todos={todos} onToggle={handleToggle} onRemove={handleRemove} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Forms &amp; Controlled Inputs — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — 초급 (Beginner)</h1>
+    <div class="subtitle">Forms &amp; Controlled Inputs / 폼과 제어 컴포넌트</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Beginner / 초급 &rsaquo; Day 6</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Build a controlled text input bound to state, and handle form submission correctly.</p>
+    <p><b>목표 (30~40분):</b> state에 연결된 제어(controlled) 텍스트 입력을 만들고, 폼 제출을 올바르게 처리합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Controlled inputs</b><br />
+        React recommends "controlled" inputs: the input's
+        <code>value</code> comes from state, and <code>onChange</code>
+        updates that state on every keystroke. React is the single source
+        of truth for what's in the box, not the DOM.</p>
+        <p><b>2. The pattern</b><br />
+        <code>const [text, setText] = useState("")</code>, then
+        <code>&lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;</code>.</p>
+        <p><b>3. Handling submit</b><br />
+        <code>&lt;form onSubmit={handleSubmit}&gt;</code>, and inside the
+        handler always call <code>e.preventDefault()</code> first —
+        otherwise the browser does a full page reload, which is almost
+        never what you want in a React app.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 제어 입력(Controlled input)</b><br />
+        React는 "제어" 입력을 권장합니다: input의 <code>value</code>가
+        state에서 오고, 키를 누를 때마다 <code>onChange</code>가 그
+        state를 갱신합니다. 입력창에 무엇이 들어있는지에 대한 단일
+        진실 공급원(source of truth)은 DOM이 아니라 React입니다.</p>
+        <p><b>2. 패턴</b><br />
+        <code>const [text, setText] = useState("")</code>를 만들고,
+        <code>&lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;</code>처럼
+        씁니다.</p>
+        <p><b>3. 제출 처리</b><br />
+        <code>&lt;form onSubmit={handleSubmit}&gt;</code>를 쓰고, 핸들러
+        안에서 항상 먼저 <code>e.preventDefault()</code>를 호출하세요 —
+        안 그러면 브라우저가 페이지를 전체 새로고침해버리는데, React
+        앱에서는 거의 항상 원치 않는 동작입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Extending Day 5's shopping list with a controlled form that adds new items.</p>
+    <p>5일차의 쇼핑 리스트를 확장해서, 제어 폼으로 새 항목을 추가합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own add-item form, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 항목 추가 폼을 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own form / 직접 폼 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../04/index.html">&larr; Day 5 / 5일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-05");
+
+  mountPlayground(
+    "example-playground",
+    `function AddItemForm({ onAdd }) {
+  const [text, setText] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text);
+    setText("");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Add an item..."
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+}
+
+function App() {
+  const [items, setItems] = React.useState(["Milk", "Eggs"]);
+
+  function handleAdd(text) {
+    setItems([...items, text]);
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Shopping List</h2>
+      <ul>
+        {items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <AddItemForm onAdd={handleAdd} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

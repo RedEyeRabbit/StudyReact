@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 9 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 9 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for PriorityBadge / PriorityBadge 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 9 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>colors</code> is a plain object used as a lookup table:
+          <code>colors[level]</code> reads the right color for whichever
+          string <code>level</code> is. That value feeds straight into the
+          <code>style</code> object's <code>background</code> property.
+          This scales better than a chain of if/else once you have more
+          than two or three cases.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>colors</code>는 조회 테이블로 쓰이는 평범한 객체입니다:
+          <code>colors[level]</code>은 <code>level</code>이 어떤
+          문자열이든 그에 맞는 색을 읽어옵니다. 그 값이 그대로
+          <code>style</code> 객체의 <code>background</code> 프로퍼티로
+          들어갑니다. 조건이 두세 개를 넘어가면 if/else를 나열하는
+          것보다 이 방식이 더 잘 확장됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does each badge show a visibly different background color?</li>
+          <li>Did you use <code>className</code> or the <code>style</code> object — never the bare <code>class</code> attribute?</li>
+          <li>Would adding a fourth level ("urgent") only require one new entry in your color mapping?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>배지마다 눈에 띄게 다른 배경색이 보이나요?</li>
+          <li><code>class</code> 속성이 아니라 <code>className</code>이나 <code>style</code> 객체를 사용했나요?</li>
+          <li>네 번째 레벨("urgent")을 추가한다면 색 매핑에 항목 하나만 추가하면 될까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-10");
+
+  mountPlayground(
+    "answer-playground",
+    `function PriorityBadge({ level }) {
+  const colors = {
+    low: "#9e9e9e",
+    medium: "#f57c00",
+    high: "#d32f2f",
+  };
+
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        padding: "4px 12px",
+        borderRadius: 999,
+        color: "white",
+        background: colors[level],
+        fontSize: 14,
+      }}
+    >
+      {level}
+    </span>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <PriorityBadge level="low" />{" "}
+      <PriorityBadge level="medium" />{" "}
+      <PriorityBadge level="high" />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

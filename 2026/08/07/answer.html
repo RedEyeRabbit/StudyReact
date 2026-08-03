@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for Stopwatch / Stopwatch 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 8 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          Every time <code>running</code> changes, the effect re-runs.
+          Before it does (and when the component unmounts), React calls
+          the returned cleanup function, which clears the previous
+          interval — so toggling Stop/Start never leaves two intervals
+          running at once. Inside the interval, <code>setSeconds(s =&gt; s + 1)</code>
+          reads the freshest state instead of the value captured when the
+          effect started.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>running</code>이 바뀔 때마다 effect가 다시 실행됩니다.
+          다시 실행되기 전(그리고 컴포넌트가 언마운트될 때) React는
+          반환된 cleanup 함수를 호출해서 이전 interval을 정리합니다 —
+          그래서 Stop/Start를 토글해도 interval이 동시에 두 개 돌아가는
+          일이 없습니다. interval 안에서 <code>setSeconds(s =&gt; s + 1)</code>은
+          effect가 시작될 때 붙잡아둔 값이 아니라 항상 최신 state를
+          읽습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does clicking Stop actually stop the count from increasing?</li>
+          <li>Does clicking Start again resume from the same number, without speeding up (which would mean two intervals are running)?</li>
+          <li>Did you use the functional updater <code>s =&gt; s + 1</code>?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>Stop을 누르면 실제로 카운트 증가가 멈추나요?</li>
+          <li>다시 Start를 누르면 같은 숫자에서 이어지고, (interval이 두 개 도는 것을 의미하는) 속도가 빨라지지는 않나요?</li>
+          <li>함수형 업데이트 <code>s =&gt; s + 1</code>을 사용했나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-07");
+
+  mountPlayground(
+    "answer-playground",
+    `function Stopwatch() {
+  const [seconds, setSeconds] = React.useState(0);
+  const [running, setRunning] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!running) return;
+
+    const id = setInterval(() => {
+      setSeconds((s) => s + 1);
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [running]);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <p>⏱ {seconds}s</p>
+      <button onClick={() => setRunning(!running)}>
+        {running ? "Stop" : "Start"}
+      </button>
+    </div>
+  );
+}
+
+function App() {
+  return <Stopwatch />;
+}`
+  );
+</script>
+</body>
+</html>
