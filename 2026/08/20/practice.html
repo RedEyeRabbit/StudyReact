@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — Practice / 실습</h1>
+    <div class="subtitle">Finish the mini router / 미니 라우터 완성하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 7 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete the mini router in <code>App</code> so that:</p>
+        <ol>
+          <li><code>Page</code> is looked up from the <code>routes</code> table using the current <code>path</code>.</li>
+          <li>Clicking a link calls <code>navigate(to)</code>, which prevents the default full-page navigation and updates <code>path</code>.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>App</code>의 미니 라우터를 완성해서:</p>
+        <ol>
+          <li>현재 <code>path</code>를 사용해 <code>routes</code> 테이블에서 <code>Page</code>를 찾도록.</li>
+          <li>링크를 클릭하면 <code>navigate(to)</code>가 호출되어 기본 전체 페이지 이동을 막고 <code>path</code>를 갱신하도록.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want the real <code>react-router-dom</code> library instead of a
+      hand-built stand-in? This lesson's real-router version is
+      registered in <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-20</code>).
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 직접 만든 대체물이 아니라 진짜 <code>react-router-dom</code>
+      라이브러리를 써보고 싶다면, 이 레슨의 실제 라우터 버전이
+      <a href="../../../practical-lab/README.md">Practical Lab</a>에
+      등록되어 있습니다 (id <code>2026-08-20</code>).
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p><code>e.preventDefault()</code> is the same trick from Beginner Day 6's forms — without it, the browser would do a real navigation and throw away all your React state.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p><code>e.preventDefault()</code>는 초급 6일차 폼에서 썼던 것과 같은 트릭입니다 — 이게 없으면 브라우저가 실제로 이동해버려서 React state가 모두 사라집니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real react-router-dom / 진짜 react-router-dom</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-20");
+
+  mountPlayground(
+    "practice-playground",
+    `function Home({ navigate }) {
+  return (
+    <div>
+      <h2>🏠 Home</h2>
+      <a href="/about" onClick={navigate("/about")}>Go to About</a>
+    </div>
+  );
+}
+
+function About({ navigate }) {
+  return (
+    <div>
+      <h2>ℹ️ About</h2>
+      <a href="/" onClick={navigate("/")}>Go to Home</a>
+    </div>
+  );
+}
+
+const routes = { "/": Home, "/about": About };
+
+function App() {
+  const [path, setPath] = React.useState("/");
+
+  function navigate(to) {
+    return (e) => {
+      // TODO 1: prevent the default link navigation
+      // TODO 2: update "path" to "to"
+    };
+  }
+
+  // TODO 3: look up the component to render from "routes" using "path"
+  const Page = Home;
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Page navigate={navigate} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

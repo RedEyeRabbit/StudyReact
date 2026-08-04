@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Refs &amp; useRef — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — 중급 (Intermediate)</h1>
+    <div class="subtitle">Refs &amp; useRef</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 5</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Use <code>useRef</code> for two different jobs: reaching a real DOM node, and storing a mutable value that survives re-renders without causing one.</p>
+    <p><b>목표 (30~40분):</b> <code>useRef</code>의 두 가지 용도를 익힙니다: 실제 DOM 노드에 접근하기, 그리고 리렌더링을 유발하지 않으면서 렌더링 사이에 값을 유지하기.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Accessing a DOM node</b><br />
+        <code>const inputRef = useRef(null)</code>, then
+        <code>&lt;input ref={inputRef} /&gt;</code>. After the DOM is
+        painted, <code>inputRef.current</code> is the actual
+        <code>&lt;input&gt;</code> element — call
+        <code>inputRef.current.focus()</code> to focus it, typically from
+        inside a <code>useEffect</code>.</p>
+        <p><b>2. Persisting a mutable value</b><br />
+        <code>useRef(initialValue)</code> also works as a plain "box" that
+        keeps a value across renders. Unlike state, changing
+        <code>ref.current</code> does <b>not</b> trigger a re-render —
+        useful for values the render output doesn't depend on, like a
+        timer ID or the previous value of a prop.</p>
+        <p><b>3. Ref vs. state, in one line</b><br />
+        Need the screen to update when it changes? Use state. Just need to
+        remember something between renders without redrawing anything?
+        Use a ref.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. DOM 노드에 접근하기</b><br />
+        <code>const inputRef = useRef(null)</code>을 만들고,
+        <code>&lt;input ref={inputRef} /&gt;</code>처럼 씁니다. DOM이
+        그려진 후 <code>inputRef.current</code>는 실제
+        <code>&lt;input&gt;</code> 엘리먼트이며, 보통
+        <code>useEffect</code> 안에서
+        <code>inputRef.current.focus()</code>를 호출해 포커스를 줍니다.</p>
+        <p><b>2. 변경 가능한 값 유지하기</b><br />
+        <code>useRef(initialValue)</code>는 렌더링 사이에 값을 유지하는
+        평범한 "상자"로도 쓸 수 있습니다. state와 달리
+        <code>ref.current</code>를 바꿔도 리렌더링이 <b>일어나지
+        않습니다</b> — 렌더링 결과가 의존하지 않는 값, 예를 들어 타이머
+        ID나 prop의 이전 값을 저장할 때 유용합니다.</p>
+        <p><b>3. Ref vs. state, 한 줄 요약</b><br />
+        값이 바뀔 때 화면이 갱신되어야 하나요? state를 쓰세요. 화면을
+        다시 그릴 필요 없이 렌더링 사이에 뭔가를 기억만 하면 되나요?
+        ref를 쓰세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>An input that auto-focuses on mount, and a label showing the <i>previous</i> value you typed — tracked with a ref, not state.</p>
+    <p>마운트 시 자동으로 포커스되는 입력창과, 입력했던 <i>이전</i> 값을 보여주는 라벨입니다 — state가 아니라 ref로 추적합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own auto-focus + previous-value tracker, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 자동 포커스 + 이전 값 추적기를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../17/index.html">&larr; Day 4 / 4일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-18");
+
+  mountPlayground(
+    "example-playground",
+    `function SearchInput() {
+  const inputRef = React.useRef(null);
+  const previousRef = React.useRef("");
+  const [text, setText] = React.useState("");
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  React.useEffect(() => {
+    previousRef.current = text;
+  }, [text]);
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>Previous value: "{previousRef.current}"</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <SearchInput />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

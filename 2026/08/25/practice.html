@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 10 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 10 — Practice / 실습</h1>
+    <div class="subtitle">Finish the User Search app / 사용자 검색 앱 완성하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 10 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Everything below already works except two spots:</p>
+        <ol>
+          <li>In <code>useUserSearch</code>, complete the effect: if there's no query, clear the user and stop; otherwise set loading, await <code>searchUser</code>, and (if not stale) store the result and clear loading.</li>
+          <li>In <code>UserSearchApp</code>, complete the <code>content</code> logic: pick between the "type a username" hint, "Searching...", "No user found.", and the profile card, based on <code>query</code>, <code>loading</code>, and <code>user</code>.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>아래 코드는 두 군데만 빼고 이미 다 동작합니다:</p>
+        <ol>
+          <li><code>useUserSearch</code>의 effect를 완성하세요: query가 없으면 user를 비우고 종료, 아니면 loading을 켜고 <code>searchUser</code>를 await한 뒤(오래된 요청이 아니라면) 결과를 저장하고 loading을 끄세요.</li>
+          <li><code>UserSearchApp</code>의 <code>content</code> 로직을 완성하세요: <code>query</code>, <code>loading</code>, <code>user</code>에 따라 "사용자명 입력" 안내문구, "Searching...", "No user found.", 프로필 카드 중 하나를 고르세요.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-25</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-25</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>Try the usernames <code>octocat</code>, <code>torvalds</code>, or <code>gaearon</code> once you're done — anything else correctly shows "No user found."</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>완성한 뒤 <code>octocat</code>, <code>torvalds</code>, <code>gaearon</code>을 입력해보세요 — 그 외에는 "No user found."가 올바르게 표시됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-25");
+
+  mountPlayground(
+    "practice-playground",
+    `const MOCK_USERS = {
+  octocat: { name: "The Octocat", bio: "GitHub mascot", avatar: "🐙" },
+  torvalds: { name: "Linus Torvalds", bio: "Creator of Linux & Git", avatar: "🐧" },
+  gaearon: { name: "Dan Abramov", bio: "Co-creator of Redux", avatar: "⚛️" },
+};
+
+function searchUser(username) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(MOCK_USERS[username.toLowerCase()] || null);
+    }, 500);
+  });
+}
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = React.useState(value);
+  React.useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+
+function useUserSearch(query) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const debouncedQuery = useDebounce(query, 400);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function run() {
+      // TODO 1: if !debouncedQuery, setUser(null), setLoading(false), return.
+      // Otherwise: setLoading(true), await searchUser(debouncedQuery),
+      // and if !ignore, setUser(result) + setLoading(false).
+    }
+
+    run();
+    return () => {
+      ignore = true;
+    };
+  }, [debouncedQuery]);
+
+  return { user, loading };
+}
+
+function UserSearchApp() {
+  const inputRef = React.useRef(null);
+  const [query, setQuery] = React.useState("");
+  const { user, loading } = useUserSearch(query);
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  // TODO 2: set "content" to one of four things based on
+  // query / loading / user:
+  //   no query        -> <p>Type a username (try octocat, torvalds, gaearon)</p>
+  //   loading          -> <p>Searching...</p>
+  //   query but !user  -> <p>No user found.</p>
+  //   user found       -> a card showing user.avatar, user.name, user.bio
+  let content = null;
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="GitHub username..."
+      />
+      {content}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserSearchApp />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -20,6 +20,26 @@ import Day20260810Practice from "./2026-08-10/Practice.jsx";
 import Day20260810Solution from "./2026-08-10/Solution.jsx";
 import Day20260811Practice from "./2026-08-11/Practice.jsx";
 import Day20260811Solution from "./2026-08-11/Solution.jsx";
+import Day20260812Practice from "./2026-08-12/Practice.jsx";
+import Day20260812Solution from "./2026-08-12/Solution.jsx";
+import Day20260813Practice from "./2026-08-13/Practice.jsx";
+import Day20260813Solution from "./2026-08-13/Solution.jsx";
+import Day20260814Practice from "./2026-08-14/Practice.jsx";
+import Day20260814Solution from "./2026-08-14/Solution.jsx";
+import Day20260817Practice from "./2026-08-17/Practice.jsx";
+import Day20260817Solution from "./2026-08-17/Solution.jsx";
+import Day20260818Practice from "./2026-08-18/Practice.jsx";
+import Day20260818Solution from "./2026-08-18/Solution.jsx";
+import Day20260819Practice from "./2026-08-19/Practice.jsx";
+import Day20260819Solution from "./2026-08-19/Solution.jsx";
+import Day20260820Practice from "./2026-08-20/Practice.jsx";
+import Day20260820Solution from "./2026-08-20/Solution.jsx";
+import Day20260821Practice from "./2026-08-21/Practice.jsx";
+import Day20260821Solution from "./2026-08-21/Solution.jsx";
+import Day20260824Practice from "./2026-08-24/Practice.jsx";
+import Day20260824Solution from "./2026-08-24/Solution.jsx";
+import Day20260825Practice from "./2026-08-25/Practice.jsx";
+import Day20260825Solution from "./2026-08-25/Solution.jsx";
 
 // Register every day's exercise here — all tracks (Beginner through
 // Practical) can use this real Node.js environment, not just Advanced/Practical.
@@ -91,5 +111,65 @@ export const DAYS = [
     title: { en: "Day 10 (Beginner) — Mini Project: Todo List", kr: "10일차 (초급) — 미니 프로젝트: 할 일 목록" },
     Practice: Day20260811Practice,
     Solution: Day20260811Solution,
+  },
+  {
+    id: "2026-08-12",
+    title: { en: "Day 1 (Intermediate) — useEffect & Fetching", kr: "1일차 (중급) — useEffect와 데이터 가져오기" },
+    Practice: Day20260812Practice,
+    Solution: Day20260812Solution,
+  },
+  {
+    id: "2026-08-13",
+    title: { en: "Day 2 (Intermediate) — Custom Hooks", kr: "2일차 (중급) — 커스텀 훅" },
+    Practice: Day20260813Practice,
+    Solution: Day20260813Solution,
+  },
+  {
+    id: "2026-08-14",
+    title: { en: "Day 3 (Intermediate) — Context API", kr: "3일차 (중급) — Context API" },
+    Practice: Day20260814Practice,
+    Solution: Day20260814Solution,
+  },
+  {
+    id: "2026-08-17",
+    title: { en: "Day 4 (Intermediate) — useReducer", kr: "4일차 (중급) — useReducer" },
+    Practice: Day20260817Practice,
+    Solution: Day20260817Solution,
+  },
+  {
+    id: "2026-08-18",
+    title: { en: "Day 5 (Intermediate) — Refs & useRef", kr: "5일차 (중급) — Refs와 useRef" },
+    Practice: Day20260818Practice,
+    Solution: Day20260818Solution,
+  },
+  {
+    id: "2026-08-19",
+    title: { en: "Day 6 (Intermediate) — Performance", kr: "6일차 (중급) — 성능 최적화" },
+    Practice: Day20260819Practice,
+    Solution: Day20260819Solution,
+  },
+  {
+    id: "2026-08-20",
+    title: { en: "Day 7 (Intermediate) — Client-Side Routing (real react-router-dom)", kr: "7일차 (중급) — 클라이언트 라우팅 (진짜 react-router-dom)" },
+    Practice: Day20260820Practice,
+    Solution: Day20260820Solution,
+  },
+  {
+    id: "2026-08-21",
+    title: { en: "Day 8 (Intermediate) — Error Boundaries", kr: "8일차 (중급) — 에러 바운더리" },
+    Practice: Day20260821Practice,
+    Solution: Day20260821Solution,
+  },
+  {
+    id: "2026-08-24",
+    title: { en: "Day 9 (Intermediate) — Debouncing & Combining Hooks", kr: "9일차 (중급) — 디바운싱과 훅 조합" },
+    Practice: Day20260824Practice,
+    Solution: Day20260824Solution,
+  },
+  {
+    id: "2026-08-25",
+    title: { en: "Day 10 (Intermediate) — Mini Project: User Search", kr: "10일차 (중급) — 미니 프로젝트: 사용자 검색" },
+    Practice: Day20260825Practice,
+    Solution: Day20260825Solution,
   },
 ];

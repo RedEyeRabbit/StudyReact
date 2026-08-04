@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 3 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 3 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for ThemeContext / ThemeContext 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 3 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>ThemeContext</code> is created once, at module level (not
+          inside a component). <code>App</code> is the only component
+          that writes to it, via the <code>Provider</code>'s
+          <code>value</code> prop — whatever it passes is what every
+          <code>useContext(ThemeContext)</code> call anywhere inside sees.
+          <code>Toolbar</code> and <code>Page</code> stay completely
+          unaware that theming exists.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>ThemeContext</code>는 (컴포넌트 안이 아니라) 모듈
+          레벨에서 한 번만 생성됩니다. <code>App</code>이
+          <code>Provider</code>의 <code>value</code> prop을 통해 이
+          context에 값을 쓰는 유일한 컴포넌트입니다 — 무엇을 전달하든,
+          내부 어디서든 호출되는 모든 <code>useContext(ThemeContext)</code>가
+          그 값을 봅니다. <code>Toolbar</code>와 <code>Page</code>는
+          테마라는 게 존재하는지조차 전혀 모릅니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does clicking "Toggle theme" actually change the nested button's colors?</li>
+          <li>Do <code>Toolbar</code> and <code>Page</code> accept zero theme-related props?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>"Toggle theme"를 누르면 중첩된 버튼의 색이 실제로 바뀌나요?</li>
+          <li><code>Toolbar</code>와 <code>Page</code>가 테마 관련 prop을 하나도 받지 않나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-14");
+
+  mountPlayground(
+    "answer-playground",
+    `const ThemeContext = React.createContext("light");
+
+function ThemedButton() {
+  const theme = React.useContext(ThemeContext);
+  return (
+    <button
+      style={{
+        background: theme === "dark" ? "#222" : "#eee",
+        color: theme === "dark" ? "#fff" : "#000",
+        border: "1px solid #999",
+        padding: "8px 16px",
+      }}
+    >
+      I'm a {theme} button
+    </button>
+  );
+}
+
+function Toolbar() {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function Page() {
+  return (
+    <div>
+      <Toolbar />
+    </div>
+  );
+}
+
+function App() {
+  const [theme, setTheme] = React.useState("light");
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      <div style={{ fontFamily: "sans-serif" }}>
+        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+          Toggle theme
+        </button>
+        <Page />
+      </div>
+    </ThemeContext.Provider>
+  );
+}`
+  );
+</script>
+</body>
+</html>

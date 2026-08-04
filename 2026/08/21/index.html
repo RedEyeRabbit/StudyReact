@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · Error Boundaries — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — 중급 (Intermediate)</h1>
+    <div class="subtitle">Error Boundaries / 에러 바운더리</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 8</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Catch rendering errors in part of the tree so one broken component doesn't crash the whole app.</p>
+    <p><b>목표 (30~40분):</b> 트리 일부에서 발생하는 렌더링 에러를 잡아서, 컴포넌트 하나가 고장 나도 앱 전체가 죽지 않도록 합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Without a boundary</b><br />
+        By default, if any component throws while rendering, React
+        unmounts the <i>entire</i> app below the nearest root — a bug in
+        one small widget can blank the whole page.</p>
+        <p><b>2. Error boundaries must be classes</b><br />
+        As of React 18, there's no hook for this — you need a class
+        component implementing <code>static getDerivedStateFromError(error)</code>
+        (updates state so the next render shows a fallback) and
+        optionally <code>componentDidCatch(error, info)</code> (for
+        logging). Wrap it around whatever subtree you want protected.</p>
+        <p><b>3. What it does and doesn't catch</b><br />
+        Catches errors thrown <i>during rendering</i> in child components.
+        It does <b>not</b> catch errors in event handlers (use a regular
+        <code>try/catch</code> there) or in async code like
+        <code>setTimeout</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 바운더리가 없다면</b><br />
+        기본적으로 렌더링 중 어떤 컴포넌트든 에러를 던지면, React는
+        가장 가까운 root 아래 <i>전체</i> 앱을 언마운트합니다 — 작은
+        위젯 하나의 버그가 페이지 전체를 하얗게 만들 수 있습니다.</p>
+        <p><b>2. 에러 바운더리는 반드시 클래스여야 함</b><br />
+        React 18 기준으로 이를 위한 훅은 없습니다 — 클래스 컴포넌트에서
+        <code>static getDerivedStateFromError(error)</code>(다음
+        렌더링에서 폴백을 보여주도록 state를 갱신)를 구현하고, 선택적으로
+        <code>componentDidCatch(error, info)</code>(로깅용)도 구현해야
+        합니다. 보호하고 싶은 서브트리를 이걸로 감싸세요.</p>
+        <p><b>3. 잡는 것과 못 잡는 것</b><br />
+        자식 컴포넌트의 <i>렌더링 중</i> 발생하는 에러를 잡습니다.
+        이벤트 핸들러 안의 에러(거기선 일반
+        <code>try/catch</code>를 쓰세요)나 <code>setTimeout</code> 같은
+        비동기 코드의 에러는 <b>잡지 못합니다</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Clicking the button makes <code>Buggy</code> throw during render — the <code>ErrorBoundary</code> shows a fallback instead of blanking the page.</p>
+    <p>버튼을 클릭하면 <code>Buggy</code>가 렌더링 중 에러를 던집니다 — <code>ErrorBoundary</code>가 페이지를 하얗게 만드는 대신 폴백을 보여줍니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own ErrorBoundary, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 ErrorBoundary를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own boundary / 직접 바운더리 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../20/index.html">&larr; Day 7 / 7일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-21");
+
+  mountPlayground(
+    "example-playground",
+    `class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Caught by ErrorBoundary:", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <p>⚠️ Something went wrong in this widget.</p>;
+    }
+    return this.props.children;
+  }
+}
+
+function Buggy({ explode }) {
+  if (explode) {
+    throw new Error("Boom!");
+  }
+  return <p>I'm fine 🙂</p>;
+}
+
+function App() {
+  const [explode, setExplode] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <ErrorBoundary>
+        <Buggy explode={explode} />
+      </ErrorBoundary>
+      <button onClick={() => setExplode(true)}>Break it</button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

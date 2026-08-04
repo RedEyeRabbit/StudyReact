@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 9 · Debouncing &amp; Combining Hooks — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 9 — 중급 (Intermediate)</h1>
+    <div class="subtitle">Debouncing &amp; Combining Hooks / 디바운싱과 훅 조합</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 9</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Build a <code>useDebounce</code> custom hook, and combine it with the fetch pattern from Day 1–2 for search-as-you-type.</p>
+    <p><b>목표 (30~40분):</b> <code>useDebounce</code> 커스텀 훅을 만들고, 1~2일차의 fetch 패턴과 조합해서 입력하는 대로 검색되는 기능을 만듭니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Why debounce</b><br />
+        Searching "on every keystroke" would fire a request per
+        character — wasteful, and results can arrive out of order (Day 1
+        already showed how to guard against that, but it's better to
+        avoid firing so many requests in the first place).</p>
+        <p><b>2. The debounce idea</b><br />
+        Only act after the value has stopped changing for a bit. A
+        <code>useDebounce(value, delay)</code> hook returns a copy of
+        <code>value</code> that lags behind — it schedules a timeout to
+        update on every change, but cancels the previous timeout each
+        time (via the cleanup function), so only the <i>last</i> one
+        actually fires.</p>
+        <p><b>3. Combining what you've learned</b><br />
+        The search component below uses <code>useState</code> for the raw
+        input, <code>useDebounce</code> to calm it down, and an effect
+        (like Day 1/2) that fetches whenever the <i>debounced</i> value
+        changes — three ideas from this week working together.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 디바운스가 필요한 이유</b><br />
+        "키를 누를 때마다" 검색하면 글자 하나마다 요청이 나갑니다 —
+        낭비이고, 응답 순서가 뒤바뀔 수도 있습니다(1일차에서 이미 방지법을
+        봤지만, 애초에 요청을 그렇게 많이 보내지 않는 게 더 낫습니다).</p>
+        <p><b>2. 디바운스의 아이디어</b><br />
+        값이 잠시 동안 안 바뀌었을 때만 반응하세요.
+        <code>useDebounce(value, delay)</code> 훅은 뒤처진
+        <code>value</code> 사본을 반환합니다 — 값이 바뀔 때마다 갱신용
+        타임아웃을 예약하지만, 매번 (cleanup 함수로) 이전 타임아웃을
+        취소하므로 <i>마지막</i> 것만 실제로 실행됩니다.</p>
+        <p><b>3. 배운 것들을 조합하기</b><br />
+        아래 검색 컴포넌트는 원본 입력에 <code>useState</code>를,
+        진정시키는 데 <code>useDebounce</code>를, <i>디바운스된</i> 값이
+        바뀔 때마다 fetch하는 effect(1~2일차와 동일)를 사용합니다 — 이번
+        주에 배운 세 가지 아이디어가 함께 동작합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Type a name — the search only fires 400ms after you stop typing.</p>
+    <p>이름을 입력해보세요 — 타이핑을 멈춘 지 400ms 후에만 검색이 실행됩니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build useDebounce yourself, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 useDebounce를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Build useDebounce / useDebounce 만들기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../21/index.html">&larr; Day 8 / 8일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-24");
+
+  mountPlayground(
+    "example-playground",
+    `const ALL_USERS = ["Alice", "Bob", "Charlie", "Diana", "Ethan"];
+
+function searchUsers(query) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(ALL_USERS.filter((n) => n.toLowerCase().includes(query.toLowerCase())));
+    }, 400);
+  });
+}
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = React.useState(value);
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+
+  return debounced;
+}
+
+function UserSearch() {
+  const [query, setQuery] = React.useState("");
+  const debouncedQuery = useDebounce(query, 400);
+  const [results, setResults] = React.useState([]);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function run() {
+      if (!debouncedQuery) {
+        setResults([]);
+        return;
+      }
+      const data = await searchUsers(debouncedQuery);
+      if (!ignore) setResults(data);
+    }
+
+    run();
+    return () => {
+      ignore = true;
+    };
+  }, [debouncedQuery]);
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search a name..."
+      />
+      <ul>
+        {results.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserSearch />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

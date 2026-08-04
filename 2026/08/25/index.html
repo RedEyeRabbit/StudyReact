@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 10 · Mini Project — User Search — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 10 — 중급 (Intermediate) 🎓</h1>
+    <div class="subtitle">Mini Project: User Search / 미니 프로젝트: 사용자 검색</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 10 (Capstone)</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Combine everything from Intermediate Days 1–9 into a small debounced user-search app.</p>
+    <p><b>목표 (30~40분):</b> 중급 1~9일차에서 배운 모든 것을 작은 디바운스 사용자 검색 앱으로 합칩니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English — What this app uses</h4>
+        <ul>
+          <li><b>useEffect &amp; fetching</b> (Day 1) — the search effect awaits a mock lookup and guards against stale responses.</li>
+          <li><b>Custom hooks</b> (Day 2) — the fetch state lives inside <code>useUserSearch</code>, not the component.</li>
+          <li><b>useReducer-style thinking</b> (Day 4) — <code>{ user, loading }</code> are updated together as one coherent state.</li>
+          <li><b>Refs</b> (Day 5) — the search box auto-focuses on mount.</li>
+          <li><b>Debouncing</b> (Day 9) — <code>useDebounce</code> stops it from "searching" on every keystroke.</li>
+          <li><b>Conditional rendering</b> (Beginner Day 4) — hint / searching / not-found / profile card, one at a time.</li>
+        </ul>
+        <p>No new syntax today — just putting nine days of pieces together.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글 — 이 앱이 사용하는 것들</h4>
+        <ul>
+          <li><b>useEffect와 fetch</b> (1일차) — 검색 effect가 모의 조회를 await하고, 오래된 응답을 방지합니다.</li>
+          <li><b>커스텀 훅</b> (2일차) — fetch state가 컴포넌트가 아니라 <code>useUserSearch</code> 안에 있습니다.</li>
+          <li><b>useReducer식 사고</b> (4일차) — <code>{ user, loading, error }</code>가 하나의 일관된 state로 함께 갱신됩니다.</li>
+          <li><b>Ref</b> (5일차) — 검색창이 마운트 시 자동으로 포커스됩니다.</li>
+          <li><b>디바운싱</b> (9일차) — <code>useDebounce</code>가 매 키 입력마다 "검색"하지 않도록 막아줍니다.</li>
+          <li><b>조건부 렌더링</b> (초급 4일차) — 안내문구 / 검색중 / 결과없음 / 프로필 카드 중 하나씩만.</li>
+        </ul>
+        <p>오늘은 새로운 문법이 없습니다 — 9일 동안 배운 조각들을 조립할 뿐입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example — the finished app / 실시간 예제 — 완성된 앱</h3>
+    <p>Try typing "octocat", "torvalds", or "gaearon".</p>
+    <p>"octocat", "torvalds", "gaearon"을 입력해보세요.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Head to the practice file to finish the two missing pieces, then check the answer sheet. This wraps up the Intermediate/중급 track!</p>
+    <p>실습 파일로 이동해 빠진 두 부분을 완성하고, 답안지와 비교해보세요. 이걸로 중급 트랙이 마무리됩니다!</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Finish the app / 앱 완성하기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../24/index.html">&larr; Day 9 / 9일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-25");
+
+  mountPlayground(
+    "example-playground",
+    `const MOCK_USERS = {
+  octocat: { name: "The Octocat", bio: "GitHub mascot", avatar: "🐙" },
+  torvalds: { name: "Linus Torvalds", bio: "Creator of Linux & Git", avatar: "🐧" },
+  gaearon: { name: "Dan Abramov", bio: "Co-creator of Redux", avatar: "⚛️" },
+};
+
+function searchUser(username) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(MOCK_USERS[username.toLowerCase()] || null);
+    }, 500);
+  });
+}
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = React.useState(value);
+  React.useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+
+function useUserSearch(query) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const debouncedQuery = useDebounce(query, 400);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function run() {
+      if (!debouncedQuery) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      const result = await searchUser(debouncedQuery);
+      if (!ignore) {
+        setUser(result);
+        setLoading(false);
+      }
+    }
+
+    run();
+    return () => {
+      ignore = true;
+    };
+  }, [debouncedQuery]);
+
+  return { user, loading };
+}
+
+function UserSearchApp() {
+  const inputRef = React.useRef(null);
+  const [query, setQuery] = React.useState("");
+  const { user, loading } = useUserSearch(query);
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  let content;
+  if (!query) {
+    content = <p>Type a username (try octocat, torvalds, gaearon)</p>;
+  } else if (loading) {
+    content = <p>Searching...</p>;
+  } else if (!user) {
+    content = <p>No user found.</p>;
+  } else {
+    content = (
+      <div>
+        <p style={{ fontSize: 32 }}>{user.avatar}</p>
+        <p><b>{user.name}</b></p>
+        <p>{user.bio}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="GitHub username..."
+      />
+      {content}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserSearchApp />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

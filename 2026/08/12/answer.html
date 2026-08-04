@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for UserProfile / UserProfile 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 1 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>load</code> is a normal <code>async</code> function
+          defined inside the effect, so the effect itself stays
+          synchronous (React is happy). After <code>await</code>, the
+          check <code>if (!ignore)</code> makes sure a response from a
+          request that's since been superseded (because <code>userId</code>
+          changed again) never overwrites newer state. The cleanup sets
+          <code>ignore = true</code> right before the next effect run (or
+          on unmount), which is exactly when a previous request would
+          otherwise resolve out of order.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>load</code>는 effect 내부에 정의된 평범한
+          <code>async</code> 함수라서, effect 자체는 동기 함수로 유지됩니다
+          (React가 원하는 대로). <code>await</code> 이후
+          <code>if (!ignore)</code> 체크는, 그 사이에
+          <code>userId</code>가 다시 바뀌어서 이미 대체된 요청의 응답이
+          더 최신 state를 덮어쓰지 않도록 막아줍니다. cleanup은 다음
+          effect가 실행되기 직전(또는 언마운트 시)에
+          <code>ignore = true</code>로 설정하는데, 이는 정확히 이전
+          요청이 순서가 뒤바뀌어 도착할 수 있는 바로 그 시점입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does clicking "Switch user" show "Loading..." before the new user's data appears?</li>
+          <li>Is <code>fetchUser</code> called with an <code>await</code> inside an inner <code>async</code> function, not directly on the effect callback?</li>
+          <li>Does the cleanup function set <code>ignore = true</code>?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>"Switch user"를 누르면 새 사용자 데이터가 나오기 전에 "Loading..."이 보이나요?</li>
+          <li><code>fetchUser</code>를 effect 콜백에서 직접이 아니라, 내부의 <code>async</code> 함수 안에서 <code>await</code>로 호출했나요?</li>
+          <li>cleanup 함수가 <code>ignore = true</code>를 설정하나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-12");
+
+  mountPlayground(
+    "answer-playground",
+    `function fetchUser(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ id, name: "User #" + id, email: "user" + id + "@example.com" });
+    }, 600);
+  });
+}
+
+function UserProfile({ userId }) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      setLoading(true);
+      const data = await fetchUser(userId);
+      if (!ignore) {
+        setUser(data);
+        setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  return (
+    <div>
+      <p><b>{user.name}</b></p>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [userId, setUserId] = React.useState(1);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserProfile userId={userId} />
+      <button onClick={() => setUserId(userId === 1 ? 2 : 1)}>
+        Switch user
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

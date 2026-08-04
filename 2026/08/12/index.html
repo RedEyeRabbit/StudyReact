@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · useEffect &amp; Fetching Data — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — 중급 (Intermediate)</h1>
+    <div class="subtitle">useEffect &amp; Fetching Data / useEffect와 데이터 가져오기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 1</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Fetch async data inside <code>useEffect</code> with proper loading/error state, and avoid updating state from a stale request.</p>
+    <p><b>목표 (30~40분):</b> <code>useEffect</code> 안에서 비동기 데이터를 가져오면서 loading/error state를 제대로 관리하고, 오래된(stale) 요청이 state를 덮어쓰지 않도록 합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Note on examples this level</b><br />
+        From here on, "network calls" are simulated with a mock function
+        that resolves after a short delay — same shape as a real
+        <code>fetch()</code>, but works offline and is deterministic to
+        test. Swapping in a real API call later is a one-line change.</p>
+        <p><b>2. The async-effect problem</b><br />
+        The function passed to <code>useEffect</code> can't be
+        <code>async</code> itself — React expects it to return either
+        nothing or a cleanup function, not a Promise. Define an async
+        function <i>inside</i> the effect and call it immediately.</p>
+        <p><b>3. Guarding against stale responses</b><br />
+        If <code>userId</code> changes before the first request finishes,
+        two responses can arrive out of order. Use an <code>ignore</code>
+        flag set in the cleanup function so a late response from an old
+        request is ignored.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 이번 레벨 예제에 대한 안내</b><br />
+        여기서부터 "네트워크 호출"은 짧은 지연 후 resolve되는 모의(mock)
+        함수로 흉내냅니다 — 실제 <code>fetch()</code>와 모양은 같지만
+        오프라인에서도 동작하고 테스트하기 결정적(deterministic)입니다.
+        나중에 진짜 API 호출로 바꾸는 건 한 줄만 고치면 됩니다.</p>
+        <p><b>2. 비동기 effect의 문제</b><br />
+        <code>useEffect</code>에 전달하는 함수 자체는 <code>async</code>일
+        수 없습니다 — React는 이 함수가 아무것도 반환하지 않거나 cleanup
+        함수를 반환하길 기대하지, Promise를 기대하지 않습니다. effect
+        <i>내부</i>에 async 함수를 정의하고 바로 호출하세요.</p>
+        <p><b>3. 오래된 응답 방지</b><br />
+        첫 요청이 끝나기 전에 <code>userId</code>가 바뀌면, 응답 두 개가
+        순서가 뒤바뀌어 도착할 수 있습니다. cleanup 함수에서
+        <code>ignore</code> 플래그를 설정해서, 오래된 요청에서 늦게 온
+        응답은 무시하세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Switching the user ID re-fetches, showing Loading / data states correctly.</p>
+    <p>사용자 ID를 바꾸면 다시 가져오며, Loading / 데이터 상태가 올바르게 표시됩니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own fetching component, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 데이터 가져오기 컴포넌트를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../../08/11/index.html">&larr; Beginner Day 10 / 초급 10일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-12");
+
+  mountPlayground(
+    "example-playground",
+    `function fetchUser(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ id, name: "User #" + id, email: "user" + id + "@example.com" });
+    }, 600);
+  });
+}
+
+function UserProfile({ userId }) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      setLoading(true);
+      const data = await fetchUser(userId);
+      if (!ignore) {
+        setUser(data);
+        setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  return (
+    <div>
+      <p><b>{user.name}</b></p>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [userId, setUserId] = React.useState(1);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserProfile userId={userId} />
+      <button onClick={() => setUserId(userId === 1 ? 2 : 1)}>
+        Switch user
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

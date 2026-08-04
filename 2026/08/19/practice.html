@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — Practice / 실습</h1>
+    <div class="subtitle">Optimize ExpensiveList / ExpensiveList 최적화하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 6 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Right now, typing in the input re-renders <code>ExpensiveList</code> every keystroke — watch the render count climb. Fix it:</p>
+        <ol>
+          <li>Wrap <code>ExpensiveList</code>'s definition with <code>React.memo(...)</code>.</li>
+          <li>Wrap <code>items</code> in <code>useMemo</code> so it's the same array reference every render.</li>
+          <li>Wrap <code>handleSelect</code> in <code>useCallback</code> so it's the same function reference every render.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>지금은 입력창에 타이핑할 때마다 <code>ExpensiveList</code>가 매번 리렌더링됩니다 — 렌더 횟수가 올라가는 걸 확인해보세요. 고쳐봅시다:</p>
+        <ol>
+          <li><code>ExpensiveList</code> 정의를 <code>React.memo(...)</code>로 감싸세요.</li>
+          <li><code>items</code>를 <code>useMemo</code>로 감싸서 매 렌더링마다 같은 배열 참조가 되도록 하세요.</li>
+          <li><code>handleSelect</code>를 <code>useCallback</code>으로 감싸서 매 렌더링마다 같은 함수 참조가 되도록 하세요.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-19</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-19</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>All three fixes have empty dependency arrays (<code>[]</code>) here, since <code>items</code> and <code>handleSelect</code> don't actually depend on anything that changes.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>여기서는 세 수정 모두 빈 의존성 배열(<code>[]</code>)이면 됩니다 — <code>items</code>와 <code>handleSelect</code>는 실제로 바뀌는 어떤 값에도 의존하지 않기 때문입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-19");
+
+  mountPlayground(
+    "practice-playground",
+    `let renderCount = 0;
+
+// TODO 1: wrap this whole function with React.memo(...)
+function ExpensiveList({ items, onSelect }) {
+  renderCount++;
+  return (
+    <div>
+      <p>ExpensiveList has rendered {renderCount} time(s)</p>
+      <ul>
+        {items.map((item) => (
+          <li key={item} onClick={() => onSelect(item)}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  const [text, setText] = React.useState("");
+  const [selected, setSelected] = React.useState(null);
+
+  // TODO 2: wrap this array in useMemo(() => [...], [])
+  const items = ["Apple", "Banana", "Cherry"];
+
+  // TODO 3: wrap this function in useCallback(fn, [])
+  const handleSelect = (item) => setSelected(item);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Type here (re-renders App)"
+      />
+      <p>Selected: {selected ?? "none"}</p>
+      <ExpensiveList items={items} onSelect={handleSelect} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

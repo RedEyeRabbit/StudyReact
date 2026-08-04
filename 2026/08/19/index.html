@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Performance — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — 중급 (Intermediate)</h1>
+    <div class="subtitle">Performance: memo, useMemo, useCallback / 성능 최적화</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 6</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Skip unnecessary re-renders and recalculations with <code>React.memo</code>, <code>useMemo</code>, and <code>useCallback</code>.</p>
+    <p><b>목표 (30~40분):</b> <code>React.memo</code>, <code>useMemo</code>, <code>useCallback</code>으로 불필요한 리렌더링과 재계산을 건너뜁니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. The default: everything re-renders</b><br />
+        When a parent re-renders, every child re-renders too, by default —
+        even ones whose props didn't change. Usually that's fine (React
+        is fast), but for expensive children it can be wasteful.</p>
+        <p><b>2. React.memo</b><br />
+        <code>const Fast = React.memo(SlowComponent)</code> skips
+        re-rendering <code>Fast</code> if its props are shallow-equal to
+        last time. This only helps if the props actually stay the same
+        reference — a new inline object or function prop defeats it.</p>
+        <p><b>3. useMemo &amp; useCallback</b><br />
+        <code>useMemo(() =&gt; computeExpensive(x), [x])</code> only
+        recomputes when <code>x</code> changes.
+        <code>useCallback(fn, deps)</code> is the same idea for
+        functions — it keeps returning the <i>same function reference</i>
+        across renders as long as <code>deps</code> hasn't changed, which
+        is exactly what a <code>memo</code>-wrapped child needs to
+        actually skip re-rendering.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 기본값: 모두 리렌더링</b><br />
+        부모가 리렌더링되면 기본적으로 모든 자식도 리렌더링됩니다 —
+        props가 바뀌지 않은 자식도 마찬가지입니다. 보통은 문제없지만
+        (React는 빠릅니다), 무거운 자식에게는 낭비일 수 있습니다.</p>
+        <p><b>2. React.memo</b><br />
+        <code>const Fast = React.memo(SlowComponent)</code>는 props가
+        지난번과 얕은 비교(shallow-equal)로 같으면 <code>Fast</code>의
+        리렌더링을 건너뜁니다. props가 실제로 같은 참조를 유지할 때만
+        도움이 되며, 매번 새로 만드는 인라인 객체나 함수 prop은 이 효과를
+        무력화시킵니다.</p>
+        <p><b>3. useMemo와 useCallback</b><br />
+        <code>useMemo(() =&gt; computeExpensive(x), [x])</code>는
+        <code>x</code>가 바뀔 때만 다시 계산합니다.
+        <code>useCallback(fn, deps)</code>는 함수 버전의 같은 아이디어로,
+        <code>deps</code>가 안 바뀌는 한 렌더링 사이에 <i>같은 함수
+        참조</i>를 계속 반환합니다 — 이게 바로 <code>memo</code>로 감싼
+        자식이 실제로 리렌더링을 건너뛰기 위해 필요한 것입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Typing in the input re-renders <code>App</code>, but the memoized <code>ExpensiveList</code> doesn't re-render along with it (watch the render count).</p>
+    <p>입력창에 타이핑하면 <code>App</code>은 리렌더링되지만, memo로 감싼 <code>ExpensiveList</code>는 함께 리렌더링되지 않습니다 (렌더 횟수를 확인해보세요).</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to apply memo and useCallback yourself, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 memo와 useCallback을 적용해보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Optimize a component / 컴포넌트 최적화해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../18/index.html">&larr; Day 5 / 5일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-19");
+
+  mountPlayground(
+    "example-playground",
+    `let renderCount = 0;
+
+const ExpensiveList = React.memo(function ExpensiveList({ items, onSelect }) {
+  renderCount++;
+  return (
+    <div>
+      <p>ExpensiveList has rendered {renderCount} time(s)</p>
+      <ul>
+        {items.map((item) => (
+          <li key={item} onClick={() => onSelect(item)}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+});
+
+function App() {
+  const [text, setText] = React.useState("");
+  const [selected, setSelected] = React.useState(null);
+
+  const items = React.useMemo(() => ["Apple", "Banana", "Cherry"], []);
+  const handleSelect = React.useCallback((item) => setSelected(item), []);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Type here (re-renders App)"
+      />
+      <p>Selected: {selected ?? "none"}</p>
+      <ExpensiveList items={items} onSelect={handleSelect} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

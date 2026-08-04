@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — Practice / 실습</h1>
+    <div class="subtitle">Build SearchInput with refs / ref로 SearchInput 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 5 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete <code>SearchInput</code> so that:</p>
+        <ol>
+          <li>The input is focused automatically when the component mounts.</li>
+          <li>A label below shows the previous value of the input (before your latest keystroke), tracked with a ref.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>SearchInput</code>을 완성해서:</p>
+        <ol>
+          <li>컴포넌트가 마운트될 때 입력창에 자동으로 포커스가 가도록.</li>
+          <li>아래 라벨이 (가장 최근 입력 전의) 이전 값을 ref로 추적해서 보여주도록.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-18</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-18</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>Two separate refs, two separate jobs: one holds the DOM node (for <code>.focus()</code>), the other just holds a string. Neither should be <code>useState</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>서로 다른 두 ref, 서로 다른 두 역할: 하나는 DOM 노드를 담고(<code>.focus()</code>용), 다른 하나는 그냥 문자열을 담습니다. 둘 다 <code>useState</code>여서는 안 됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-18");
+
+  mountPlayground(
+    "practice-playground",
+    `function SearchInput() {
+  const inputRef = React.useRef(null);
+  const previousRef = React.useRef("");
+  const [text, setText] = React.useState("");
+
+  React.useEffect(() => {
+    // TODO 1: focus inputRef.current
+  }, []);
+
+  React.useEffect(() => {
+    // TODO 2: store the current "text" into previousRef.current
+  }, [text]);
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>Previous value: "{previousRef.current}"</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <SearchInput />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

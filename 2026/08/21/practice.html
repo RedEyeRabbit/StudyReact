@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — Practice / 실습</h1>
+    <div class="subtitle">Build ErrorBoundary / ErrorBoundary 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 8 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete the <code>ErrorBoundary</code> class so that:</p>
+        <ol>
+          <li><code>getDerivedStateFromError</code> returns new state marking that an error happened.</li>
+          <li><code>render()</code> shows a fallback message when that state is set, otherwise renders <code>this.props.children</code> normally.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>ErrorBoundary</code> 클래스를 완성해서:</p>
+        <ol>
+          <li><code>getDerivedStateFromError</code>가 에러가 발생했음을 표시하는 새 state를 반환하도록.</li>
+          <li><code>render()</code>가 그 state가 설정되면 폴백 메시지를 보여주고, 아니면 평소처럼 <code>this.props.children</code>을 렌더링하도록.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-21</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-21</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>The constructor already sets up <code>this.state = { hasError: false }</code> — your job is just to flip it to <code>true</code> when an error is caught, and branch on it in <code>render()</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>생성자에서 이미 <code>this.state = { hasError: false }</code>를 설정해뒀습니다 — 에러가 잡히면 이걸 <code>true</code>로 바꾸고, <code>render()</code>에서 그에 따라 분기하기만 하면 됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-21");
+
+  mountPlayground(
+    "practice-playground",
+    `class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // TODO 1: return the new state that marks hasError as true
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Caught by ErrorBoundary:", error);
+  }
+
+  render() {
+    // TODO 2: if this.state.hasError, show a fallback <p> instead
+    // of this.props.children
+    return this.props.children;
+  }
+}
+
+function Buggy({ explode }) {
+  if (explode) {
+    throw new Error("Boom!");
+  }
+  return <p>I'm fine 🙂</p>;
+}
+
+function App() {
+  const [explode, setExplode] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <ErrorBoundary>
+        <Buggy explode={explode} />
+      </ErrorBoundary>
+      <button onClick={() => setExplode(true)}>Break it</button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

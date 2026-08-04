@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 9 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 9 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for useDebounce / useDebounce 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 9 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          Every time <code>value</code> changes, a new timeout is
+          scheduled — but before it does, the cleanup function from the
+          <i>previous</i> render cancels the old, not-yet-fired timeout.
+          So while you're still typing, timeouts get scheduled and
+          cancelled over and over, and only the one from the keystroke
+          you stopped on actually survives long enough to call
+          <code>setDebounced</code>.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>value</code>가 바뀔 때마다 새 타임아웃이 예약되는데, 그
+          전에 <i>이전</i> 렌더링의 cleanup 함수가 아직 실행되지 않은
+          이전 타임아웃을 취소합니다. 그래서 계속 타이핑하는 동안에는
+          타임아웃이 계속 예약되고 취소되기를 반복하며, 타이핑을 멈춘
+          그 키 입력의 타임아웃만 살아남아 실제로
+          <code>setDebounced</code>를 호출합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does typing quickly avoid triggering a search on every keystroke?</li>
+          <li>Does the result list eventually appear ~400ms after you stop typing?</li>
+          <li>Does clearing the input clear the results too?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>빠르게 타이핑해도 매 키 입력마다 검색이 실행되지 않나요?</li>
+          <li>타이핑을 멈춘 후 약 400ms 뒤에 결과 목록이 나타나나요?</li>
+          <li>입력창을 비우면 결과도 함께 비워지나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-24");
+
+  mountPlayground(
+    "answer-playground",
+    `const ALL_USERS = ["Alice", "Bob", "Charlie", "Diana", "Ethan"];
+
+function searchUsers(query) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(ALL_USERS.filter((n) => n.toLowerCase().includes(query.toLowerCase())));
+    }, 400);
+  });
+}
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = React.useState(value);
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+
+  return debounced;
+}
+
+function UserSearch() {
+  const [query, setQuery] = React.useState("");
+  const debouncedQuery = useDebounce(query, 400);
+  const [results, setResults] = React.useState([]);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function run() {
+      if (!debouncedQuery) {
+        setResults([]);
+        return;
+      }
+      const data = await searchUsers(debouncedQuery);
+      if (!ignore) setResults(data);
+    }
+
+    run();
+    return () => {
+      ignore = true;
+    };
+  }, [debouncedQuery]);
+
+  return (
+    <div>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search a name..."
+      />
+      <ul>
+        {results.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserSearch />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

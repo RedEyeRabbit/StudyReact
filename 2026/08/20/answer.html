@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the mini router / 미니 라우터 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 7 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>navigate(to)</code> returns an event handler (a function
+          that takes <code>e</code>) — that's why it's called as
+          <code>onClick={navigate("/about")}</code> rather than
+          <code>onClick={navigate}</code>. Inside, <code>e.preventDefault()</code>
+          stops the browser's real navigation, and <code>setPath(to)</code>
+          triggers a re-render where <code>routes[path]</code> now points
+          at a different component — which is the entire "router."
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>navigate(to)</code>는 이벤트 핸들러(즉 <code>e</code>를
+          받는 함수)를 반환합니다 — 그래서
+          <code>onClick={navigate}</code>가 아니라
+          <code>onClick={navigate("/about")}</code>처럼 호출합니다.
+          내부에서 <code>e.preventDefault()</code>가 브라우저의 실제
+          이동을 막고, <code>setPath(to)</code>가 리렌더링을 일으켜서
+          <code>routes[path]</code>가 이제 다른 컴포넌트를 가리키게
+          됩니다 — 이것이 "라우터"의 전부입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does clicking the links switch pages without a full page reload?</li>
+          <li>Now try the real thing: complete Day 7 in <a href="../../../practical-lab/README.md">Practical Lab</a> using actual <code>react-router-dom</code>.</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>링크를 클릭하면 전체 페이지 새로고침 없이 페이지가 전환되나요?</li>
+          <li>이제 진짜를 써보세요: <a href="../../../practical-lab/README.md">Practical Lab</a>에서 실제 <code>react-router-dom</code>으로 7일차를 완성해보세요.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real react-router-dom / 진짜 react-router-dom</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-20");
+
+  mountPlayground(
+    "answer-playground",
+    `function Home({ navigate }) {
+  return (
+    <div>
+      <h2>🏠 Home</h2>
+      <a href="/about" onClick={navigate("/about")}>Go to About</a>
+    </div>
+  );
+}
+
+function About({ navigate }) {
+  return (
+    <div>
+      <h2>ℹ️ About</h2>
+      <a href="/" onClick={navigate("/")}>Go to Home</a>
+    </div>
+  );
+}
+
+const routes = { "/": Home, "/about": About };
+
+function App() {
+  const [path, setPath] = React.useState("/");
+
+  function navigate(to) {
+    return (e) => {
+      e.preventDefault();
+      setPath(to);
+    };
+  }
+
+  const Page = routes[path];
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Page navigate={navigate} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

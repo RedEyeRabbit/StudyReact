@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — Practice / 실습</h1>
+    <div class="subtitle">Build UserProfile with useEffect / useEffect로 UserProfile 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 1 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete the effect inside <code>UserProfile</code> so that:</p>
+        <ol>
+          <li>It sets <code>loading</code> to true, then calls <code>fetchUser(userId)</code>.</li>
+          <li>It stores the result in <code>user</code> and sets <code>loading</code> to false — but only if the effect hasn't been cleaned up.</li>
+          <li>It re-runs whenever <code>userId</code> changes, and guards against stale responses with an <code>ignore</code> flag.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>UserProfile</code> 안의 effect를 완성해서:</p>
+        <ol>
+          <li><code>loading</code>을 true로 설정하고 <code>fetchUser(userId)</code>를 호출하도록.</li>
+          <li>결과를 <code>user</code>에 저장하고 <code>loading</code>을 false로 설정하도록 — 단, effect가 정리(cleanup)되지 않은 경우에만.</li>
+          <li><code>userId</code>가 바뀔 때마다 다시 실행되고, <code>ignore</code> 플래그로 오래된 응답을 방지하도록.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-12</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-12</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>The effect function itself must stay synchronous — define <code>async function load() { ... }</code> inside it and call <code>load()</code> right after defining it.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>effect 함수 자체는 동기 함수여야 합니다 — 그 안에 <code>async function load() { ... }</code>를 정의하고, 정의한 직후 <code>load()</code>를 호출하세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-12");
+
+  mountPlayground(
+    "practice-playground",
+    `function fetchUser(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ id, name: "User #" + id, email: "user" + id + "@example.com" });
+    }, 600);
+  });
+}
+
+function UserProfile({ userId }) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    // TODO 1: define an async function "load" that sets loading to
+    // true, awaits fetchUser(userId), and (only if !ignore) stores
+    // the result with setUser and sets loading to false. Call it.
+
+    return () => {
+      ignore = true;
+    };
+  }, [userId]);
+
+  if (loading) return <p>Loading...</p>;
+  return (
+    <div>
+      <p><b>{user.name}</b></p>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [userId, setUserId] = React.useState(1);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserProfile userId={userId} />
+      <button onClick={() => setUserId(userId === 1 ? 2 : 1)}>
+        Switch user
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

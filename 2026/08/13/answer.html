@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for useUser / useUser 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 2 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>useUser</code> is exactly Day 1's effect, just moved into
+          its own function and returning <code>{ user, loading }</code>
+          instead of rendering anything itself. Because it's a plain
+          function that calls <code>useState</code>/<code>useEffect</code>,
+          any component can call <code>useUser(id)</code> and get live,
+          auto-updating data — the fetching logic is now shared, not
+          copy-pasted.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>useUser</code>는 1일차의 effect를 그대로 자기만의 함수로
+          옮기고, 직접 렌더링하는 대신 <code>{ user, loading }</code>을
+          반환하도록 바꾼 것뿐입니다. <code>useState</code>/<code>useEffect</code>를
+          호출하는 평범한 함수이기 때문에, 어떤 컴포넌트든
+          <code>useUser(id)</code>를 호출해서 실시간으로 자동 갱신되는
+          데이터를 얻을 수 있습니다 — fetch 로직이 이제 복사-붙여넣기가
+          아니라 공유됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does <code>UserProfile</code> still work exactly like Day 1, from the outside?</li>
+          <li>Could you now use <code>useUser</code> in a second, totally different component without copying any effect code?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>UserProfile</code>이 외부에서 볼 때 1일차와 똑같이 동작하나요?</li>
+          <li>effect 코드를 복사하지 않고도 <code>useUser</code>를 완전히 다른 두 번째 컴포넌트에서 쓸 수 있을까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-13");
+
+  mountPlayground(
+    "answer-playground",
+    `function fetchUser(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ id, name: "User #" + id, email: "user" + id + "@example.com" });
+    }, 600);
+  });
+}
+
+function useUser(userId) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      setLoading(true);
+      const data = await fetchUser(userId);
+      if (!ignore) {
+        setUser(data);
+        setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, [userId]);
+
+  return { user, loading };
+}
+
+function UserProfile({ userId }) {
+  const { user, loading } = useUser(userId);
+
+  if (loading) return <p>Loading...</p>;
+  return (
+    <div>
+      <p><b>{user.name}</b></p>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [userId, setUserId] = React.useState(1);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserProfile userId={userId} />
+      <button onClick={() => setUserId(userId === 1 ? 2 : 1)}>
+        Switch user
+      </button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

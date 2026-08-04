@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for SearchInput / SearchInput 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 5 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          The mount-only effect (<code>[]</code>) calls
+          <code>inputRef.current.focus()</code> once, right after the
+          input exists in the DOM. The second effect runs after every
+          render where <code>text</code> changed, and updates
+          <code>previousRef.current</code> — but since effects run
+          <i>after</i> the render commits, the value read during the
+          <i>next</i> render is always one step behind, which is exactly
+          "the previous value."
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          마운트 전용 effect(<code>[]</code>)는 input이 DOM에 존재하게
+          된 직후 <code>inputRef.current.focus()</code>를 한 번
+          호출합니다. 두 번째 effect는 <code>text</code>가 바뀐 렌더링
+          이후마다 실행되어 <code>previousRef.current</code>를
+          갱신하는데, effect는 렌더링이 커밋된 <i>이후</i>에 실행되기
+          때문에, <i>다음</i> 렌더링에서 읽는 값은 항상 한 단계 뒤처져
+          있고, 이것이 정확히 "이전 값"입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Is the input already focused the moment the page loads, with no click needed?</li>
+          <li>Does the "Previous value" label always show what you typed <i>before</i> your latest keystroke, not the current text?</li>
+          <li>Does typing avoid extra re-renders caused by the ref itself (refs don't trigger renders)?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>페이지가 로드되는 순간 클릭 없이도 입력창에 이미 포커스가 가 있나요?</li>
+          <li>"Previous value" 라벨이 항상 현재 텍스트가 아니라 <i>가장 최근 입력 전</i>에 입력했던 값을 보여주나요?</li>
+          <li>ref 자체 때문에 발생하는 불필요한 리렌더링이 없나요(ref는 렌더링을 유발하지 않음)?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-18");
+
+  mountPlayground(
+    "answer-playground",
+    `function SearchInput() {
+  const inputRef = React.useRef(null);
+  const previousRef = React.useRef("");
+  const [text, setText] = React.useState("");
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  React.useEffect(() => {
+    previousRef.current = text;
+  }, [text]);
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <p>Previous value: "{previousRef.current}"</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <SearchInput />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

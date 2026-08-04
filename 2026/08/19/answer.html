@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for ExpensiveList / ExpensiveList 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 6 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          All three memoizations have to work together: <code>React.memo</code>
+          only skips a re-render if <i>every</i> prop is reference-equal
+          to last time. If <code>items</code> or <code>onSelect</code>
+          were freshly created on each <code>App</code> render (a new
+          array literal, a new arrow function), <code>memo</code> would
+          see "different" props and re-render anyway —
+          <code>useMemo</code>/<code>useCallback</code> are what make
+          those references actually stay stable.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          세 가지 메모이제이션이 함께 작동해야 합니다:
+          <code>React.memo</code>는 <i>모든</i> prop이 지난번과 참조상
+          동일할 때만 리렌더링을 건너뜁니다. 만약 <code>items</code>나
+          <code>onSelect</code>가 <code>App</code>이 렌더링될 때마다
+          새로 만들어진다면(새 배열 리터럴, 새 화살표 함수),
+          <code>memo</code>는 "다른" props로 보고 어차피 다시
+          렌더링합니다 — <code>useMemo</code>/<code>useCallback</code>이
+          바로 그 참조들을 실제로 안정적으로 유지시켜주는 역할입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does typing in the input leave "ExpensiveList has rendered 1 time(s)" unchanged, no matter how much you type?</li>
+          <li>Does clicking a list item still update "Selected"?</li>
+          <li>Would removing just <i>one</i> of the three memoizations (try it!) make the render count climb again?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>입력창에 아무리 타이핑해도 "ExpensiveList has rendered 1 time(s)"가 그대로인가요?</li>
+          <li>리스트 항목을 클릭하면 여전히 "Selected"가 갱신되나요?</li>
+          <li>세 메모이제이션 중 하나만 제거하면(직접 해보세요!) 렌더 횟수가 다시 올라가나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-19");
+
+  mountPlayground(
+    "answer-playground",
+    `let renderCount = 0;
+
+const ExpensiveList = React.memo(function ExpensiveList({ items, onSelect }) {
+  renderCount++;
+  return (
+    <div>
+      <p>ExpensiveList has rendered {renderCount} time(s)</p>
+      <ul>
+        {items.map((item) => (
+          <li key={item} onClick={() => onSelect(item)}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+});
+
+function App() {
+  const [text, setText] = React.useState("");
+  const [selected, setSelected] = React.useState(null);
+
+  const items = React.useMemo(() => ["Apple", "Banana", "Cherry"], []);
+  const handleSelect = React.useCallback((item) => setSelected(item), []);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Type here (re-renders App)"
+      />
+      <p>Selected: {selected ?? "none"}</p>
+      <ExpensiveList items={items} onSelect={handleSelect} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · useReducer — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — 중급 (Intermediate)</h1>
+    <div class="subtitle">useReducer</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Intermediate / 중급 &rsaquo; Day 4</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Manage state with multiple related transitions using <code>useReducer</code> instead of several separate <code>useState</code> calls.</p>
+    <p><b>목표 (30~40분):</b> 여러 개의 <code>useState</code> 대신 <code>useReducer</code>로 서로 연관된 여러 state 전이를 관리합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. When useState starts to strain</b><br />
+        A shopping cart needs to add items, remove items, and clear
+        everything. You could juggle this with <code>useState</code> plus
+        a handful of update functions, but the logic for "how state
+        changes" ends up scattered across the component.</p>
+        <p><b>2. The reducer pattern</b><br />
+        <code>const [state, dispatch] = useReducer(reducer, initialState)</code>.
+        A <b>reducer</b> is a function <code>(state, action) =&gt; newState</code>
+        — it never mutates <code>state</code>, only returns a new value.
+        Instead of calling setters directly, components call
+        <code>dispatch({ type: "ADD_ITEM", item })</code>, and the
+        reducer decides what the next state looks like.</p>
+        <p><b>3. Why this helps</b><br />
+        All the state-transition logic lives in one place (the reducer),
+        described as a list of named actions — easier to read, test, and
+        reason about than update logic spread across many handlers.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. useState가 버거워지는 시점</b><br />
+        장바구니는 항목 추가, 항목 삭제, 전체 비우기가 필요합니다.
+        <code>useState</code>와 몇 개의 갱신 함수로 이걸 처리할 수도
+        있지만, "state가 어떻게 바뀌는지"에 대한 로직이 컴포넌트
+        여기저기 흩어지게 됩니다.</p>
+        <p><b>2. 리듀서 패턴</b><br />
+        <code>const [state, dispatch] = useReducer(reducer, initialState)</code>.
+        <b>리듀서</b>는 <code>(state, action) =&gt; newState</code> 형태의
+        함수입니다 — <code>state</code>를 절대 변경하지 않고, 새 값만
+        반환합니다. setter를 직접 호출하는 대신, 컴포넌트는
+        <code>dispatch({ type: "ADD_ITEM", item })</code>를 호출하고,
+        다음 state가 어떤 모습일지는 리듀서가 결정합니다.</p>
+        <p><b>3. 왜 도움이 되는가</b><br />
+        모든 state 전이 로직이 한 곳(리듀서)에, 이름 붙은 액션들의
+        목록으로 정리됩니다 — 여러 핸들러에 흩어진 갱신 로직보다 읽고,
+        테스트하고, 추론하기 쉽습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A cart reducer handling ADD_ITEM, REMOVE_ITEM, and CLEAR actions.</p>
+    <p>ADD_ITEM, REMOVE_ITEM, CLEAR 액션을 처리하는 장바구니 리듀서입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to complete the cart reducer, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 장바구니 리듀서를 직접 완성해보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own reducer / 직접 리듀서 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../14/index.html">&larr; Day 3 / 3일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-17");
+
+  mountPlayground(
+    "example-playground",
+    `function cartReducer(state, action) {
+  switch (action.type) {
+    case "ADD_ITEM":
+      return [...state, action.item];
+    case "REMOVE_ITEM":
+      return state.filter((item) => item.id !== action.id);
+    case "CLEAR":
+      return [];
+    default:
+      return state;
+  }
+}
+
+function App() {
+  const [cart, dispatch] = React.useReducer(cartReducer, []);
+
+  function addItem() {
+    dispatch({ type: "ADD_ITEM", item: { id: Date.now(), name: "Widget" } });
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Cart ({cart.length})</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item.id}>
+            {item.name}{" "}
+            <button onClick={() => dispatch({ type: "REMOVE_ITEM", id: item.id })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={addItem}>Add item</button>{" "}
+      <button onClick={() => dispatch({ type: "CLEAR" })}>Clear cart</button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

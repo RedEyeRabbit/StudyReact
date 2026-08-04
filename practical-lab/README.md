@@ -37,6 +37,22 @@ Vite가 출력하는 주소(기본 `http://localhost:5173`)를 브라우저에�
   answer. 앱 화면에서 **Day** 드롭다운으로 실습을 고르고, **Practice /
   Solution** 버튼으로 정답과 비교할 수 있습니다.
 
+## A note on `npm audit` / `npm audit` 관련 참고사항
+
+`react-router-dom` (used by Intermediate Day 7) will show one high-severity
+advisory in `npm audit` — it's specific to **RSC (React Server Components)
+mode**, a server-rendering feature this project doesn't use anywhere (this
+is a plain client-side Vite SPA, and the Day 7 exercise only uses
+`MemoryRouter` in memory, no server). It's kept at the latest version
+since that's otherwise the most current and best-audited release line.
+
+`react-router-dom`(중급 7일차에서 사용)은 `npm audit`에서 심각도 high인
+항목 하나를 보여주는데, 이는 이 프로젝트가 전혀 사용하지 않는 **RSC
+(React Server Components) 모드**에만 해당하는 서버 렌더링 기능입니다
+(이 프로젝트는 순수 클라이언트 사이드 Vite SPA이고, 7일차 실습도 서버
+없이 메모리 내 `MemoryRouter`만 사용합니다). 그 외에는 가장 최신이고
+감사가 잘 된 릴리스 라인이라 최신 버전을 유지합니다.
+
 ## Adding a new day / 새 일자 추가하기
 
 1. Create `src/days/<day-id>/Practice.jsx` (starter code with `// TODO`

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 10 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 10 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the User Search app / 사용자 검색 앱 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 10 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>useUserSearch</code> is Day 1's async-effect pattern
+          again, just fed a debounced query instead of a raw one, and
+          packaged as a hook (Day 2) so <code>UserSearchApp</code> gets
+          <code>{ user, loading }</code> in one line. The
+          <code>content</code> if/else chain is ordinary conditional
+          rendering — four mutually exclusive states, checked in an order
+          that makes sense (empty query first, then loading, then found
+          vs. not found).
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>useUserSearch</code>는 1일차의 비동기 effect 패턴을
+          그대로 다시 쓴 것이며, 다만 원본 대신 디바운스된 query를
+          받고, (2일차처럼) 훅으로 포장되어
+          <code>UserSearchApp</code>이 <code>{ user, loading }</code>을
+          한 줄로 얻습니다. <code>content</code>의 if/else 체인은 평범한
+          조건부 렌더링입니다 — 서로 배타적인 네 가지 상태를, 말이 되는
+          순서로(빈 query 먼저, 그다음 로딩, 그다음 찾음/못찾음) 확인합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎉 Intermediate track complete / 중급 트랙 완료</h3>
+    <p>
+      You've covered async effects, custom hooks, Context, useReducer,
+      refs, performance memoization, client-side routing (both DIY and
+      real), error boundaries, and debouncing — and combined most of it
+      into one small app. Advanced/고급 picks up from here.
+    </p>
+    <p>
+      비동기 effect, 커스텀 훅, Context, useReducer, ref, 성능
+      메모이제이션, 클라이언트 라우팅(직접 만든 것과 진짜 둘 다), 에러
+      바운더리, 디바운싱까지 모두 다뤘고, 대부분을 하나의 작은 앱으로
+      합쳤습니다. 고급은 여기서부터 이어집니다.
+    </p>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-25");
+
+  mountPlayground(
+    "answer-playground",
+    `const MOCK_USERS = {
+  octocat: { name: "The Octocat", bio: "GitHub mascot", avatar: "🐙" },
+  torvalds: { name: "Linus Torvalds", bio: "Creator of Linux & Git", avatar: "🐧" },
+  gaearon: { name: "Dan Abramov", bio: "Co-creator of Redux", avatar: "⚛️" },
+};
+
+function searchUser(username) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(MOCK_USERS[username.toLowerCase()] || null);
+    }, 500);
+  });
+}
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = React.useState(value);
+  React.useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+
+function useUserSearch(query) {
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const debouncedQuery = useDebounce(query, 400);
+
+  React.useEffect(() => {
+    let ignore = false;
+
+    async function run() {
+      if (!debouncedQuery) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      const result = await searchUser(debouncedQuery);
+      if (!ignore) {
+        setUser(result);
+        setLoading(false);
+      }
+    }
+
+    run();
+    return () => {
+      ignore = true;
+    };
+  }, [debouncedQuery]);
+
+  return { user, loading };
+}
+
+function UserSearchApp() {
+  const inputRef = React.useRef(null);
+  const [query, setQuery] = React.useState("");
+  const { user, loading } = useUserSearch(query);
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  let content;
+  if (!query) {
+    content = <p>Type a username (try octocat, torvalds, gaearon)</p>;
+  } else if (loading) {
+    content = <p>Searching...</p>;
+  } else if (!user) {
+    content = <p>No user found.</p>;
+  } else {
+    content = (
+      <div>
+        <p style={{ fontSize: 32 }}>{user.avatar}</p>
+        <p><b>{user.name}</b></p>
+        <p>{user.bio}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <input
+        ref={inputRef}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="GitHub username..."
+      />
+      {content}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <UserSearchApp />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

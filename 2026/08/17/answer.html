@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for cartReducer / cartReducer 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 4 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          Every branch returns a brand-new array instead of touching
+          <code>state</code> — <code>[...state, action.item]</code> for
+          adding, <code>.filter()</code> for removing, and a fresh
+          <code>[]</code> for clearing. The <code>default</code> case
+          returning <code>state</code> unchanged is a safety net for any
+          action type the reducer doesn't recognize.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          모든 분기가 <code>state</code>를 건드리지 않고 완전히 새로운
+          배열을 반환합니다 — 추가는 <code>[...state, action.item]</code>,
+          제거는 <code>.filter()</code>, 비우기는 새로운
+          <code>[]</code>. <code>default</code> 케이스가
+          <code>state</code>를 그대로 반환하는 것은 리듀서가 모르는
+          액션 타입에 대한 안전장치입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does the cart count update correctly after Add / Remove / Clear?</li>
+          <li>Does removing one item leave the others untouched?</li>
+          <li>Does every branch return a <i>new</i> array, never mutate the old one?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>Add / Remove / Clear 이후 장바구니 개수가 올바르게 갱신되나요?</li>
+          <li>항목 하나를 제거해도 나머지는 그대로 남아있나요?</li>
+          <li>모든 분기가 기존 배열을 변경하지 않고 <i>새</i> 배열을 반환하나요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-17");
+
+  mountPlayground(
+    "answer-playground",
+    `function cartReducer(state, action) {
+  switch (action.type) {
+    case "ADD_ITEM":
+      return [...state, action.item];
+    case "REMOVE_ITEM":
+      return state.filter((item) => item.id !== action.id);
+    case "CLEAR":
+      return [];
+    default:
+      return state;
+  }
+}
+
+function App() {
+  const [cart, dispatch] = React.useReducer(cartReducer, []);
+
+  function addItem() {
+    dispatch({ type: "ADD_ITEM", item: { id: Date.now(), name: "Widget" } });
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <h2>Cart ({cart.length})</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item.id}>
+            {item.name}{" "}
+            <button onClick={() => dispatch({ type: "REMOVE_ITEM", id: item.id })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={addItem}>Add item</button>{" "}
+      <button onClick={() => dispatch({ type: "CLEAR" })}>Clear cart</button>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>
