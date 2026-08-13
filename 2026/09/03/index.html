@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Testing with React Testing Library — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — 고급 (Advanced)</h1>
+    <div class="subtitle">Testing with React Testing Library / React Testing Library로 테스트하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 7</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Write an automated test that interacts with a component the way a user would, using React Testing Library (RTL).</p>
+    <p><b>목표 (30~40분):</b> React Testing Library(RTL)로, 사용자가 하는 것과 같은 방식으로 컴포넌트와 상호작용하는 자동화된 테스트를 작성합니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. RTL's philosophy</b><br />
+        "The more your tests resemble the way your software is used, the
+        more confidence they can give you." RTL doesn't let you reach
+        into a component's internal state or call its functions directly
+        — you render it, then query and interact with it the way a real
+        user (or screen reader) would.</p>
+        <p><b>2. The core API</b><br />
+        <code>render(&lt;Component /&gt;)</code> mounts it into a virtual
+        DOM. <code>screen.getByRole("button", { name: "..." })</code>
+        finds elements the same way assistive tech does — by accessible
+        role and name, which is exactly what Day 6's ARIA work was
+        building toward. <code>fireEvent.click(el)</code> simulates a
+        real interaction. <code>expect(...).toBeInTheDocument()</code>
+        asserts on the result.</p>
+        <p><b>3. This is a real, runnable test</b><br />
+        Unlike earlier "browser vs. Node lab" days, there's no
+        browser-CDN version of this — test runners aren't meant to run
+        inside a rendered page. The code below is real; run it for real
+        in <a href="../../../practical-lab/README.md">Practical Lab</a>
+        with <code>npm test</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. RTL의 철학</b><br />
+        "테스트가 소프트웨어가 실제로 사용되는 방식과 닮을수록, 더 많은
+        확신을 줄 수 있다." RTL은 컴포넌트의 내부 state에 직접 접근하거나
+        함수를 직접 호출하게 해주지 않습니다 — 렌더링한 다음, 실제
+        사용자(또는 스크린 리더)처럼 조회하고 상호작용합니다.</p>
+        <p><b>2. 핵심 API</b><br />
+        <code>render(&lt;Component /&gt;)</code>는 가상 DOM에
+        마운트합니다. <code>screen.getByRole("button", { name: "..." })</code>는
+        보조 기술과 똑같은 방식 — 접근성 role과 name — 으로 엘리먼트를
+        찾는데, 이것이 정확히 6일차 ARIA 작업이 향하던 지점입니다.
+        <code>fireEvent.click(el)</code>은 실제 상호작용을 흉내냅니다.
+        <code>expect(...).toBeInTheDocument()</code>가 결과를
+        검증합니다.</p>
+        <p><b>3. 이건 진짜, 실행 가능한 테스트입니다</b><br />
+        앞선 "브라우저 vs. Node Lab" 형식의 날들과 달리, 이건 브라우저
+        CDN 버전이 없습니다 — 테스트 러너는 렌더링된 페이지 안에서
+        돌아가도록 만들어진 게 아니니까요. 아래 코드는 진짜입니다 —
+        <a href="../../../practical-lab/README.md">Practical Lab</a>에서
+        <code>npm test</code>로 실제로 실행해보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>The component under test — click it to see the behavior the test below verifies.</p>
+    <p>테스트 대상 컴포넌트입니다 — 클릭해서 아래 테스트가 검증하는 동작을 직접 확인해보세요.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>The real test / 실제 테스트 코드</h3>
+    <p>This runs for real via <code>npm test</code> in Practical Lab (id <code>2026-09-03</code>) — not in this browser page.</p>
+    <p>이 코드는 Practical Lab(id <code>2026-09-03</code>)에서 <code>npm test</code>로 실제 실행됩니다 — 이 브라우저 페이지 안에서가 아니라.</p>
+    <pre><code>import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test } from "vitest";
+import LoginButton from "./LoginButton.jsx";
+
+test("toggles between Log in and Log out when clicked", () => {
+  render(&lt;LoginButton /&gt;);
+
+  expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button"));
+
+  expect(screen.getByRole("button", { name: "Log out" })).toBeInTheDocument();
+});</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file, then open Practical Lab to complete and run a real (currently failing) test.</p>
+    <p>이제 실습 파일로 이동한 다음, Practical Lab을 열어 실제로 (지금은 실패하는) 테스트를 완성하고 실행해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>See the failing test / 실패하는 테스트 보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Run npm test for real / 진짜 npm test 실행</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../02/index.html">&larr; Day 6 / 6일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-03");
+
+  mountPlayground(
+    "example-playground",
+    `function LoginButton() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  return (
+    <button onClick={() => setLoggedIn(!loggedIn)}>
+      {loggedIn ? "Log out" : "Log in"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LoginButton />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

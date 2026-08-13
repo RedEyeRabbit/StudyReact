@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Compound Components — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — 고급 (Advanced)</h1>
+    <div class="subtitle">Compound Components / 컴파운드 컴포넌트</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 4</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Build a set of components that implicitly share state through Context, letting the caller freely arrange the markup — like <code>&lt;select&gt;</code>/<code>&lt;option&gt;</code>, but for your own components.</p>
+    <p><b>목표 (30~40분):</b> Context를 통해 암묵적으로 state를 공유하는 컴포넌트 묶음을 만들어서, 호출하는 쪽이 마크업을 자유롭게 배치할 수 있게 합니다 — <code>&lt;select&gt;</code>/<code>&lt;option&gt;</code>처럼, 여러분 자신의 컴포넌트로.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. The idea</b><br />
+        Instead of one big <code>&lt;Tabs items={[...]} /&gt;</code>
+        component configured entirely through props, expose several small
+        components — <code>Tabs.List</code>, <code>Tabs.Tab</code>,
+        <code>Tabs.Panel</code> — that share state behind the scenes and
+        let the caller compose them like regular JSX.</p>
+        <p><b>2. Sharing state without prop drilling</b><br />
+        The parent <code>Tabs</code> component holds the active-tab state
+        and provides it via Context (Intermediate Day 3). Each child reads
+        or updates that Context — no one manually passes
+        <code>activeIndex</code> down through props.</p>
+        <p><b>3. Attaching sub-components</b><br />
+        <code>Tabs.List = TabList</code> is just a property assignment —
+        it lets consumers write <code>&lt;Tabs.List&gt;</code> instead of
+        importing four separate names, which visually groups "these
+        belong together."</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 아이디어</b><br />
+        모든 걸 props로 설정하는 하나의 거대한
+        <code>&lt;Tabs items={[...]} /&gt;</code> 컴포넌트 대신,
+        <code>Tabs.List</code>, <code>Tabs.Tab</code>,
+        <code>Tabs.Panel</code>처럼 여러 개의 작은 컴포넌트를 노출해서,
+        내부적으로 state를 공유하며 호출하는 쪽이 평범한 JSX처럼 조합할 수
+        있게 하세요.</p>
+        <p><b>2. 프롭 드릴링 없이 state 공유하기</b><br />
+        부모 <code>Tabs</code> 컴포넌트가 활성 탭 state를 갖고 있고,
+        Context(중급 3일차)로 제공합니다. 각 자식은 그 Context를 읽거나
+        갱신할 뿐, 아무도 <code>activeIndex</code>를 props로 손수 내려주지
+        않습니다.</p>
+        <p><b>3. 서브 컴포넌트 붙이기</b><br />
+        <code>Tabs.List = TabList</code>는 그냥 프로퍼티 할당입니다 —
+        덕분에 네 개의 별도 이름을 import하는 대신
+        <code>&lt;Tabs.List&gt;</code>라고 쓸 수 있어서, "이들이 한
+        묶음"임을 시각적으로 보여줍니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>A <code>Tabs</code> compound component — click a tab to switch panels.</p>
+    <p><code>Tabs</code> 컴파운드 컴포넌트입니다 — 탭을 클릭해서 패널을 전환해보세요.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to finish the Tab and Panel logic, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 Tab과 Panel 로직을 완성하고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Finish the tabs / 탭 완성하기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../28/index.html">&larr; Day 3 / 3일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-31");
+
+  mountPlayground(
+    "example-playground",
+    `const TabsContext = React.createContext(null);
+
+function Tabs({ children, defaultIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = React.useState(defaultIndex);
+  return (
+    <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+      <div>{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+function TabList({ children }) {
+  return <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>{children}</div>;
+}
+
+function Tab({ index, children }) {
+  const { activeIndex, setActiveIndex } = React.useContext(TabsContext);
+  const isActive = activeIndex === index;
+  return (
+    <button
+      onClick={() => setActiveIndex(index)}
+      style={{ fontWeight: isActive ? "bold" : "normal" }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function TabPanel({ index, children }) {
+  const { activeIndex } = React.useContext(TabsContext);
+  if (activeIndex !== index) return null;
+  return <div>{children}</div>;
+}
+
+Tabs.List = TabList;
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Tabs defaultIndex={0}>
+        <Tabs.List>
+          <Tabs.Tab index={0}>Home</Tabs.Tab>
+          <Tabs.Tab index={1}>Profile</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel index={0}>🏠 Home content</Tabs.Panel>
+        <Tabs.Panel index={1}>👤 Profile content</Tabs.Panel>
+      </Tabs>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

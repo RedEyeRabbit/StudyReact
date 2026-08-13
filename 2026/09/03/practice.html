@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — Practice / 실습</h1>
+    <div class="subtitle">Fix a failing RTL test / 실패하는 RTL 테스트 고치기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 7 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>This exercise lives entirely in <a href="../../../practical-lab/README.md">Practical Lab</a>, since it needs a real test runner:</p>
+        <ol>
+          <li><code>cd practical-lab &amp;&amp; npm install &amp;&amp; npm test</code> — you should see <code>LoginButton.practice.test.jsx</code> fail.</li>
+          <li>Open <code>src/days/2026-09-03/LoginButton.practice.test.jsx</code> and complete the three <code>{/* TODO */}</code> spots.</li>
+          <li>Run <code>npm test</code> again — it should pass.</li>
+        </ol>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p>이 실습은 진짜 테스트 러너가 필요하므로 전부
+        <a href="../../../practical-lab/README.md">Practical Lab</a>에서
+        진행합니다:</p>
+        <ol>
+          <li><code>cd practical-lab &amp;&amp; npm install &amp;&amp; npm test</code> — <code>LoginButton.practice.test.jsx</code>가 실패하는 걸 보게 될 겁니다.</li>
+          <li><code>src/days/2026-09-03/LoginButton.practice.test.jsx</code>를 열어서 세 군데의 <code>{/* TODO */}</code>를 완성하세요.</li>
+          <li><code>npm test</code>를 다시 실행하세요 — 이제 통과해야 합니다.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The starter test / 시작 코드</h3>
+    <p>This is what's already in <code>LoginButton.practice.test.jsx</code> — it fails on purpose until you fill in the TODOs.</p>
+    <p><code>LoginButton.practice.test.jsx</code>에 이미 들어있는 코드입니다 — TODO를 채우기 전까지는 일부러 실패합니다.</p>
+    <pre><code>import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test } from "vitest";
+import LoginButton from "./LoginButton.jsx";
+
+test("toggles between Log in and Log out when clicked", () => {
+  render(&lt;LoginButton /&gt;);
+
+  // TODO 1: fix this so it matches the button's real initial text
+  screen.getByRole("button", { name: "TODO: fix this text" });
+
+  // TODO 2: click the button (hint: fireEvent.click(...))
+
+  // TODO 3: assert the button's accessible name is now "Log out"
+  // (hint: expect(screen.getByRole(...)).toBeInTheDocument())
+});</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>Live reference / 실시간 참고 자료</h3>
+    <p>The component being tested — play with it here to build intuition before editing the test.</p>
+    <p>테스트 대상 컴포넌트입니다 — 테스트를 수정하기 전에 여기서 직접 눌러보며 감을 잡아보세요.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>RTL's error messages are unusually helpful — when <code>getByRole</code> can't find a match, it prints every role/name it <i>did</i> find, which is often enough to spot the fix.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>RTL의 에러 메시지는 유난히 친절합니다 — <code>getByRole</code>이 일치하는 걸 못 찾으면, 실제로 찾은 모든 role/name을 출력해주는데, 그것만으로도 뭘 고쳐야 할지 알 수 있는 경우가 많습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Run npm test for real / 진짜 npm test 실행</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-03");
+
+  mountPlayground(
+    "example-playground",
+    `function LoginButton() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  return (
+    <button onClick={() => setLoggedIn(!loggedIn)}>
+      {loggedIn ? "Log out" : "Log in"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LoginButton />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

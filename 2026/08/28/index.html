@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 3 · Render Props — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 3 — 고급 (Advanced)</h1>
+    <div class="subtitle">Render Props / 렌더 프롭</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 3</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Share stateful <i>behavior</i> between components while letting each caller decide what to render, using the render props pattern.</p>
+    <p><b>목표 (30~40분):</b> 상태를 가진 <i>동작(behavior)</i>은 컴포넌트끼리 공유하면서, 실제로 무엇을 렌더링할지는 호출하는 쪽이 정하도록 하는 render props 패턴을 익힙니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. The problem</b><br />
+        Say several different UIs all need "track the mouse position" or
+        "track whether the user is hovering." The <i>logic</i> is
+        identical every time, but what to <i>render</i> with that data is
+        different everywhere.</p>
+        <p><b>2. The pattern</b><br />
+        Instead of hard-coding what a component renders, give it a prop
+        that <i>is a function</i> — the component calls that function with
+        its internal state, and renders whatever it returns. The
+        component owns the "how to track," the caller owns the "what to
+        show."</p>
+        <p><b>3. Naming it</b><br />
+        This prop is often literally called <code>render</code>, but any
+        name works — even <code>children</code> (called as
+        <code>props.children(state)</code>, with the function passed
+        between the JSX tags) is a common variant.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 문제 상황</b><br />
+        서로 다른 여러 UI가 모두 "마우스 위치 추적"이나 "사용자가 hover
+        중인지 추적"이 필요하다고 해봅시다. <i>로직</i>은 매번
+        동일하지만, 그 데이터로 <i>무엇을 렌더링</i>할지는 매번
+        다릅니다.</p>
+        <p><b>2. 패턴</b><br />
+        컴포넌트가 무엇을 렌더링할지 하드코딩하는 대신, <i>함수인</i>
+        prop을 넘겨주세요 — 컴포넌트는 자신의 내부 state로 그 함수를
+        호출하고, 반환된 것을 렌더링합니다. "어떻게 추적할지"는
+        컴포넌트가, "무엇을 보여줄지"는 호출하는 쪽이 소유합니다.</p>
+        <p><b>3. 이름 붙이기</b><br />
+        이 prop은 흔히 문자 그대로 <code>render</code>라고 부르지만,
+        어떤 이름이든 상관없습니다 — <code>children</code>(JSX 태그
+        사이에 함수를 넣어 <code>props.children(state)</code>로 호출)도
+        흔한 변형입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p><code>MouseTracker</code> owns the mouse-tracking logic; <code>App</code> decides what to show with the position.</p>
+    <p><code>MouseTracker</code>가 마우스 추적 로직을 소유하고, <code>App</code>이 그 위치로 무엇을 보여줄지 결정합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own render-props component, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 render props 컴포넌트를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../27/index.html">&larr; Day 2 / 2일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-28");
+
+  mountPlayground(
+    "example-playground",
+    `function MouseTracker({ render }) {
+  const [pos, setPos] = React.useState({ x: 0, y: 0 });
+
+  function handleMouseMove(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setPos({ x: Math.round(e.clientX - rect.left), y: Math.round(e.clientY - rect.top) });
+  }
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      style={{ height: 150, border: "1px dashed #999" }}
+    >
+      {render(pos)}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <MouseTracker render={(pos) => <p>Mouse at ({pos.x}, {pos.y})</p>} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

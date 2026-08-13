@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Global State Management — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 1 — 고급 (Advanced)</h1>
+    <div class="subtitle">Global State Management / 전역 상태 관리</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 1</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Share state between components that aren't parent/child at all, using a tiny hand-built store and <code>useSyncExternalStore</code> — the same primitive libraries like Redux and Zustand build on.</p>
+    <p><b>목표 (30~40분):</b> 부모/자식 관계가 전혀 아닌 컴포넌트끼리 상태를 공유합니다. 직접 만든 작은 스토어와 <code>useSyncExternalStore</code>를 사용하는데, Redux나 Zustand 같은 라이브러리도 바로 이 원리를 기반으로 만들어졌습니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Beyond Context</b><br />
+        Intermediate Day 3's Context still requires a <code>&lt;Provider&gt;</code>
+        somewhere in the tree above every consumer. A "global store" lives
+        completely outside React — any component, anywhere, can read or
+        write it directly.</p>
+        <p><b>2. The store: three functions</b><br />
+        <code>getState()</code> returns the current value.
+        <code>setState(updater)</code> changes it and notifies everyone
+        listening. <code>subscribe(listener)</code> registers a callback to
+        run on every change, and returns an unsubscribe function.</p>
+        <p><b>3. useSyncExternalStore</b><br />
+        This built-in hook is React's official way to subscribe a
+        component to something outside React's own state — pass it your
+        store's <code>subscribe</code> and <code>getState</code>, and it
+        re-renders the component whenever the store notifies a change.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. Context를 넘어서</b><br />
+        중급 3일차의 Context는 여전히 모든 소비자보다 위쪽 트리 어딘가에
+        <code>&lt;Provider&gt;</code>가 있어야 합니다. "전역 스토어"는
+        React 바깥에 완전히 독립적으로 존재합니다 — 어디에 있는
+        컴포넌트든 직접 읽고 쓸 수 있습니다.</p>
+        <p><b>2. 스토어: 세 함수</b><br />
+        <code>getState()</code>는 현재 값을 반환합니다.
+        <code>setState(updater)</code>는 값을 바꾸고 구독 중인 모두에게
+        알립니다. <code>subscribe(listener)</code>는 값이 바뀔 때마다
+        실행할 콜백을 등록하고, 구독 해제 함수를 반환합니다.</p>
+        <p><b>3. useSyncExternalStore</b><br />
+        이 내장 훅은 React 자체의 state가 아닌 외부의 무언가에 컴포넌트를
+        구독시키는 공식적인 방법입니다 — 스토어의 <code>subscribe</code>와
+        <code>getState</code>를 전달하면, 스토어가 변경을 알릴 때마다
+        컴포넌트를 다시 렌더링합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p><code>CounterDisplay</code> and <code>CounterButtons</code> are unrelated siblings — no props, no Context — both driven by the same external store.</p>
+    <p><code>CounterDisplay</code>와 <code>CounterButtons</code>는 서로 아무 관계도 없는 형제입니다 — props도 Context도 없이, 같은 외부 스토어로 함께 동작합니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own store, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 스토어를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Build a store / 스토어 만들기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../../08/25/index.html">&larr; Intermediate Day 10 / 중급 10일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-26");
+
+  mountPlayground(
+    "example-playground",
+    `function createStore(initialState) {
+  let state = initialState;
+  const listeners = new Set();
+
+  return {
+    getState: () => state,
+    setState: (updater) => {
+      state = typeof updater === "function" ? updater(state) : { ...state, ...updater };
+      listeners.forEach((listener) => listener());
+    },
+    subscribe: (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+
+const counterStore = createStore({ count: 0 });
+
+function useStore(store) {
+  return React.useSyncExternalStore(store.subscribe, store.getState);
+}
+
+function CounterDisplay() {
+  const state = useStore(counterStore);
+  return <p>Count: {state.count}</p>;
+}
+
+function CounterButtons() {
+  return (
+    <div>
+      <button onClick={() => counterStore.setState((s) => ({ count: s.count + 1 }))}>
+        +1
+      </button>{" "}
+      <button onClick={() => counterStore.setState({ count: 0 })}>Reset</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <CounterDisplay />
+      <CounterButtons />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

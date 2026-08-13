@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for Tabs / Tabs 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 4 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>Tab</code> and <code>TabPanel</code> never receive
+          <code>activeIndex</code> as a prop — they each independently
+          call <code>useContext(TabsContext)</code> and read whatever
+          <code>Tabs</code> is currently providing. Clicking any
+          <code>Tab</code> updates the shared context value, which
+          re-renders every <code>Tab</code> (to update bolding) and every
+          <code>TabPanel</code> (to show/hide) — all without a single prop
+          passed between siblings.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>Tab</code>과 <code>TabPanel</code>은 <code>activeIndex</code>를
+          prop으로 전혀 받지 않습니다 — 각자 독립적으로
+          <code>useContext(TabsContext)</code>를 호출해서
+          <code>Tabs</code>가 현재 제공하는 값을 읽습니다. 아무
+          <code>Tab</code>이나 클릭하면 공유된 context 값이 갱신되고, 이는
+          모든 <code>Tab</code>(굵기 갱신)과 모든
+          <code>TabPanel</code>(표시/숨김)을 다시 렌더링합니다 — 형제
+          사이에 prop이 하나도 오가지 않고서요.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does clicking a tab show only that tab's panel, hiding the other?</li>
+          <li>Does the active tab's label appear bold?</li>
+          <li>Could you reorder <code>Tabs.List</code> and the panels in the JSX and still have it work?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>탭을 클릭하면 그 탭의 패널만 보이고 나머지는 숨겨지나요?</li>
+          <li>활성 탭의 라벨이 굵게 표시되나요?</li>
+          <li>JSX에서 <code>Tabs.List</code>와 패널들의 순서를 바꿔도 여전히 동작할까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-31");
+
+  mountPlayground(
+    "answer-playground",
+    `const TabsContext = React.createContext(null);
+
+function Tabs({ children, defaultIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = React.useState(defaultIndex);
+  return (
+    <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+      <div>{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+function TabList({ children }) {
+  return <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>{children}</div>;
+}
+
+function Tab({ index, children }) {
+  const { activeIndex, setActiveIndex } = React.useContext(TabsContext);
+  const isActive = activeIndex === index;
+  return (
+    <button
+      onClick={() => setActiveIndex(index)}
+      style={{ fontWeight: isActive ? "bold" : "normal" }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function TabPanel({ index, children }) {
+  const { activeIndex } = React.useContext(TabsContext);
+  if (activeIndex !== index) return null;
+  return <div>{children}</div>;
+}
+
+Tabs.List = TabList;
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Tabs defaultIndex={0}>
+        <Tabs.List>
+          <Tabs.Tab index={0}>Home</Tabs.Tab>
+          <Tabs.Tab index={1}>Profile</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel index={0}>🏠 Home content</Tabs.Panel>
+        <Tabs.Panel index={1}>👤 Profile content</Tabs.Panel>
+      </Tabs>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

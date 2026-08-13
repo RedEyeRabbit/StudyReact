@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — Practice / 실습</h1>
+    <div class="subtitle">Wire up React.lazy + Suspense / React.lazy + Suspense 연결하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 2 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <ol>
+          <li>Create <code>LazyChart</code> with <code>React.lazy(() =&gt; fakeImport(HeavyChart, 1000))</code>.</li>
+          <li>When <code>show</code> is true, render <code>&lt;LazyChart /&gt;</code> wrapped in <code>&lt;React.Suspense&gt;</code> with a fallback of <code>&lt;p&gt;Loading chart...&lt;/p&gt;</code>.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <ol>
+          <li><code>React.lazy(() =&gt; fakeImport(HeavyChart, 1000))</code>로 <code>LazyChart</code>를 만드세요.</li>
+          <li><code>show</code>가 true일 때, <code>&lt;LazyChart /&gt;</code>를 <code>&lt;p&gt;Loading chart...&lt;/p&gt;</code> fallback을 가진 <code>&lt;React.Suspense&gt;</code>로 감싸서 렌더링하세요.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want to see <i>real</i> code splitting (a genuinely separate
+      file/chunk) instead of a faked delay? This exercise is also
+      registered in <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-27</code>).
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 흉내낸 지연이 아니라 <i>진짜</i> 코드 스플리팅(정말로 분리된
+      파일/청크)을 보고 싶다면, 이 실습은
+      <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      등록되어 있습니다 (id <code>2026-08-27</code>).
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>The fallback and the "real" component are never shown at the same time — <code>Suspense</code> handles switching between them for you once the import resolves.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>fallback과 "진짜" 컴포넌트는 동시에 보이지 않습니다 — import가 완료되면 <code>Suspense</code>가 알아서 둘 사이를 전환해줍니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real code splitting / 진짜 코드 스플리팅</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-27");
+
+  mountPlayground(
+    "practice-playground",
+    `function fakeImport(Component, delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ default: Component }), delay);
+  });
+}
+
+function HeavyChart() {
+  return <div>📊 (pretend this is a heavy chart library)</div>;
+}
+
+// TODO 1: create LazyChart with React.lazy(() => fakeImport(HeavyChart, 1000))
+
+function App() {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setShow(true)}>Load chart</button>
+      {/* TODO 2: when "show" is true, render <LazyChart /> wrapped in
+          <React.Suspense fallback={<p>Loading chart...</p>}> */}
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

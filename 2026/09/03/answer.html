@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 7 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 7 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the RTL test / RTL 테스트 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 7 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>getByRole("button", { name: "Log in" })</code> both finds
+          the element <i>and</i> asserts it exists — if no button with
+          that accessible name is on screen, RTL throws, which is exactly
+          why simply calling it (without wrapping in <code>expect</code>)
+          works as an assertion for TODO 1. <code>fireEvent.click</code>
+          simulates the real click. Querying again afterward for
+          <code>"Log out"</code> proves the state actually changed — not
+          by inspecting internal state, but by checking what a user would
+          now see.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>getByRole("button", { name: "Log in" })</code>는 엘리먼트를
+          찾음과 <i>동시에</i> 존재를 검증합니다 — 해당 접근성 이름을 가진
+          버튼이 화면에 없으면 RTL이 예외를 던지므로, TODO 1에서
+          <code>expect</code>로 감싸지 않고 그냥 호출하는 것만으로도
+          검증 역할을 합니다. <code>fireEvent.click</code>이 실제 클릭을
+          흉내냅니다. 이후 <code>"Log out"</code>을 다시 조회하는 것은
+          내부 state를 들여다보는 게 아니라, 사용자가 이제 실제로 보게
+          될 것을 확인해서 state가 정말로 바뀌었음을 증명합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The completed test / 완성된 테스트</h3>
+    <pre><code>import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test } from "vitest";
+import LoginButton from "./LoginButton.jsx";
+
+test("toggles between Log in and Log out when clicked", () => {
+  render(&lt;LoginButton /&gt;);
+
+  expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button"));
+
+  expect(screen.getByRole("button", { name: "Log out" })).toBeInTheDocument();
+});</code></pre>
+    <p>This exact file already exists and passes at <code>practical-lab/src/days/2026-09-03/LoginButton.solution.test.jsx</code> — run <code>npm test</code> to see it green.</p>
+    <p>이 코드는 이미 <code>practical-lab/src/days/2026-09-03/LoginButton.solution.test.jsx</code>에 존재하며 통과합니다 — <code>npm test</code>를 실행해서 초록색으로 통과하는 걸 확인해보세요.</p>
+  </div>
+
+  <div class="card">
+    <h3>Live reference / 실시간 참고 자료</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does <code>npm test</code> show <code>LoginButton.practice.test.jsx</code> passing now?</li>
+          <li>Does <code>LoginButton.solution.test.jsx</code> pass too?</li>
+          <li>Could you write a similar test for Beginner Day 3's <code>LikeButton</code> using the same three-step pattern (render, query+assert, click, query+assert again)?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li><code>npm test</code>에서 이제 <code>LoginButton.practice.test.jsx</code>가 통과하나요?</li>
+          <li><code>LoginButton.solution.test.jsx</code>도 통과하나요?</li>
+          <li>같은 3단계 패턴(렌더링 → 조회+검증 → 클릭 → 다시 조회+검증)으로 초급 3일차의 <code>LikeButton</code>에 대한 비슷한 테스트를 작성할 수 있을까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Run npm test for real / 진짜 npm test 실행</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-03");
+
+  mountPlayground(
+    "answer-playground",
+    `function LoginButton() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  return (
+    <button onClick={() => setLoggedIn(!loggedIn)}>
+      {loggedIn ? "Log out" : "Log in"}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <LoginButton />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

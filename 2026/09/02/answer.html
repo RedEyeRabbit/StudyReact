@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for Disclosure / Disclosure 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 6 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          Switching from <code>&lt;span onClick&gt;</code> to
+          <code>&lt;button&gt;</code> alone adds keyboard focusability
+          and Enter/Space activation for free — no JavaScript needed for
+          that part. <code>aria-expanded={open}</code> and
+          <code>aria-controls={contentId}</code> together tell a
+          screen reader "this button expands/collapses the region with
+          this id," and the content <code>&lt;div id={contentId}&gt;</code>
+          is the other half of that link.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>&lt;span onClick&gt;</code>에서 <code>&lt;button&gt;</code>으로
+          바꾸는 것만으로 키보드 포커스 가능성과 Enter/Space 활성화가
+          공짜로 따라옵니다 — 그 부분엔 JavaScript가 필요 없습니다.
+          <code>aria-expanded={open}</code>과
+          <code>aria-controls={contentId}</code>가 함께 스크린
+          리더에게 "이 버튼이 이 id를 가진 영역을 펼치고/접는다"고
+          알려주고, 콘텐츠 <code>&lt;div id={contentId}&gt;</code>가
+          그 연결의 나머지 절반입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Can you open/close the disclosure using only Tab and Enter/Space, without clicking?</li>
+          <li>Does the trigger show a visible focus outline when tabbed to (browsers give real buttons this for free)?</li>
+          <li>Would a screen reader announce "expanded" / "collapsed" as you toggle it?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>클릭 없이 Tab과 Enter/Space만으로 disclosure를 열고 닫을 수 있나요?</li>
+          <li>Tab으로 포커스를 옮기면 트리거에 눈에 보이는 포커스 아웃라인이 나타나나요(진짜 버튼은 이걸 공짜로 얻습니다)?</li>
+          <li>토글할 때 스크린 리더가 "expanded" / "collapsed"를 읽어줄까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-02");
+
+  mountPlayground(
+    "answer-playground",
+    `function Disclosure({ question, children }) {
+  const [open, setOpen] = React.useState(false);
+  const contentId = React.useId();
+
+  return (
+    <div>
+      <button aria-expanded={open} aria-controls={contentId} onClick={() => setOpen(!open)}>
+        {open ? "▾" : "▸"} {question}
+      </button>
+      {open && (
+        <div id={contentId} role="region">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Disclosure question="What is React?">
+        <p>A JavaScript library for building user interfaces.</p>
+      </Disclosure>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

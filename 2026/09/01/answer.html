@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for withLoading / withLoading 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 5 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>withLoading</code> never touches <code>UserList</code>
+          itself — it only decides, from the outside, whether
+          <code>UserList</code> gets to render at all this time.
+          <code>&lt;Component {...props} /&gt;</code> forwards
+          everything the wrapped component receives (here,
+          <code>isLoading</code> and <code>users</code>) straight through,
+          so <code>UserList</code> doesn't need to know it's being
+          wrapped at all.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>withLoading</code>은 <code>UserList</code> 자체를 전혀
+          건드리지 않습니다 — 그저 바깥에서, 이번에
+          <code>UserList</code>가 아예 렌더링될지 여부만 결정할 뿐입니다.
+          <code>&lt;Component {...props} /&gt;</code>는 감싸인
+          컴포넌트가 받는 모든 것(여기서는 <code>isLoading</code>과
+          <code>users</code>)을 그대로 전달하므로, <code>UserList</code>는
+          자신이 감싸여 있다는 사실조차 알 필요가 없습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does toggling loading switch between the spinner text and the actual list?</li>
+          <li>Does <code>UserList</code> still receive its <code>users</code> prop correctly once loading is false?</li>
+          <li>Could you reuse <code>withLoading</code> on a totally different component (say, a chart) without changing it?</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>로딩을 토글하면 스피너 텍스트와 실제 리스트 사이가 전환되나요?</li>
+          <li>로딩이 false가 되면 <code>UserList</code>가 여전히 <code>users</code> prop을 올바르게 받나요?</li>
+          <li><code>withLoading</code>을 수정하지 않고도 완전히 다른 컴포넌트(예: 차트)에 재사용할 수 있을까요?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-01");
+
+  mountPlayground(
+    "answer-playground",
+    `function withLoading(Component) {
+  return function WithLoading(props) {
+    if (props.isLoading) {
+      return <p>⏳ Loading...</p>;
+    }
+    return <Component {...props} />;
+  };
+}
+
+function UserList({ users }) {
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u}>{u}</li>
+      ))}
+    </ul>
+  );
+}
+
+const UserListWithLoading = withLoading(UserList);
+
+function App() {
+  const [loading, setLoading] = React.useState(true);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setLoading(!loading)}>Toggle loading</button>
+      <UserListWithLoading isLoading={loading} users={["Alice", "Bob"]} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

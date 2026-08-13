@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 4 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 4 — Practice / 실습</h1>
+    <div class="subtitle">Finish the Tabs compound component / Tabs 컴파운드 컴포넌트 완성하기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 4 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <ol>
+          <li>In <code>Tab</code>, read <code>activeIndex</code>/<code>setActiveIndex</code> from <code>TabsContext</code>, make the button call <code>setActiveIndex(index)</code>, and bold it when it's the active one.</li>
+          <li>In <code>TabPanel</code>, read <code>activeIndex</code> from context and render nothing unless <code>index</code> matches.</li>
+        </ol>
+        <p><code>Tabs</code> and <code>TabList</code> are already complete. Look for the <code>{/* TODO */}</code> comments.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <ol>
+          <li><code>Tab</code>에서 <code>TabsContext</code>로부터 <code>activeIndex</code>/<code>setActiveIndex</code>를 읽어와서, 버튼이 <code>setActiveIndex(index)</code>를 호출하도록 하고, 활성 탭일 때 굵게 표시하세요.</li>
+          <li><code>TabPanel</code>에서 context로부터 <code>activeIndex</code>를 읽어와서, <code>index</code>가 일치하지 않으면 아무것도 렌더링하지 마세요.</li>
+        </ol>
+        <p><code>Tabs</code>와 <code>TabList</code>는 이미 완성되어 있습니다. <code>{/* TODO */}</code> 주석을 찾아보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-31</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-31</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>Both TODOs start the same way: <code>const { ... } = React.useContext(TabsContext)</code>.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>두 TODO 모두 같은 방식으로 시작합니다: <code>const { ... } = React.useContext(TabsContext)</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-31");
+
+  mountPlayground(
+    "practice-playground",
+    `const TabsContext = React.createContext(null);
+
+function Tabs({ children, defaultIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = React.useState(defaultIndex);
+  return (
+    <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+      <div>{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+function TabList({ children }) {
+  return <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>{children}</div>;
+}
+
+function Tab({ index, children }) {
+  // TODO 1: read activeIndex/setActiveIndex from TabsContext, call
+  // setActiveIndex(index) on click, and bold this button when active
+  return <button>{children}</button>;
+}
+
+function TabPanel({ index, children }) {
+  // TODO 2: read activeIndex from TabsContext; return null unless
+  // it matches "index"
+  return <div>{children}</div>;
+}
+
+Tabs.List = TabList;
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Tabs defaultIndex={0}>
+        <Tabs.List>
+          <Tabs.Tab index={0}>Home</Tabs.Tab>
+          <Tabs.Tab index={1}>Profile</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel index={0}>🏠 Home content</Tabs.Panel>
+        <Tabs.Panel index={1}>👤 Profile content</Tabs.Panel>
+      </Tabs>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>
