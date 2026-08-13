@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — Practice / 실습</h1>
+    <div class="subtitle">Build an accessible Disclosure / 접근성을 갖춘 Disclosure 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 6 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete <code>Disclosure</code> so that:</p>
+        <ol>
+          <li>The trigger is a real <code>&lt;button&gt;</code> (not a clickable <code>&lt;div&gt;</code>) with <code>aria-expanded</code> reflecting <code>open</code>, and <code>aria-controls</code> pointing at the content's id.</li>
+          <li>The content <code>&lt;div&gt;</code> has that same <code>id</code> (from <code>React.useId()</code>) and only renders when <code>open</code> is true.</li>
+        </ol>
+        <p>Look for the <code>{/* TODO */}</code> comments in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>Disclosure</code>를 완성해서:</p>
+        <ol>
+          <li>트리거가 진짜 <code>&lt;button&gt;</code>(클릭 가능한 <code>&lt;div&gt;</code>가 아니라)이고, <code>aria-expanded</code>가 <code>open</code>을 반영하고, <code>aria-controls</code>가 콘텐츠의 id를 가리키도록.</li>
+          <li>콘텐츠 <code>&lt;div&gt;</code>가 (<code>React.useId()</code>로 만든) 같은 <code>id</code>를 가지고, <code>open</code>이 true일 때만 렌더링되도록.</li>
+        </ol>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-09-02</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-09-02</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p>Try tabbing to the button with your keyboard instead of clicking — a real <code>&lt;button&gt;</code> should already respond to Enter/Space with no extra code from you.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p>클릭 대신 키보드로 버튼에 Tab을 이용해 포커스를 옮겨보세요 — 진짜 <code>&lt;button&gt;</code>이라면 별도 코드 없이도 Enter/Space에 이미 반응해야 합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-02");
+
+  mountPlayground(
+    "practice-playground",
+    `function Disclosure({ question, children }) {
+  const [open, setOpen] = React.useState(false);
+  const contentId = React.useId();
+
+  return (
+    <div>
+      {/* TODO 1: make this a <button> with aria-expanded={open},
+          aria-controls={contentId}, and onClick toggling "open" */}
+      <span onClick={() => setOpen(!open)} style={{ cursor: "pointer" }}>
+        {open ? "▾" : "▸"} {question}
+      </span>
+      {/* TODO 2: when "open" is true, render a <div id={contentId}>
+          wrapping "children" */}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Disclosure question="What is React?">
+        <p>A JavaScript library for building user interfaces.</p>
+      </Disclosure>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

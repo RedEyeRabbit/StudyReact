@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Code Splitting &amp; Lazy Loading — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — 고급 (Advanced)</h1>
+    <div class="subtitle">Code Splitting &amp; Lazy Loading / 코드 스플리팅과 지연 로딩</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 2</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Load a component's code only when it's actually needed, using <code>React.lazy</code> and <code>&lt;Suspense&gt;</code>.</p>
+    <p><b>목표 (30~40분):</b> <code>React.lazy</code>와 <code>&lt;Suspense&gt;</code>로 컴포넌트 코드를 실제로 필요할 때만 불러옵니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Why split code at all</b><br />
+        Every component you import ends up in the JavaScript bundle the
+        browser has to download before your app can run. A rarely-used,
+        heavy component (a chart library, an admin panel) shouldn't slow
+        down the initial load for users who may never see it.</p>
+        <p><b>2. React.lazy</b><br />
+        <code>const LazyChart = React.lazy(() =&gt; import("./Chart.jsx"))</code>
+        wraps a dynamic <code>import()</code> — the module is only
+        fetched the first time <code>LazyChart</code> actually renders,
+        not when the file that defines it loads.</p>
+        <p><b>3. Suspense</b><br />
+        While the lazy component's code is being fetched, React needs
+        something to show — wrap it in
+        <code>&lt;Suspense fallback={<Spinner />}&gt;</code>. The
+        fallback shows until the import resolves, then React swaps in the
+        real component.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 코드를 나누는 이유</b><br />
+        import한 모든 컴포넌트는 결국 브라우저가 앱을 실행하기 전에
+        다운로드해야 하는 JavaScript 번들에 포함됩니다. 어쩌다 한 번
+        쓰이는 무거운 컴포넌트(차트 라이브러리, 관리자 패널)가 그걸 절대
+        보지 않을 수도 있는 사용자의 초기 로딩까지 느리게 만들면 안
+        됩니다.</p>
+        <p><b>2. React.lazy</b><br />
+        <code>const LazyChart = React.lazy(() =&gt; import("./Chart.jsx"))</code>는
+        동적 <code>import()</code>를 감쌉니다 — 모듈은
+        <code>LazyChart</code>를 정의한 파일이 로드될 때가 아니라,
+        <code>LazyChart</code>가 실제로 렌더링되는 첫 순간에만
+        가져와집니다.</p>
+        <p><b>3. Suspense</b><br />
+        지연 컴포넌트의 코드를 가져오는 동안 React는 뭔가 보여줄 게
+        필요합니다 — <code>&lt;Suspense fallback={<Spinner />}&gt;</code>로
+        감싸세요. import가 완료될 때까지 fallback이 보이다가, React가
+        실제 컴포넌트로 바꿔치기합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>About this lesson's example</h4>
+        <p>The browser playground here fakes the delay with a Promise
+        (there's no separate file to actually split in a single pasted
+        script). <a href="../../../practical-lab/README.md">Practical
+        Lab</a>'s version does <i>real</i> code splitting — a genuinely
+        separate file, fetched as its own chunk by Vite.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>이번 레슨 예제에 대해</h4>
+        <p>여기 브라우저 플레이그라운드는 지연을 Promise로 흉내냅니다
+        (하나로 붙여넣은 스크립트 안에는 실제로 분리할 별도 파일이
+        없으니까요). <a href="../../../practical-lab/README.md">Practical
+        Lab</a> 버전은 <i>진짜</i> 코드 스플리팅을 합니다 — 실제로 분리된
+        파일을 Vite가 별도 청크로 가져옵니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>Clicking the button "loads" the chart component, showing a fallback in the meantime.</p>
+    <p>버튼을 클릭하면 차트 컴포넌트를 "불러오며", 그동안 fallback을 보여줍니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to wire up lazy loading yourself, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 지연 로딩을 연결해보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Wire up React.lazy / React.lazy 연결하기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real code splitting / 진짜 코드 스플리팅</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../26/index.html">&larr; Day 1 / 1일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-27");
+
+  mountPlayground(
+    "example-playground",
+    `function fakeImport(Component, delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ default: Component }), delay);
+  });
+}
+
+function HeavyChart() {
+  return <div>📊 (pretend this is a heavy chart library)</div>;
+}
+
+const LazyChart = React.lazy(() => fakeImport(HeavyChart, 1000));
+
+function App() {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setShow(true)}>Load chart</button>
+      {show && (
+        <React.Suspense fallback={<p>Loading chart...</p>}>
+          <LazyChart />
+        </React.Suspense>
+      )}
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

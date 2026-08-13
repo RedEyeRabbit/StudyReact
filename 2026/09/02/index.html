@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 6 · Accessibility Basics — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 6 — 고급 (Advanced)</h1>
+    <div class="subtitle">Accessibility Basics / 접근성 기초</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 6</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Make interactive components usable with a keyboard and a screen reader, using semantic elements, ARIA attributes, and <code>useId</code>.</p>
+    <p><b>목표 (30~40분):</b> 시맨틱 엘리먼트, ARIA 속성, <code>useId</code>를 사용해서 키보드와 스크린 리더로도 사용 가능한 인터랙티브 컴포넌트를 만듭니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. Use real semantic elements</b><br />
+        A clickable <code>&lt;div onClick&gt;</code> gets none of the
+        keyboard support, focus outline, or screen-reader semantics that
+        a real <code>&lt;button&gt;</code> gets for free. Prefer
+        <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code>, and form
+        elements over generic <code>&lt;div&gt;</code>s with click
+        handlers whenever there's a real semantic match.</p>
+        <p><b>2. ARIA describes state, not style</b><br />
+        <code>aria-expanded</code> tells assistive tech whether a
+        disclosure is open. <code>aria-controls</code> points a trigger at
+        the id of the content it controls. Neither changes how anything
+        looks — only what a screen reader announces.</p>
+        <p><b>3. useId</b><br />
+        Accessibility attributes like <code>aria-controls</code> need a
+        real, unique <code>id</code> to point at. <code>const id = React.useId()</code>
+        generates one that's stable for the life of the component and safe
+        even if the component renders more than once on the page.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 진짜 시맨틱 엘리먼트를 쓰세요</b><br />
+        클릭 가능한 <code>&lt;div onClick&gt;</code>은 진짜
+        <code>&lt;button&gt;</code>이 공짜로 얻는 키보드 지원, 포커스
+        아웃라인, 스크린 리더 시맨틱을 전혀 갖지 못합니다. 진짜 시맨틱
+        의미가 맞는 경우라면, 클릭 핸들러가 달린 일반
+        <code>&lt;div&gt;</code>보다 <code>&lt;button&gt;</code>,
+        <code>&lt;a href&gt;</code>, 폼 엘리먼트를 선호하세요.</p>
+        <p><b>2. ARIA는 스타일이 아니라 상태를 설명합니다</b><br />
+        <code>aria-expanded</code>는 disclosure가 열려있는지를 보조
+        기술에 알려줍니다. <code>aria-controls</code>는 트리거가 제어하는
+        콘텐츠의 id를 가리킵니다. 둘 다 무언가의 겉모습을 바꾸지 않고,
+        스크린 리더가 무엇을 읽어줄지만 바꿉니다.</p>
+        <p><b>3. useId</b><br />
+        <code>aria-controls</code> 같은 접근성 속성은 가리킬 진짜 고유한
+        <code>id</code>가 필요합니다. <code>const id = React.useId()</code>는
+        컴포넌트가 살아있는 동안 안정적이고, 페이지에 두 번 이상
+        렌더링되어도 안전한 id를 생성합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p>An accessible disclosure (real <code>&lt;button&gt;</code>, <code>aria-expanded</code>, <code>aria-controls</code>) plus an <code>aria-live</code> region announcing filtered result counts.</p>
+    <p>접근성을 갖춘 disclosure(진짜 <code>&lt;button&gt;</code>, <code>aria-expanded</code>, <code>aria-controls</code>)와, 필터링된 결과 개수를 알려주는 <code>aria-live</code> 영역입니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own accessible disclosure, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 접근성을 갖춘 disclosure를 직접 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own component / 직접 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../01/index.html">&larr; Day 5 / 5일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-02");
+
+  mountPlayground(
+    "example-playground",
+    `function Disclosure({ question, children }) {
+  const [open, setOpen] = React.useState(false);
+  const contentId = React.useId();
+
+  return (
+    <div>
+      <button aria-expanded={open} aria-controls={contentId} onClick={() => setOpen(!open)}>
+        {open ? "▾" : "▸"} {question}
+      </button>
+      {open && (
+        <div id={contentId} role="region">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FilterList() {
+  const allItems = ["Apple", "Banana", "Cherry", "Date"];
+  const [query, setQuery] = React.useState("");
+  const filtered = allItems.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase())
+  );
+
+  return (
+    <div>
+      <label htmlFor="fruit-filter">Filter fruits:</label>{" "}
+      <input
+        id="fruit-filter"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <p aria-live="polite">{filtered.length} result(s)</p>
+      <ul>
+        {filtered.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Disclosure question="What is React?">
+        <p>A JavaScript library for building user interfaces.</p>
+      </Disclosure>
+      <hr />
+      <FilterList />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

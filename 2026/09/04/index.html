@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · Mini Project — Accessible Modal — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — 고급 (Advanced) 🎓</h1>
+    <div class="subtitle">Mini Project: Accessible Modal / 미니 프로젝트: 접근성을 갖춘 모달</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 8 (Capstone)</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Build a real, accessible modal dialog — combining component composition with the accessibility fundamentals from Day 6.</p>
+    <p><b>목표 (30~40분):</b> 컴포넌트 조합과 6일차의 접근성 기초를 결합해서, 실제로 접근 가능한 모달 다이얼로그를 만듭니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English — What this app uses</h4>
+        <ul>
+          <li><b>Accessibility</b> (Day 6) — <code>role="dialog"</code>, <code>aria-modal</code>, <code>aria-labelledby</code>.</li>
+          <li><b>Effects &amp; cleanup</b> (Intermediate Day 8) — Escape-to-close is a keydown listener added on open and removed on close.</li>
+          <li><b>Refs</b> (Intermediate Day 5) — one ref points at the dialog itself (to focus it), another remembers what was focused before opening (to restore it on close).</li>
+          <li><b>Conditional rendering</b> (Beginner Day 4) — the modal renders nothing at all while closed.</li>
+        </ul>
+        <p>A real modal needs to work for keyboard and screen-reader users just as well as mouse users — that's what today combines into one component.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글 — 이 앱이 사용하는 것들</h4>
+        <ul>
+          <li><b>접근성</b> (6일차) — <code>role="dialog"</code>, <code>aria-modal</code>, <code>aria-labelledby</code>.</li>
+          <li><b>Effect와 cleanup</b> (중급 8일차) — Escape로 닫기는 열릴 때 추가되고 닫힐 때 제거되는 keydown 리스너입니다.</li>
+          <li><b>Ref</b> (중급 5일차) — 하나는 다이얼로그 자체를 가리켜 포커스를 주고, 다른 하나는 열리기 전에 포커스되어 있던 요소를 기억해뒀다가 닫힐 때 되돌립니다.</li>
+          <li><b>조건부 렌더링</b> (초급 4일차) — 닫혀있는 동안 모달은 아예 아무것도 렌더링하지 않습니다.</li>
+        </ul>
+        <p>진짜 모달은 마우스 사용자만큼이나 키보드/스크린 리더 사용자에게도 잘 동작해야 합니다 — 오늘은 그걸 하나의 컴포넌트로 합칩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example — the finished app / 실시간 예제 — 완성된 앱</h3>
+    <p>Open the modal, then try Escape to close it, and notice focus returns to the button that opened it.</p>
+    <p>모달을 연 다음 Escape로 닫아보세요. 포커스가 모달을 연 버튼으로 돌아가는 것도 확인해보세요.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Head to the practice file to finish the two missing pieces. This wraps up the Advanced/고급 track!</p>
+    <p>실습 파일로 이동해 빠진 두 부분을 완성하세요. 이걸로 고급 트랙이 마무리됩니다!</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Finish the modal / 모달 완성하기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../03/index.html">&larr; Day 7 / 7일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-04");
+
+  mountPlayground(
+    "example-playground",
+    `function Modal({ isOpen, onClose, children }) {
+  const dialogRef = React.useRef(null);
+  const previouslyFocused = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    previouslyFocused.current = document.activeElement;
+    dialogRef.current?.focus();
+
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused.current?.focus();
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      tabIndex={-1}
+      ref={dialogRef}
+      style={{ border: "2px solid #333", borderRadius: 8, padding: 20, marginTop: 12 }}
+    >
+      <h2 id="modal-title">Settings</h2>
+      {children}
+      <button onClick={onClose}>Close</button>
+    </div>
+  );
+}
+
+function App() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setOpen(true)}>Open modal</button>
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <p>Press Escape or click Close — focus will return here.</p>
+      </Modal>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

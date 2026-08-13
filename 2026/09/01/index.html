@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 5 · Higher-Order Components — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 5 — 고급 (Advanced)</h1>
+    <div class="subtitle">Higher-Order Components (HOCs) / 고차 컴포넌트</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb"><a href="../../../index.html">🏠 Home / 홈</a> &rsaquo; Advanced / 고급 &rsaquo; Day 5</div>
+
+  <div class="card">
+    <p><b>Goal (30–40 min):</b> Write a function that takes a component and returns a new, enhanced component — a pattern for reusing cross-cutting behavior across otherwise unrelated components.</p>
+    <p><b>목표 (30~40분):</b> 컴포넌트를 받아서 기능이 추가된 새 컴포넌트를 반환하는 함수를 작성합니다 — 서로 관련 없는 컴포넌트들 사이에서 공통 동작을 재사용하는 패턴입니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>English</h4>
+        <p><b>1. A higher-order function, for components</b><br />
+        You already know higher-order <i>functions</i> — ones that take
+        or return other functions (like <code>Array.map</code>). A
+        higher-order <i>component</i> is the same idea: a function that
+        takes a component and returns a new component wrapping it.</p>
+        <p><b>2. The shape</b><br />
+        <code>function withLoading(Component) { return function WithLoading(props) { ... } }</code>.
+        The returned component decides what to render — often the
+        original <code>Component</code> with all the same
+        <code>props</code> spread onto it (<code>&lt;Component {...props} /&gt;</code>),
+        plus some extra behavior wrapped around it.</p>
+        <p><b>3. When to reach for it (vs. hooks)</b><br />
+        Custom hooks (Intermediate Day 2) are usually the better tool
+        today for sharing <i>logic</i>. HOCs still shine for sharing
+        entire <i>rendering</i> decisions — like "show a loading state
+        instead of the real component" — across many different
+        components.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>한글</h4>
+        <p><b>1. 컴포넌트를 위한 고차 함수</b><br />
+        이미 고차 <i>함수</i>(다른 함수를 받거나 반환하는 함수, 예:
+        <code>Array.map</code>)는 알고 계실 겁니다. 고차 <i>컴포넌트</i>도
+        같은 아이디어입니다: 컴포넌트를 받아서 그것을 감싼 새 컴포넌트를
+        반환하는 함수입니다.</p>
+        <p><b>2. 모양</b><br />
+        <code>function withLoading(Component) { return function WithLoading(props) { ... } }</code>.
+        반환된 컴포넌트가 무엇을 렌더링할지 결정합니다 — 보통 원본
+        <code>Component</code>에 동일한 <code>props</code>를 그대로
+        펼쳐서(<code>&lt;Component {...props} /&gt;</code>) 전달하고,
+        그 주변에 추가 동작을 감쌉니다.</p>
+        <p><b>3. 언제 쓸까 (훅과 비교해서)</b><br />
+        커스텀 훅(중급 2일차)이 요즘은 <i>로직</i> 공유에 보통 더 나은
+        도구입니다. HOC는 여러 다른 컴포넌트에 걸쳐 "로딩 상태를
+        실제 컴포넌트 대신 보여주기"처럼 전체 <i>렌더링 결정</i>을
+        공유할 때 여전히 빛을 발합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live example / 실시간 예제</h3>
+    <p><code>withLoading</code> wraps <code>UserList</code> so it shows a spinner instead, whenever <code>isLoading</code> is true.</p>
+    <p><code>withLoading</code>이 <code>UserList</code>를 감싸서, <code>isLoading</code>이 true일 때는 스피너를 대신 보여줍니다.</p>
+    <div id="example-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>Next / 다음 단계</h3>
+    <p>Now head to the practice file to build your own HOC, then check the answer sheet to compare.</p>
+    <p>이제 실습 파일로 이동해 직접 HOC를 만들어보고, 답안지와 비교해보세요.</p>
+    <div class="filelinks">
+      <a href="./index.html"><span class="tag">Lesson · 학습용</span>You are here / 현재 페이지</a>
+      <a href="./practice.html"><span class="tag">Practice · 실습용</span>Write your own HOC / 직접 HOC 작성해보기</a>
+      <a href="./answer.html"><span class="tag">Answer · 답안지</span>Check the model solution / 모범 답안 확인</a>
+      <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+    &nbsp;·&nbsp;
+    <a href="../../08/31/index.html">&larr; Day 4 / 4일차</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-01");
+
+  mountPlayground(
+    "example-playground",
+    `function withLoading(Component) {
+  return function WithLoading(props) {
+    if (props.isLoading) {
+      return <p>⏳ Loading...</p>;
+    }
+    return <Component {...props} />;
+  };
+}
+
+function UserList({ users }) {
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u}>{u}</li>
+      ))}
+    </ul>
+  );
+}
+
+const UserListWithLoading = withLoading(UserList);
+
+function App() {
+  const [loading, setLoading] = React.useState(true);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setLoading(!loading)}>Toggle loading</button>
+      <UserListWithLoading isLoading={loading} users={["Alice", "Bob"]} />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

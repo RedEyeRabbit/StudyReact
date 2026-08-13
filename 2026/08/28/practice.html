@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 3 · Practice — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 3 — Practice / 실습</h1>
+    <div class="subtitle">Build Hover with render props / render props로 Hover 만들기</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 3 Lesson / 학습</a> &rsaquo; Practice / 실습
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Task</h4>
+        <p>Complete <code>Hover</code> so that it calls <code>render(hovering)</code> inside the <code>&lt;div&gt;</code> — the <code>hovering</code> boolean state and the mouse-enter/leave handlers are already wired up.</p>
+        <p>Look for the <code>{/* TODO */}</code> comment in the editor.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>과제</h4>
+        <p><code>Hover</code>가 <code>&lt;div&gt;</code> 안에서 <code>render(hovering)</code>를 호출하도록 완성하세요 — <code>hovering</code> boolean state와 마우스 진입/이탈 핸들러는 이미 연결되어 있습니다.</p>
+        <p>에디터 안의 <code>{/* TODO */}</code> 주석 부분을 채워보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Playground</h3>
+    <div id="practice-playground"></div>
+    <p style="margin-top: 14px; margin-bottom: 0;">
+      🧪 Want real <code>import</code> statements and npm packages instead?
+      This exact exercise is also registered in
+      <a href="../../../practical-lab/README.md">Practical Lab</a>
+      (id <code>2026-08-28</code>) — a real Node.js + Vite project.
+    </p>
+    <p style="margin-bottom: 0;">
+      🧪 진짜 <code>import</code> 문과 npm 패키지로 연습하고 싶다면, 이
+      실습은 <a href="../../../practical-lab/README.md">Practical Lab</a>에도
+      동일하게 등록되어 있습니다 (id <code>2026-08-28</code>) — 실제 Node.js
+      + Vite 프로젝트입니다.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Hint</h4>
+        <p><code>Hover</code> never mentions "👀" or any specific text anywhere — that all comes from whatever <code>App</code> passes as <code>render</code>. That separation is the whole point.</p>
+      </div>
+      <div class="lang-col kr">
+        <h4>힌트</h4>
+        <p><code>Hover</code> 안 어디에도 "👀"나 특정 텍스트가 등장하지 않습니다 — 그건 전부 <code>App</code>이 <code>render</code>로 전달하는 것에서 옵니다. 그 분리가 이 패턴의 핵심입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>You are here / 현재 페이지</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>Compare with the model answer / 모범 답안과 비교</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-28");
+
+  mountPlayground(
+    "practice-playground",
+    `function Hover({ render }) {
+  const [hovering, setHovering] = React.useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{ height: 100, border: "1px dashed #999", display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
+      {/* TODO: call render(hovering) here */}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <Hover
+        render={(hovering) => (
+          <p>{hovering ? "👀 Hovering!" : "Move your mouse here"}</p>
+        )}
+      />
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

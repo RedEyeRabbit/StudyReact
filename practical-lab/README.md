@@ -36,6 +36,14 @@ Vite가 출력하는 주소(기본 `http://localhost:5173`)를 브라우저에�
   **Practice / Solution** buttons to compare your code against the model
   answer. 앱 화면에서 **Day** 드롭다운으로 실습을 고르고, **Practice /
   Solution** 버튼으로 정답과 비교할 수 있습니다.
+- `npm test` — runs the real test suite (Vitest + React Testing Library),
+  used from Advanced Day 7 onward. A day's `*.practice.test.jsx` file
+  starts out failing on purpose — fix its `// TODO`s and re-run
+  `npm test` until it's green. `npm test`는 실제 테스트 스위트(Vitest +
+  React Testing Library)를 실행하며, 고급 7일차부터 사용됩니다.
+  `*.practice.test.jsx` 파일은 일부러 처음에 실패하도록 되어 있습니다 —
+  `// TODO`를 고치고 `npm test`를 다시 실행해서 통과할 때까지
+  반복하세요.
 
 ## A note on `npm audit` / `npm audit` 관련 참고사항
 

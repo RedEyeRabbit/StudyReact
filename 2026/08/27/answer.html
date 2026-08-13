@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 2 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for lazy loading / 지연 로딩 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 2 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>React.lazy</code> takes a function that returns a Promise
+          resolving to <code>{ default: Component }</code> — exactly what
+          a dynamic <code>import()</code> resolves to, which is why
+          <code>fakeImport</code> mimics that exact shape.
+          <code>LazyChart</code> isn't rendered at all until
+          <code>show</code> becomes true; only then does React call the
+          function and start "loading." Until it resolves,
+          <code>Suspense</code> shows its fallback instead of throwing an
+          error.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          <code>React.lazy</code>는 <code>{ default: Component }</code>로
+          resolve되는 Promise를 반환하는 함수를 받습니다 — 이것이 정확히
+          동적 <code>import()</code>가 resolve되는 모양이며, 그래서
+          <code>fakeImport</code>가 그 모양을 똑같이 흉내냅니다.
+          <code>show</code>가 true가 되기 전까지는
+          <code>LazyChart</code>가 아예 렌더링되지 않습니다 — 그때가
+          되어서야 React가 함수를 호출하고 "로딩"을 시작합니다. resolve될
+          때까지 <code>Suspense</code>는 에러를 던지는 대신 fallback을
+          보여줍니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Self-check</h4>
+        <ul>
+          <li>Does "Loading chart..." show for about a second before the chart appears?</li>
+          <li>Now try <a href="../../../practical-lab/README.md">Practical Lab</a>'s version to see a real separate chunk fetched over the network in DevTools.</li>
+        </ul>
+      </div>
+      <div class="lang-col kr">
+        <h4>스스로 점검하기</h4>
+        <ul>
+          <li>차트가 나타나기 전 약 1초 동안 "Loading chart..."가 보이나요?</li>
+          <li>이제 <a href="../../../practical-lab/README.md">Practical Lab</a> 버전을 통해 DevTools에서 실제로 분리된 청크가 네트워크로 가져와지는 걸 확인해보세요.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real code splitting / 진짜 코드 스플리팅</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-08-27");
+
+  mountPlayground(
+    "answer-playground",
+    `function fakeImport(Component, delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ default: Component }), delay);
+  });
+}
+
+function HeavyChart() {
+  return <div>📊 (pretend this is a heavy chart library)</div>;
+}
+
+const LazyChart = React.lazy(() => fakeImport(HeavyChart, 1000));
+
+function App() {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setShow(true)}>Load chart</button>
+      {show && (
+        <React.Suspense fallback={<p>Loading chart...</p>}>
+          <LazyChart />
+        </React.Suspense>
+      )}
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>

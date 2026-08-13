@@ -40,6 +40,22 @@ import Day20260824Practice from "./2026-08-24/Practice.jsx";
 import Day20260824Solution from "./2026-08-24/Solution.jsx";
 import Day20260825Practice from "./2026-08-25/Practice.jsx";
 import Day20260825Solution from "./2026-08-25/Solution.jsx";
+import Day20260826Practice from "./2026-08-26/Practice.jsx";
+import Day20260826Solution from "./2026-08-26/Solution.jsx";
+import Day20260827Practice from "./2026-08-27/Practice.jsx";
+import Day20260827Solution from "./2026-08-27/Solution.jsx";
+import Day20260828Practice from "./2026-08-28/Practice.jsx";
+import Day20260828Solution from "./2026-08-28/Solution.jsx";
+import Day20260831Practice from "./2026-08-31/Practice.jsx";
+import Day20260831Solution from "./2026-08-31/Solution.jsx";
+import Day20260901Practice from "./2026-09-01/Practice.jsx";
+import Day20260901Solution from "./2026-09-01/Solution.jsx";
+import Day20260902Practice from "./2026-09-02/Practice.jsx";
+import Day20260902Solution from "./2026-09-02/Solution.jsx";
+import Day20260903Practice from "./2026-09-03/Practice.jsx";
+import Day20260903Solution from "./2026-09-03/Solution.jsx";
+import Day20260904Practice from "./2026-09-04/Practice.jsx";
+import Day20260904Solution from "./2026-09-04/Solution.jsx";
 
 // Register every day's exercise here — all tracks (Beginner through
 // Practical) can use this real Node.js environment, not just Advanced/Practical.
@@ -171,5 +187,53 @@ export const DAYS = [
     title: { en: "Day 10 (Intermediate) — Mini Project: User Search", kr: "10일차 (중급) — 미니 프로젝트: 사용자 검색" },
     Practice: Day20260825Practice,
     Solution: Day20260825Solution,
+  },
+  {
+    id: "2026-08-26",
+    title: { en: "Day 1 (Advanced) — Global State Management", kr: "1일차 (고급) — 전역 상태 관리" },
+    Practice: Day20260826Practice,
+    Solution: Day20260826Solution,
+  },
+  {
+    id: "2026-08-27",
+    title: { en: "Day 2 (Advanced) — Code Splitting (real dynamic import)", kr: "2일차 (고급) — 코드 스플리팅 (진짜 dynamic import)" },
+    Practice: Day20260827Practice,
+    Solution: Day20260827Solution,
+  },
+  {
+    id: "2026-08-28",
+    title: { en: "Day 3 (Advanced) — Render Props", kr: "3일차 (고급) — Render Props" },
+    Practice: Day20260828Practice,
+    Solution: Day20260828Solution,
+  },
+  {
+    id: "2026-08-31",
+    title: { en: "Day 4 (Advanced) — Compound Components", kr: "4일차 (고급) — 컴파운드 컴포넌트" },
+    Practice: Day20260831Practice,
+    Solution: Day20260831Solution,
+  },
+  {
+    id: "2026-09-01",
+    title: { en: "Day 5 (Advanced) — Higher-Order Components", kr: "5일차 (고급) — 고차 컴포넌트" },
+    Practice: Day20260901Practice,
+    Solution: Day20260901Solution,
+  },
+  {
+    id: "2026-09-02",
+    title: { en: "Day 6 (Advanced) — Accessibility Basics", kr: "6일차 (고급) — 접근성 기초" },
+    Practice: Day20260902Practice,
+    Solution: Day20260902Solution,
+  },
+  {
+    id: "2026-09-03",
+    title: { en: "Day 7 (Advanced) — Testing (see LoginButton.*.test.jsx)", kr: "7일차 (고급) — 테스팅 (LoginButton.*.test.jsx 참고)" },
+    Practice: Day20260903Practice,
+    Solution: Day20260903Solution,
+  },
+  {
+    id: "2026-09-04",
+    title: { en: "Day 8 (Advanced) — Mini Project: Accessible Modal", kr: "8일차 (고급) — 미니 프로젝트: 접근성을 갖춘 모달" },
+    Practice: Day20260904Practice,
+    Solution: Day20260904Solution,
   },
 ];

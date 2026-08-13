@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 8 · Answer Sheet — StudyReact</title>
+<link rel="stylesheet" href="../../../assets/style.css" />
+</head>
+<body>
+<header class="page-header">
+  <div>
+    <h1>Day 8 — Answer Sheet / 답안지</h1>
+    <div class="subtitle">Model solution for the accessible Modal / 접근성을 갖춘 Modal 모범 답안</div>
+  </div>
+  <div id="study-widget"></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="../../../index.html">🏠 Home / 홈</a> &rsaquo;
+    <a href="./index.html">Day 8 Lesson / 학습</a> &rsaquo; Answer / 답안
+  </div>
+
+  <div class="card">
+    <div class="lang-grid">
+      <div class="lang-col en">
+        <h4>Explanation</h4>
+        <p>
+          <code>document.activeElement</code> captured before moving focus
+          is whatever element the user was on before opening the modal —
+          almost always the button that triggered it. The Escape listener
+          is added to <code>document</code> (not the dialog) so it fires
+          no matter what's focused inside. The cleanup function runs both
+          when <code>isOpen</code> flips back to false and if the
+          component unmounts entirely, so the listener never leaks and
+          focus is never left stranded on a closed dialog.
+        </p>
+      </div>
+      <div class="lang-col kr">
+        <h4>설명</h4>
+        <p>
+          포커스를 옮기기 전에 캡처한 <code>document.activeElement</code>는
+          모달을 열기 전 사용자가 있던 요소입니다 — 거의 항상 모달을
+          트리거한 버튼입니다. Escape 리스너는 (다이얼로그가 아니라)
+          <code>document</code>에 추가되므로, 내부에서 무엇이 포커스되어
+          있든 상관없이 실행됩니다. cleanup 함수는 <code>isOpen</code>이
+          다시 false가 될 때와 컴포넌트가 완전히 언마운트될 때 모두
+          실행되므로, 리스너가 절대 누수되지 않고 포커스가 닫힌
+          다이얼로그에 갇혀버리는 일도 없습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Live solution / 실시간 정답 코드</h3>
+    <div id="answer-playground"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎉 Advanced track complete / 고급 트랙 완료</h3>
+    <p>
+      You've covered global state (useSyncExternalStore), code splitting,
+      render props, compound components, HOCs, accessibility, testing
+      with RTL, and combined accessibility + effects + refs into one real
+      modal. Practical/실전 picks up from here.
+    </p>
+    <p>
+      전역 상태(useSyncExternalStore), 코드 스플리팅, render props,
+      컴파운드 컴포넌트, HOC, 접근성, RTL 테스트를 모두 다뤘고, 접근성 +
+      effect + ref를 하나의 실제 모달로 합쳤습니다. 실전은 여기서부터
+      이어집니다.
+    </p>
+  </div>
+
+  <div class="filelinks">
+    <a href="./index.html"><span class="tag">Lesson · 학습용</span>Back to lesson / 학습으로 돌아가기</a>
+    <a href="./practice.html"><span class="tag">Practice · 실습용</span>Try it yourself first / 먼저 직접 풀어보기</a>
+    <a href="./answer.html"><span class="tag">Answer · 답안지</span>You are here / 현재 페이지</a>
+    <a href="../../../practical-lab/README.md"><span class="tag">🧪 Node.js Lab</span>Real import, real npm / 진짜 import, 진짜 npm</a>
+  </div>
+
+  <div class="footer-note">
+    <a href="../../../index.html">&larr; Back to Home / 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../../assets/app.js"></script>
+<script src="../../../assets/playground.js"></script>
+<script>
+  initStudyWidget("2026-09-04");
+
+  mountPlayground(
+    "answer-playground",
+    `function Modal({ isOpen, onClose, children }) {
+  const dialogRef = React.useRef(null);
+  const previouslyFocused = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!isOpen) return;
+
+    previouslyFocused.current = document.activeElement;
+    dialogRef.current?.focus();
+
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused.current?.focus();
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      tabIndex={-1}
+      ref={dialogRef}
+      style={{ border: "2px solid #333", borderRadius: 8, padding: 20, marginTop: 12 }}
+    >
+      <h2 id="modal-title">Settings</h2>
+      {children}
+      <button onClick={onClose}>Close</button>
+    </div>
+  );
+}
+
+function App() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div style={{ fontFamily: "sans-serif" }}>
+      <button onClick={() => setOpen(true)}>Open modal</button>
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <p>Press Escape or click Close — focus will return here.</p>
+      </Modal>
+    </div>
+  );
+}`
+  );
+</script>
+</body>
+</html>
